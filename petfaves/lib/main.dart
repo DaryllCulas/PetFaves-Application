@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:petfaves/homepage/petfeeds.dart';
+// import 'package:petfaves/homepage/petfeeds.dart';
+import 'package:petfaves/login_auth/login_form.dart';
 
 void main() {
   runApp(const MyApp());
@@ -15,7 +16,7 @@ class MyApp extends StatelessWidget {
       theme: ThemeData.dark().copyWith(
           scaffoldBackgroundColor: const Color.fromARGB(134, 255, 255, 255)),
       debugShowCheckedModeBanner: false,
-      home: const PetFeeds(),
+      home: const LoginPage(),
     );
   }
 }
