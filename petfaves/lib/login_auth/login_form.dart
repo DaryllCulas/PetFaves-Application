@@ -15,6 +15,7 @@ class _LoginPageState extends State<LoginPage> {
   final GoogleSignIn _googleSignIn = GoogleSignIn();
   final TextEditingController _emailController = TextEditingController();
   final TextEditingController _passwordController = TextEditingController();
+  bool _obscureText = true; // Variable to toggle password visibility
 
   Future<void> _handleSignIn() async {
     try {
@@ -45,25 +46,49 @@ class _LoginPageState extends State<LoginPage> {
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
           children: <Widget>[
+            Center(
+              child: Image.asset(
+                'images/LOGO PETFAVES.png',
+                width: 500, // Adjust width as needed
+                height: 300, // Adjust height as needed
+              ),
+            ),
             TextFormField(
               controller: _emailController,
               decoration: const InputDecoration(
                 labelText: 'Email',
                 labelStyle: TextStyle(
-                  color: Colors.black,
+                  color: Colors.grey,
                 ),
+              ),
+              style: const TextStyle(
+                color: Colors.black,
               ),
             ),
             const SizedBox(height: 16),
             TextFormField(
               controller: _passwordController,
-              decoration: const InputDecoration(
+              decoration: InputDecoration(
                 labelText: 'Password',
-                labelStyle: TextStyle(
-                  color: Colors.black,
+                labelStyle: const TextStyle(
+                  color: Colors.grey,
+                ),
+                suffixIcon: IconButton(
+                  icon: Icon(
+                    color: Colors.black,
+                    _obscureText ? Icons.visibility : Icons.visibility_off,
+                  ),
+                  onPressed: () {
+                    setState(() {
+                      _obscureText = !_obscureText;
+                    });
+                  },
                 ),
               ),
-              obscureText: true,
+              style: const TextStyle(
+                color: Colors.black,
+              ),
+              obscureText: _obscureText,
             ),
             const SizedBox(height: 16),
             ElevatedButton.icon(
