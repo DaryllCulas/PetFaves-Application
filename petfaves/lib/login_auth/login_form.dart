@@ -57,10 +57,14 @@ class _LoginPageState extends State<LoginPage> {
                 height: 50.0, // Set a fixed height for the TextFormField
                 child: TextFormField(
                   controller: _emailController,
-                  decoration: const InputDecoration(
+                  decoration: InputDecoration(
                     labelText: 'Email',
-                    labelStyle: TextStyle(
+                    labelStyle: const TextStyle(
                       color: Colors.grey,
+                    ),
+                    border: OutlineInputBorder(
+                      borderRadius:
+                          BorderRadius.circular(20), // Add border radius
                     ),
                   ),
                   style: const TextStyle(
@@ -84,10 +88,15 @@ class _LoginPageState extends State<LoginPage> {
                         _obscureText ? Icons.visibility : Icons.visibility_off,
                       ),
                       onPressed: () {
-                        setState(() {
-                          _obscureText = !_obscureText;
-                        });
+                        setState(
+                          () {
+                            _obscureText = !_obscureText;
+                          },
+                        );
                       },
+                    ),
+                    border: OutlineInputBorder(
+                      borderRadius: BorderRadius.circular(20),
                     ),
                   ),
                   style: const TextStyle(
@@ -110,7 +119,10 @@ class _LoginPageState extends State<LoginPage> {
                   onPressed: () {
                     debugPrint("logged in");
                   },
-                  icon: const Icon(Icons.login),
+                  icon: const Icon(
+                    Icons.login,
+                    color: Colors.black,
+                  ),
                   label: const Text(
                     'Login',
                     style: TextStyle(color: Colors.black),
@@ -160,6 +172,20 @@ class _LoginPageState extends State<LoginPage> {
                   label: const Text(
                     'Sign in with Facebook',
                     style: TextStyle(color: Colors.black),
+                  ),
+                ),
+              ),
+              const SizedBox(height: 10),
+              const Text(
+                'Did you forgot your password?',
+                style: TextStyle(color: Colors.black),
+              ),
+              TextButton(
+                onPressed: () {},
+                child: const Text(
+                  'Reset Password Here',
+                  style: TextStyle(
+                    color: Colors.blue,
                   ),
                 ),
               ),
