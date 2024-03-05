@@ -3,11 +3,9 @@ import 'package:google_sign_in/google_sign_in.dart';
 import 'package:flutter_facebook_auth/flutter_facebook_auth.dart';
 
 class LoginPage extends StatefulWidget {
-  // ignore: use_super_parameters
   const LoginPage({Key? key}) : super(key: key);
 
   @override
-  // ignore: library_private_types_in_public_api
   _LoginPageState createState() => _LoginPageState();
 }
 
@@ -43,120 +41,130 @@ class _LoginPageState extends State<LoginPage> {
       backgroundColor: Colors.grey.shade300,
       body: Padding(
         padding: const EdgeInsets.all(16.0),
-        child: Column(
-          mainAxisAlignment: MainAxisAlignment.center,
-          children: <Widget>[
-            Center(
-              child: Image.asset(
-                'images/LOGO PETFAVES.png',
-                width: 500, // Adjust width as needed
-                height: 300, // Adjust height as needed
-              ),
-            ),
-            TextFormField(
-              controller: _emailController,
-              decoration: const InputDecoration(
-                labelText: 'Email',
-                labelStyle: TextStyle(
-                  color: Colors.grey,
+        child: SingleChildScrollView(
+          child: Column(
+            mainAxisAlignment: MainAxisAlignment.center,
+            children: <Widget>[
+              Center(
+                child: Image.asset(
+                  'images/LOGO PETFAVES.png',
+                  width: 600, // Adjust width as needed
+                  height: 300, // Adjust height as needed
                 ),
               ),
-              style: const TextStyle(
-                color: Colors.black,
-              ),
-            ),
-            const SizedBox(height: 16),
-            TextFormField(
-              controller: _passwordController,
-              decoration: InputDecoration(
-                labelText: 'Password',
-                labelStyle: const TextStyle(
-                  color: Colors.grey,
-                ),
-                suffixIcon: IconButton(
-                  icon: Icon(
+              Container(
+                margin: const EdgeInsets.symmetric(vertical: 10.0),
+                height: 50.0, // Set a fixed height for the TextFormField
+                child: TextFormField(
+                  controller: _emailController,
+                  decoration: const InputDecoration(
+                    labelText: 'Email',
+                    labelStyle: TextStyle(
+                      color: Colors.grey,
+                    ),
+                  ),
+                  style: const TextStyle(
                     color: Colors.black,
-                    _obscureText ? Icons.visibility : Icons.visibility_off,
+                  ),
+                ),
+              ),
+              Container(
+                margin: const EdgeInsets.symmetric(vertical: 10.0),
+                height: 50.0, // Set a fixed height for the TextFormField
+                child: TextFormField(
+                  controller: _passwordController,
+                  decoration: InputDecoration(
+                    labelText: 'Password',
+                    labelStyle: const TextStyle(
+                      color: Colors.grey,
+                    ),
+                    suffixIcon: IconButton(
+                      icon: Icon(
+                        color: Colors.black,
+                        _obscureText ? Icons.visibility : Icons.visibility_off,
+                      ),
+                      onPressed: () {
+                        setState(() {
+                          _obscureText = !_obscureText;
+                        });
+                      },
+                    ),
+                  ),
+                  style: const TextStyle(
+                    color: Colors.black,
+                  ),
+                  obscureText: _obscureText,
+                ),
+              ),
+              const SizedBox(height: 15),
+              // Login Button
+              ConstrainedBox(
+                constraints:
+                    const BoxConstraints.tightFor(width: 300, height: 50),
+                child: ElevatedButton.icon(
+                  style: const ButtonStyle(
+                    backgroundColor: MaterialStatePropertyAll<Color>(
+                      Colors.white,
+                    ),
                   ),
                   onPressed: () {
-                    setState(() {
-                      _obscureText = !_obscureText;
-                    });
+                    debugPrint("logged in");
                   },
+                  icon: const Icon(Icons.login),
+                  label: const Text(
+                    'Login',
+                    style: TextStyle(color: Colors.black),
+                  ),
                 ),
               ),
-              style: const TextStyle(
-                color: Colors.black,
-              ),
-              obscureText: _obscureText,
-            ),
-            const SizedBox(height: 16),
-            ElevatedButton.icon(
-              style: const ButtonStyle(
-                backgroundColor: MaterialStatePropertyAll<Color>(
-                  Colors.white,
+              const SizedBox(height: 10),
+              // Sign in with Google Button
+              ConstrainedBox(
+                constraints:
+                    const BoxConstraints.tightFor(width: 300, height: 50),
+                child: ElevatedButton.icon(
+                  style: const ButtonStyle(
+                    backgroundColor: MaterialStatePropertyAll<Color>(
+                      Colors.white,
+                    ),
+                  ),
+                  onPressed: _handleSignIn,
+                  icon: Image.asset(
+                    'images/google_icon.png',
+                    width: 24,
+                    height: 24,
+                  ),
+                  label: const Text(
+                    'Sign in with Google',
+                    style: TextStyle(color: Colors.black),
+                  ),
                 ),
               ),
-              onPressed: _handleSignIn,
-              icon: Image.asset(
-                'images/google_icon.png',
-                width: 24,
-                height: 24,
-              ),
-              label: const Text(
-                'Sign in with Google',
-                style: TextStyle(color: Colors.black),
-              ),
-            ),
-            const SizedBox(height: 16),
-            ElevatedButton.icon(
-              style: const ButtonStyle(
-                backgroundColor: MaterialStatePropertyAll<Color>(
-                  Colors.white,
+              const SizedBox(height: 10),
+              // Sign in with Facebook Button
+              ConstrainedBox(
+                constraints:
+                    const BoxConstraints.tightFor(width: 300, height: 50),
+                child: ElevatedButton.icon(
+                  style: const ButtonStyle(
+                    backgroundColor: MaterialStatePropertyAll<Color>(
+                      Colors.white,
+                    ),
+                  ),
+                  onPressed: _handleFacebookSignIn,
+                  icon: Image.asset(
+                    'images/facebook_icon.png',
+                    width: 24,
+                    height: 24,
+                  ),
+                  label: const Text(
+                    'Sign in with Facebook',
+                    style: TextStyle(color: Colors.black),
+                  ),
                 ),
               ),
-              onPressed: _handleFacebookSignIn,
-              icon: Image.asset(
-                'images/facebook_icon.png',
-                width: 24,
-                height: 24,
-              ),
-              label: const Text(
-                'Sign in with Facebook',
-                style: TextStyle(color: Colors.black),
-              ),
-            ),
-            const SizedBox(height: 16),
-            ElevatedButton(
-              onPressed: () {
-                // Implement "Forgot Password" functionality
-              },
-              style: const ButtonStyle(
-                backgroundColor: MaterialStatePropertyAll<Color>(
-                  Colors.white,
-                ),
-              ),
-              child: const Text(
-                'Forgot Password',
-                style: TextStyle(color: Colors.black),
-              ),
-            ),
-            const SizedBox(height: 16),
-            ElevatedButton(
-              onPressed: () {
-                // Implement "Create Account" functionality
-              },
-              style: const ButtonStyle(
-                backgroundColor: MaterialStatePropertyAll<Color>(
-                  Colors.white,
-                ),
-              ),
-              child: const Text(
-                'Create Account',
-                style: TextStyle(color: Colors.black),
-              ),
-            ),
-          ],
+            ],
+          ),
         ),
       ),
     );
