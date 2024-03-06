@@ -73,12 +73,23 @@ class _PetFeedsState extends State<PetFeeds> {
           ],
         ),
       ),
-      body: buildHorizontalList(),
+      floatingActionButton: FloatingActionButton(
+        backgroundColor: Colors.black,
+        hoverColor: Colors.white,
+        onPressed: () {
+          debugPrint("You clicked floating action button");
+        },
+        child: const Icon(
+          Icons.add,
+          color: Colors.white,
+        ),
+      ),
+      body: Column(
+        children: [
+          buildHorizontalList(),
+        ],
+      ),
     );
-  }
-
-  Widget buildPetAdoptNow() {
-    return Container();
   }
 
   Widget buildHorizontalList() {
