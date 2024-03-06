@@ -13,15 +13,19 @@ class _PetFeedsState extends State<PetFeeds> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      backgroundColor: Colors.grey.shade300,
       appBar: AppBar(
-        backgroundColor: Colors.grey[300],
+        backgroundColor: Colors.white,
         leading: Image.asset(
           "images/LOGO PETFAVES.png",
         ),
         iconTheme: const IconThemeData(
           color: Colors.black,
         ),
-        title: const Text('PETFEEDS'),
+        title: const Text(
+          'PetFeeds',
+          style: TextStyle(fontWeight: FontWeight.bold, color: Colors.black),
+        ),
       ),
       endDrawer: Drawer(
         child: ListView(
@@ -84,47 +88,73 @@ class _PetFeedsState extends State<PetFeeds> {
           color: Colors.white,
         ),
       ),
-      body: Column(
-        children: [
-          buildHorizontalList(),
-        ],
-      ),
+      body: buildHorizontalList(),
     );
   }
 
   Widget buildHorizontalList() {
     // ignore: sized_box_for_whitespace
-    return Container(
-      height: 100, // Set the height of the horizontal list
-      child: ListView(
-        scrollDirection: Axis.horizontal,
-        children: <Widget>[
-          Container(
-            width: 160,
-            color: Colors.red,
+    return CustomScrollView(
+      slivers: <Widget>[
+        SliverAppBar(
+          // automaticallyImplyLeading: false,
+          actionsIconTheme: const IconThemeData(
+            applyTextScaling: false,
           ),
-          Container(
-            width: 160,
-            color: Colors.blue,
+          clipBehavior: Clip.none,
+          shape: const StadiumBorder(),
+          scrolledUnderElevation: 0.0,
+          titleSpacing: 0.0,
+          backgroundColor: Colors.transparent,
+          floating: true,
+
+          title: SearchAnchor.bar(
+            suggestionsBuilder:
+                (BuildContext context, SearchController controller) {
+              return List<Widget>.generate(
+                5,
+                (int index) {
+                  return ListTile(
+                    titleAlignment: ListTileTitleAlignment.center,
+                    title: Text('Initial list item $index'),
+                  );
+                },
+              );
+            },
           ),
-          Container(
-            width: 160,
-            color: Colors.green,
+        ),
+        // The listed items below are just for filling the screen
+        // so we can see the scrolling effect.
+        SliverToBoxAdapter(
+          child: Padding(
+            padding: const EdgeInsets.all(15),
+            child: SizedBox(
+              height: 100.0,
+              child: ListView.builder(
+                scrollDirection: Axis.horizontal,
+                itemCount: 10,
+                itemBuilder: (BuildContext context, int index) {
+                  return SizedBox(
+                    width: 100.0,
+                    child: Card(
+                      child: Center(child: Text('Card $index')),
+                    ),
+                  );
+                },
+              ),
+            ),
           ),
-          Container(
-            width: 160,
-            color: Colors.deepOrange,
+        ),
+        SliverToBoxAdapter(
+          child: Padding(
+            padding: const EdgeInsets.symmetric(horizontal: 20),
+            child: Container(
+              height: 1000,
+              color: Colors.deepPurple.withOpacity(0.5),
+            ),
           ),
-          Container(
-            width: 160,
-            color: Colors.indigo,
-          ),
-          Container(
-            width: 160,
-            color: Colors.grey,
-          ),
-        ],
-      ),
+        ),
+      ],
     );
   }
 }
