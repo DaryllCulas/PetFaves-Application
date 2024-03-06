@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:petfaves/login_auth/login_form.dart';
 
 // In petfeeds.dart
 class PetFeeds extends StatefulWidget {
@@ -20,6 +21,7 @@ class _PetFeedsState extends State<PetFeeds> {
         iconTheme: const IconThemeData(
           color: Colors.black,
         ),
+        title: const Text('PETFEEDS'),
       ),
       endDrawer: Drawer(
         child: ListView(
@@ -60,12 +62,57 @@ class _PetFeedsState extends State<PetFeeds> {
               title: const Text('Log out'),
               onTap: () {
                 setState(() {
-                  Navigator.pop(context);
+                  Navigator.of(context).push(
+                    MaterialPageRoute(
+                      builder: (context) => const LoginPage(),
+                    ),
+                  );
                 });
               },
             ),
           ],
         ),
+      ),
+      body: buildHorizontalList(),
+    );
+  }
+
+  Widget buildPetAdoptNow() {
+    return Container();
+  }
+
+  Widget buildHorizontalList() {
+    // ignore: sized_box_for_whitespace
+    return Container(
+      height: 100, // Set the height of the horizontal list
+      child: ListView(
+        scrollDirection: Axis.horizontal,
+        children: <Widget>[
+          Container(
+            width: 160,
+            color: Colors.red,
+          ),
+          Container(
+            width: 160,
+            color: Colors.blue,
+          ),
+          Container(
+            width: 160,
+            color: Colors.green,
+          ),
+          Container(
+            width: 160,
+            color: Colors.deepOrange,
+          ),
+          Container(
+            width: 160,
+            color: Colors.indigo,
+          ),
+          Container(
+            width: 160,
+            color: Colors.grey,
+          ),
+        ],
       ),
     );
   }
