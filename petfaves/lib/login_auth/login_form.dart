@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:google_sign_in/google_sign_in.dart';
 import 'package:flutter_facebook_auth/flutter_facebook_auth.dart';
+import 'package:petfaves/homepage/petfeeds.dart';
 
 // import 'package:petfaves/homepage/petfeeds.dart';
 
@@ -120,11 +121,11 @@ class _LoginPageState extends State<LoginPage> {
                   ),
                   onPressed: () {
                     debugPrint("logged in");
-                    // Navigator.of(context).push(
-                    //   MaterialPageRoute(
-                    //     builder: (context) => const OnBoardScreen(),
-                    //   ),
-                    // );
+                    Navigator.of(context).push(
+                      MaterialPageRoute(
+                        builder: (context) => const PetFeeds(),
+                      ),
+                    );
                   },
                   icon: const Icon(
                     Icons.login,

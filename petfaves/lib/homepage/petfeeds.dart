@@ -177,15 +177,56 @@ class _PetFeedsState extends State<PetFeeds> {
           ),
         ),
         SliverToBoxAdapter(
-          child: Padding(
-            padding: const EdgeInsets.symmetric(horizontal: 20),
-            child: Container(
-              height: 1000,
-              color: Colors.deepPurple.withOpacity(0.5),
-            ),
+          child: Column(
+            children: [
+              Padding(
+                padding: const EdgeInsets.symmetric(horizontal: 20),
+                child: Container(
+                  height: 200,
+                  color: Colors.deepPurple.withOpacity(0.5),
+                ),
+              ),
+              const SizedBox(height: 20.0),
+              Padding(
+                padding: const EdgeInsets.symmetric(horizontal: 20),
+                child: Container(
+                  height: 200,
+                  color: Colors.deepPurple.withOpacity(0.5),
+                ),
+              ),
+              const SizedBox(height: 20.0),
+              Padding(
+                padding: const EdgeInsets.symmetric(horizontal: 20),
+                child: Container(
+                  height: 200,
+                  color: Colors.deepPurple.withOpacity(0.5),
+                ),
+              ),
+              const SizedBox(height: 20.0),
+              Padding(
+                padding: const EdgeInsets.symmetric(horizontal: 20),
+                child: Container(
+                  height: 200,
+                  color: Colors.deepPurple.withOpacity(0.5),
+                ),
+              ),
+              const SizedBox(height: 20.0),
+              Padding(
+                padding: const EdgeInsets.symmetric(horizontal: 20),
+                child: Container(
+                  height: 200,
+                  color: Colors.deepPurple.withOpacity(0.5),
+                ),
+              ),
+              const SizedBox(height: 20.0),
+            ],
           ),
         ),
       ],
     );
   }
+
+  // Widget buildNavigationBar() {
+  //   return NavigationBar(destinations: destinations);
+  // }
 }
