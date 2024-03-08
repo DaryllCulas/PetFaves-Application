@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
+import 'package:petfaves/homepage/petfeeds.dart';
+
+// import 'package:petfaves/login_auth/login_form.dart';
 // import 'package:petfaves/homepage/petfeeds.dart';
-import 'package:petfaves/login_auth/login_form.dart';
 // import 'package:petfaves/login_auth/login_form.dart';
 
 void main() {
@@ -15,9 +17,11 @@ class MyApp extends StatelessWidget {
   Widget build(BuildContext context) {
     return MaterialApp(
       theme: ThemeData.dark().copyWith(
-          scaffoldBackgroundColor: const Color.fromARGB(134, 255, 255, 255)),
+        scaffoldBackgroundColor: const Color.fromARGB(255, 233, 229, 229),
+      ),
       debugShowCheckedModeBanner: false,
-      home: const LoginPage(),
+      // home: const LoginPage(),
+      home: const PetFeeds(),
     );
   }
 }
