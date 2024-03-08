@@ -93,6 +93,24 @@ class _PetFeedsState extends State<PetFeeds> {
           color: Colors.white,
         ),
       ),
+      bottomNavigationBar: BottomNavigationBar(
+        backgroundColor: Colors.black,
+        elevation: 10.0,
+        items: const [
+          BottomNavigationBarItem(
+            icon: Icon(Icons.home_filled),
+            label: "Home",
+          ),
+          BottomNavigationBarItem(
+            icon: Icon(Icons.message),
+            label: "Chats",
+          ),
+          BottomNavigationBarItem(
+            icon: Icon(Icons.shop_2),
+            label: "Shop",
+          ),
+        ],
+      ),
       body: Column(
         children: [
           buildSearchFunctionality(),
@@ -225,8 +243,4 @@ class _PetFeedsState extends State<PetFeeds> {
       ],
     );
   }
-
-  // Widget buildNavigationBar() {
-  //   return NavigationBar(destinations: destinations);
-  // }
 }

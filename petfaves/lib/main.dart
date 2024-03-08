@@ -20,7 +20,7 @@ class MyApp extends StatelessWidget {
   Widget build(BuildContext context) {
     return MaterialApp(
       theme: ThemeData.dark().copyWith(
-        scaffoldBackgroundColor: Color.fromARGB(255, 221, 218, 218),
+        scaffoldBackgroundColor: const Color.fromARGB(255, 221, 218, 218),
       ),
       debugShowCheckedModeBanner: false,
       // home: const LoginPage(),
