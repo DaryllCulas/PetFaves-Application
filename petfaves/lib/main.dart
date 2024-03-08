@@ -22,6 +22,7 @@ class MyApp extends StatelessWidget {
       theme: ThemeData.dark().copyWith(
         scaffoldBackgroundColor: const Color.fromARGB(255, 221, 218, 218),
       ),
+
       debugShowCheckedModeBanner: false,
       // home: const LoginPage(),
       home: const PetFeeds(),

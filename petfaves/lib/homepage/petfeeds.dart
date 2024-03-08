@@ -10,7 +10,15 @@ class PetFeeds extends StatefulWidget {
 }
 
 class _PetFeedsState extends State<PetFeeds> {
+  int _selectedIndex = 0;
   bool isDark = false;
+
+  void _onItemTapped(int index) {
+    setState(() {
+      _selectedIndex = index;
+    });
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -96,7 +104,7 @@ class _PetFeedsState extends State<PetFeeds> {
       bottomNavigationBar: BottomNavigationBar(
         backgroundColor: Colors.black,
         elevation: 10.0,
-        items: const [
+        items: const <BottomNavigationBarItem>[
           BottomNavigationBarItem(
             icon: Icon(Icons.home_filled),
             label: "Home",
@@ -110,6 +118,9 @@ class _PetFeedsState extends State<PetFeeds> {
             label: "Shop",
           ),
         ],
+        currentIndex: _selectedIndex,
+        selectedItemColor: Colors.cyan,
+        onTap: _onItemTapped,
       ),
       body: Column(
         children: [
