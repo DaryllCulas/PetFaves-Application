@@ -10,6 +10,7 @@ class PetFeeds extends StatefulWidget {
 }
 
 class _PetFeedsState extends State<PetFeeds> {
+  bool isDark = false;
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -24,8 +25,12 @@ class _PetFeedsState extends State<PetFeeds> {
         ),
         title: const Text(
           'PetFeeds',
-          style: TextStyle(fontWeight: FontWeight.bold, color: Colors.black),
-        ),
+          style: TextStyle(
+            fontSize: 24,
+            fontWeight: FontWeight.bold,
+            color: Colors.black,
+          ),
+        ), // Include the search functionality here
       ),
       endDrawer: Drawer(
         child: ListView(
@@ -88,43 +93,69 @@ class _PetFeedsState extends State<PetFeeds> {
           color: Colors.white,
         ),
       ),
-      body: buildHorizontalList(),
+      body: Column(
+        children: [
+          buildSearchFunctionality(),
+          Expanded(
+            child: buildHomePage(),
+          ),
+        ],
+      ),
     );
   }
 
-  Widget buildHorizontalList() {
+  Widget buildSearchFunctionality() {
+    return Padding(
+        padding: const EdgeInsets.all(8.0),
+        child: SearchAnchor(
+            builder: (BuildContext context, SearchController controller) {
+          return SearchBar(
+            controller: controller,
+            padding: const MaterialStatePropertyAll<EdgeInsets>(
+                EdgeInsets.symmetric(horizontal: 16.0)),
+            onTap: () {
+              controller.openView();
+            },
+            onChanged: (_) {
+              controller.openView();
+            },
+            leading: const Icon(Icons.search),
+            trailing: <Widget>[
+              Tooltip(
+                message: 'Change brightness mode',
+                child: IconButton(
+                  isSelected: isDark,
+                  onPressed: () {
+                    setState(() {
+                      isDark = !isDark;
+                    });
+                  },
+                  icon: const Icon(Icons.wb_sunny_outlined),
+                  selectedIcon: const Icon(Icons.brightness_2_outlined),
+                ),
+              )
+            ],
+          );
+        }, suggestionsBuilder:
+                (BuildContext context, SearchController controller) {
+          return List<ListTile>.generate(5, (int index) {
+            final String item = 'item $index';
+            return ListTile(
+              title: Text(item),
+              onTap: () {
+                setState(() {
+                  controller.closeView(item);
+                });
+              },
+            );
+          });
+        }));
+  }
+
+  Widget buildHomePage() {
     // ignore: sized_box_for_whitespace
     return CustomScrollView(
       slivers: <Widget>[
-        SliverAppBar(
-          // automaticallyImplyLeading: false,
-          actionsIconTheme: const IconThemeData(
-            applyTextScaling: false,
-          ),
-          clipBehavior: Clip.none,
-          shape: const StadiumBorder(),
-          scrolledUnderElevation: 0.0,
-          titleSpacing: 0.0,
-          backgroundColor: Colors.transparent,
-          floating: true,
-
-          title: SearchAnchor.bar(
-            suggestionsBuilder:
-                (BuildContext context, SearchController controller) {
-              return List<Widget>.generate(
-                5,
-                (int index) {
-                  return ListTile(
-                    titleAlignment: ListTileTitleAlignment.center,
-                    title: Text('Initial list item $index'),
-                  );
-                },
-              );
-            },
-          ),
-        ),
-        // The listed items below are just for filling the screen
-        // so we can see the scrolling effect.
         SliverToBoxAdapter(
           child: Padding(
             padding: const EdgeInsets.all(15),
