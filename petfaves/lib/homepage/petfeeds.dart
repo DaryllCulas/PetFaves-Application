@@ -114,8 +114,10 @@ class _PetFeedsState extends State<PetFeeds> {
             label: "Chats",
           ),
           BottomNavigationBarItem(
-            icon: Icon(Icons.shop_2),
-            label: "Shop",
+            icon: Icon(
+              Icons.money,
+            ),
+            label: "Donate",
           ),
         ],
         currentIndex: _selectedIndex,
