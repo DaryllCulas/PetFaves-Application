@@ -91,18 +91,17 @@ class _PetFeedsState extends State<PetFeeds> {
         ),
       ),
       floatingActionButton: FloatingActionButton(
-        backgroundColor: Colors.black,
-        hoverColor: Colors.white,
+        backgroundColor: const Color.fromARGB(255, 140, 203, 211),
         onPressed: () {
           debugPrint("You clicked floating action button");
         },
         child: const Icon(
           Icons.add,
-          color: Colors.white,
+          color: Color.fromARGB(255, 0, 0, 0),
         ),
       ),
       bottomNavigationBar: BottomNavigationBar(
-        backgroundColor: Colors.black,
+        backgroundColor: const Color.fromARGB(255, 46, 46, 46),
         elevation: 10.0,
         items: const <BottomNavigationBarItem>[
           BottomNavigationBarItem(
@@ -121,7 +120,7 @@ class _PetFeedsState extends State<PetFeeds> {
           ),
         ],
         currentIndex: _selectedIndex,
-        selectedItemColor: Colors.cyan,
+        selectedItemColor: const Color.fromARGB(255, 140, 203, 211),
         onTap: _onItemTapped,
       ),
       body: Column(
