@@ -6,6 +6,14 @@ class ProfilePage1 extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      appBar: AppBar(
+        leading: IconButton(
+          icon: const Icon(Icons.arrow_back), // Left arrow icon
+          onPressed: () =>
+              Navigator.pop(context), // Navigate back to the previous page
+        ),
+        title: const Text('Profile'),
+      ),
       body: Column(
         children: [
           const Expanded(flex: 2, child: _TopPortion()),
