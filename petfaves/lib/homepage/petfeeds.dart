@@ -199,7 +199,9 @@ class _PetFeedsState extends State<PetFeeds> {
                   return SizedBox(
                     width: 100.0,
                     child: Card(
-                      child: Center(child: Text('Card $index')),
+                      child: Center(
+                        child: Text('Card $index'),
+                      ),
                     ),
                   );
                 },
