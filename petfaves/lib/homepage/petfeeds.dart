@@ -185,7 +185,7 @@ class _PetFeedsState extends State<PetFeeds> {
 
   Widget buildHomePage() {
     return ListView.builder(
-      itemCount: 20, // Assuming 2scr0 items for demonstration
+      itemCount: 20, // Assuming 20 items for demonstration
       itemBuilder: (BuildContext context, int index) {
         return Card(
           margin: const EdgeInsets.symmetric(vertical: 10.0, horizontal: 25.0),
@@ -225,27 +225,47 @@ class _PetFeedsState extends State<PetFeeds> {
                 height: 200,
                 fit: BoxFit.cover,
               ),
-              // Footer with action buttons
+              // Footer with action buttons and labels
               Padding(
                 padding: const EdgeInsets.all(8.0),
                 child: Row(
                   mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                   children: <Widget>[
-                    IconButton(
-                      icon: const Icon(Icons.thumb_up),
-                      onPressed: () {},
+                    Column(
+                      children: [
+                        IconButton(
+                          icon: const Icon(Icons.thumb_up),
+                          onPressed: () {},
+                        ),
+                        const Text('Like'),
+                      ],
                     ),
-                    IconButton(
-                      icon: const Icon(Icons.comment),
-                      onPressed: () {},
+                    Column(
+                      children: [
+                        IconButton(
+                          icon: const Icon(Icons.comment),
+                          onPressed: () {},
+                        ),
+                        const Text('Comment'),
+                      ],
                     ),
-                    IconButton(
-                      icon: const Icon(Icons.share),
-                      onPressed: () {},
+                    Column(
+                      children: [
+                        IconButton(
+                          icon: const Icon(Icons.share),
+                          onPressed: () {},
+                        ),
+                        const Text('Share'),
+                      ],
                     ),
-                    IconButton(
-                      icon: const Icon(Icons.send),
-                      onPressed: () {},
+                    Column(
+                      children: [
+                        IconButton(
+                          icon: const Icon(Icons.chat_bubble),
+                          onPressed: () {},
+                        ),
+                        const Text('Message'),
+                      ],
                     ),
                   ],
                 ),
