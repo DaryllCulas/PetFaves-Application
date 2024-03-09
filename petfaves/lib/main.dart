@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
+import 'package:petfaves/login_auth/login_form.dart';
 // import 'package:petfaves/homepage/content_feeds.dart';
-import 'package:petfaves/homepage/petfeeds.dart';
+// import 'package:petfaves/homepage/petfeeds.dart';
+// import 'package:petfaves/profile/profile_info.dart';
 
 void main() {
   runApp(const MyApp());
@@ -19,7 +21,7 @@ class MyApp extends StatelessWidget {
 
       debugShowCheckedModeBanner: false,
       // home: const LoginPage(),
-      home: const PetFeeds(),
+      home: const LoginPage(),
     );
   }
 }
