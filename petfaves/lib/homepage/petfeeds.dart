@@ -22,7 +22,7 @@ class _PetFeedsState extends State<PetFeeds> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: Colors.grey.shade300,
+      backgroundColor: Colors.grey.shade400,
       appBar: AppBar(
         backgroundColor: Colors.white,
         leading: Image.asset(
@@ -46,7 +46,7 @@ class _PetFeedsState extends State<PetFeeds> {
           children: <Widget>[
             const DrawerHeader(
               decoration: BoxDecoration(
-                color: Color.fromARGB(255, 108, 183, 248),
+                color: Color.fromARGB(255, 99, 187, 245),
               ),
               child: Text(
                 'User',
@@ -91,7 +91,7 @@ class _PetFeedsState extends State<PetFeeds> {
         ),
       ),
       floatingActionButton: FloatingActionButton(
-        backgroundColor: const Color.fromARGB(255, 140, 203, 211),
+        backgroundColor: const Color.fromARGB(255, 99, 187, 245),
         onPressed: () {
           debugPrint("You clicked floating action button");
         },
@@ -120,7 +120,7 @@ class _PetFeedsState extends State<PetFeeds> {
           ),
         ],
         currentIndex: _selectedIndex,
-        selectedItemColor: const Color.fromARGB(255, 140, 203, 211),
+        selectedItemColor: const Color.fromARGB(255, 99, 187, 245),
         onTap: _onItemTapped,
       ),
       body: Column(
