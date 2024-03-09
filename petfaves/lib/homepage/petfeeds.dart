@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:petfaves/login_auth/login_form.dart';
+import 'package:petfaves/profile/profile_info.dart';
 
 // In petfeeds.dart
 class PetFeeds extends StatefulWidget {
@@ -61,7 +62,13 @@ class _PetFeedsState extends State<PetFeeds> {
               title: const Text('Profile'),
               onTap: () {
                 setState(() {
-                  Navigator.pop(context);
+                  setState(() {
+                    Navigator.of(context).push(
+                      MaterialPageRoute(
+                        builder: (context) => const ProfilePage1(),
+                      ),
+                    );
+                  });
                 });
               },
             ),
@@ -109,8 +116,8 @@ class _PetFeedsState extends State<PetFeeds> {
             label: "Home",
           ),
           BottomNavigationBarItem(
-            icon: Icon(Icons.message),
-            label: "Chats",
+            icon: Icon(Icons.pets_sharp),
+            label: "Adopt Me",
           ),
           BottomNavigationBarItem(
             icon: Icon(
