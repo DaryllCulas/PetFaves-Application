@@ -184,78 +184,76 @@ class _PetFeedsState extends State<PetFeeds> {
   }
 
   Widget buildHomePage() {
-    // ignore: sized_box_for_whitespace
-    return CustomScrollView(
-      slivers: <Widget>[
-        SliverToBoxAdapter(
-          child: Padding(
-            padding: const EdgeInsets.all(15),
-            child: SizedBox(
-              height: 100.0,
-              child: ListView.builder(
-                scrollDirection: Axis.horizontal,
-                itemCount: 10,
-                itemBuilder: (BuildContext context, int index) {
-                  return SizedBox(
-                    width: 100.0,
-                    child: Card(
-                      child: Center(
-                        child: Text('Card $index'),
-                      ),
-                    ),
-                  );
-                },
-              ),
-            ),
-          ),
-        ),
-        SliverToBoxAdapter(
+    return ListView.builder(
+      itemCount: 20, // Assuming 2scr0 items for demonstration
+      itemBuilder: (BuildContext context, int index) {
+        return Card(
+          margin: const EdgeInsets.symmetric(vertical: 10.0, horizontal: 25.0),
           child: Column(
-            children: [
-              Padding(
-                padding: const EdgeInsets.symmetric(horizontal: 20),
-                child: Container(
-                  height: 200,
-                  color: Colors.deepPurple.withOpacity(0.5),
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: <Widget>[
+              // Header with user's profile picture and name
+              const Padding(
+                padding: EdgeInsets.all(8.0),
+                child: Row(
+                  children: <Widget>[
+                    CircleAvatar(
+                      backgroundImage: NetworkImage(
+                          'https://via.placeholder.com/150'), // Placeholder image
+                      radius: 20,
+                    ),
+                    SizedBox(width: 10),
+                    Text(
+                      'User Name', // Replace with actual user name
+                      style: TextStyle(fontWeight: FontWeight.bold),
+                    ),
+                  ],
                 ),
               ),
-              const SizedBox(height: 20.0),
-              Padding(
-                padding: const EdgeInsets.symmetric(horizontal: 20),
-                child: Container(
-                  height: 200,
-                  color: Colors.deepPurple.withOpacity(0.5),
+              // Post content
+              const Padding(
+                padding: EdgeInsets.all(8.0),
+                child: Text(
+                  'This is a brief description of the post.', // Replace with actual post content
+                  style: TextStyle(fontSize: 16),
                 ),
               ),
-              const SizedBox(height: 20.0),
+              // Post image
+              Image.network(
+                'https://via.placeholder.com/350x150', // Placeholder image
+                width: double.infinity,
+                height: 200,
+                fit: BoxFit.cover,
+              ),
+              // Footer with action buttons
               Padding(
-                padding: const EdgeInsets.symmetric(horizontal: 20),
-                child: Container(
-                  height: 200,
-                  color: Colors.deepPurple.withOpacity(0.5),
+                padding: const EdgeInsets.all(8.0),
+                child: Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                  children: <Widget>[
+                    IconButton(
+                      icon: const Icon(Icons.thumb_up),
+                      onPressed: () {},
+                    ),
+                    IconButton(
+                      icon: const Icon(Icons.comment),
+                      onPressed: () {},
+                    ),
+                    IconButton(
+                      icon: const Icon(Icons.share),
+                      onPressed: () {},
+                    ),
+                    IconButton(
+                      icon: const Icon(Icons.send),
+                      onPressed: () {},
+                    ),
+                  ],
                 ),
               ),
-              const SizedBox(height: 20.0),
-              Padding(
-                padding: const EdgeInsets.symmetric(horizontal: 20),
-                child: Container(
-                  height: 200,
-                  color: Colors.deepPurple.withOpacity(0.5),
-                ),
-              ),
-              const SizedBox(height: 20.0),
-              Padding(
-                padding: const EdgeInsets.symmetric(horizontal: 20),
-                child: Container(
-                  height: 200,
-                  color: Colors.deepPurple.withOpacity(0.5),
-                ),
-              ),
-              const SizedBox(height: 20.0),
             ],
           ),
-        ),
-      ],
+        );
+      },
     );
   }
 }
