@@ -45,53 +45,50 @@ class _PetFeedsState extends State<PetFeeds> {
         child: ListView(
           padding: EdgeInsets.zero,
           children: <Widget>[
-            const DrawerHeader(
+            const UserAccountsDrawerHeader(
               decoration: BoxDecoration(
                 color: Color.fromARGB(255, 99, 187, 245),
               ),
-              child: Text(
+              accountName: Text(
                 'User',
                 style: TextStyle(
                   color: Color.fromARGB(255, 0, 0, 0),
                   fontSize: 24,
                 ),
               ),
+              accountEmail: null, // You can optionally add an email here
+              currentAccountPicture: CircleAvatar(
+                backgroundImage: NetworkImage(
+                    'https://via.placeholder.com/150'), // Replace with your user's avatar URL
+              ),
             ),
             ListTile(
               leading: const Icon(Icons.person_2_rounded),
               title: const Text('Profile'),
               onTap: () {
-                setState(() {
-                  setState(() {
-                    Navigator.of(context).push(
-                      MaterialPageRoute(
-                        builder: (context) => const ProfilePage1(),
-                      ),
-                    );
-                  });
-                });
+                Navigator.of(context).push(
+                  MaterialPageRoute(
+                    builder: (context) => const ProfilePage1(),
+                  ),
+                );
               },
             ),
             ListTile(
               leading: const Icon(Icons.settings),
               title: const Text('Account Settings'),
               onTap: () {
-                setState(() {
-                  Navigator.pop(context);
-                });
+                Navigator.pop(context);
               },
             ),
             ListTile(
               leading: const Icon(Icons.logout),
               title: const Text('Log out'),
               onTap: () {
-                setState(() {
-                  Navigator.of(context).push(
-                    MaterialPageRoute(
-                      builder: (context) => const LoginPage(),
-                    ),
-                  );
-                });
+                Navigator.of(context).push(
+                  MaterialPageRoute(
+                    builder: (context) => const LoginPage(),
+                  ),
+                );
               },
             ),
           ],
@@ -167,8 +164,8 @@ class _PetFeedsState extends State<PetFeeds> {
                       isDark = !isDark;
                     });
                   },
-                  icon: const Icon(Icons.wb_sunny_outlined),
-                  selectedIcon: const Icon(Icons.brightness_2_outlined),
+                  icon: const Icon(Icons.filter_list_alt),
+                  selectedIcon: const Icon(Icons.filter_alt_off_rounded),
                 ),
               )
             ],
