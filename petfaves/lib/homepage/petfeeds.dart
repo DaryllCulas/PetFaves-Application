@@ -149,7 +149,7 @@ class _PetFeedsState extends State<PetFeeds> {
           return SearchBar(
             controller: controller,
             padding: const MaterialStatePropertyAll<EdgeInsets>(
-                EdgeInsets.symmetric(horizontal: 16.0)),
+                EdgeInsets.symmetric(horizontal: 14.0)),
             onTap: () {
               controller.openView();
             },
@@ -194,13 +194,13 @@ class _PetFeedsState extends State<PetFeeds> {
       itemCount: 20, // Assuming 20 items for demonstration
       itemBuilder: (BuildContext context, int index) {
         return Card(
-          margin: const EdgeInsets.symmetric(vertical: 10.0, horizontal: 25.0),
+          margin: const EdgeInsets.symmetric(vertical: 4.0, horizontal: 4.0),
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: <Widget>[
               // Header with user's profile picture and name
               const Padding(
-                padding: EdgeInsets.all(8.0),
+                padding: EdgeInsets.all(5.0),
                 child: Row(
                   children: <Widget>[
                     CircleAvatar(
@@ -233,7 +233,7 @@ class _PetFeedsState extends State<PetFeeds> {
               ),
               // Footer with action buttons and labels
               Padding(
-                padding: const EdgeInsets.all(8.0),
+                padding: const EdgeInsets.all(10.0),
                 child: Row(
                   mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                   children: <Widget>[
