@@ -74,6 +74,17 @@ class _PetFeedsState extends State<PetFeeds> {
               },
             ),
             ListTile(
+              leading: const Icon(Icons.person_2_rounded),
+              title: const Text('About'),
+              onTap: () {
+                Navigator.of(context).push(
+                  MaterialPageRoute(
+                    builder: (context) => const ProfilePage1(),
+                  ),
+                );
+              },
+            ),
+            ListTile(
               leading: const Icon(Icons.settings),
               title: const Text('Account Settings'),
               onTap: () {
