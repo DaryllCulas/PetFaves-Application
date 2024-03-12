@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "499428402262",
+    "project_id": "petfaves-b8751",
+    "storage_bucket": "petfaves-b8751.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:499428402262:android:6879d9658822477090c7f7",
+        "android_client_info": {
+          "package_name": "com.example.petfaves"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBm-uwGBVBnQNwmqMnjWb8aCbXp229KoC8"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

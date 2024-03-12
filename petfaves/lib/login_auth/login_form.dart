@@ -50,7 +50,7 @@ class _LoginPageState extends State<LoginPage> {
             children: <Widget>[
               Center(
                 child: Image.asset(
-                  'images/LOGO PETFAVES.png',
+                  'assets/LOGO PETFAVES.png',
                   width: 600, // Adjust width as needed
                   height: 300, // Adjust height as needed
                 ),
@@ -150,7 +150,7 @@ class _LoginPageState extends State<LoginPage> {
                   ),
                   onPressed: _handleSignIn,
                   icon: Image.asset(
-                    'images/google_icon.png',
+                    'assets/google_icon.png',
                     width: 24,
                     height: 24,
                   ),
@@ -173,7 +173,7 @@ class _LoginPageState extends State<LoginPage> {
                   ),
                   onPressed: _handleFacebookSignIn,
                   icon: Image.asset(
-                    'images/facebook_icon.png',
+                    'assets/facebook_icon.png',
                     width: 24,
                     height: 24,
                   ),
