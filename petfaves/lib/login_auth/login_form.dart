@@ -189,7 +189,13 @@ class _LoginPageState extends State<LoginPage> {
                 style: TextStyle(color: Colors.black),
               ),
               TextButton(
-                onPressed: () {},
+                onPressed: () {
+                  Navigator.of(context).push(
+                    MaterialPageRoute(
+                      builder: (context) => const PetFeeds(),
+                    ),
+                  );
+                },
                 child: const Text(
                   'Reset Password Here',
                   style: TextStyle(
