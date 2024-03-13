@@ -99,16 +99,18 @@ class _PetFeedsState extends State<PetFeeds> {
           ],
         ),
       ),
-      floatingActionButton: FloatingActionButton(
-        backgroundColor: const Color.fromARGB(255, 99, 187, 245),
-        onPressed: () {
-          debugPrint("You clicked floating action button");
-        },
-        child: const Icon(
-          Icons.add,
-          color: Color.fromARGB(255, 0, 0, 0),
-        ),
-      ),
+      floatingActionButton: _selectedIndex == 0
+          ? FloatingActionButton(
+              backgroundColor: const Color.fromARGB(255, 99, 187, 245),
+              onPressed: () {
+                debugPrint("You clicked floating action button");
+              },
+              child: const Icon(
+                Icons.add,
+                color: Color.fromARGB(255, 0, 0, 0),
+              ),
+            )
+          : null,
       bottomNavigationBar: BottomNavigationBar(
         type: BottomNavigationBarType.fixed,
         backgroundColor: const Color.fromARGB(255, 46, 46, 46),
