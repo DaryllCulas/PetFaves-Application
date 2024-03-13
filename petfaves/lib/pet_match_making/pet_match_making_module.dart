@@ -20,7 +20,7 @@ class _PetMatchMakingState extends State<PetMatchMaking> {
   @override
   Widget build(BuildContext context) {
     return Padding(
-      padding: const EdgeInsets.only(top: 20.0),
+      padding: const EdgeInsets.only(top: 120.0),
       child: Column(
         children: [
           CarouselSlider(
