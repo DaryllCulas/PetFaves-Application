@@ -5,10 +5,6 @@ import 'package:firebase_core/firebase_core.dart';
 // import 'package:petfaves/pet_match_making/pet_match_making_module.dart';
 import 'firebase_options.dart';
 
-// import 'package:petfaves/homepage/content_feeds.dart';
-// import 'package:petfaves/homepage/petfeeds.dart';
-// import 'package:petfaves/profile/profile_info.dart';
-
 Future<void> main() async {
   WidgetsFlutterBinding.ensureInitialized();
   await Firebase.initializeApp(options: DefaultFirebaseOptions.currentPlatform);
@@ -28,7 +24,7 @@ class MyApp extends StatelessWidget {
 
       debugShowCheckedModeBanner: false,
       // home: const LoginPage(),
-      home: LoginPage(),
+      home: const LoginPage(),
     );
   }
 }
