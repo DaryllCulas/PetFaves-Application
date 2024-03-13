@@ -1,38 +1,34 @@
 import 'package:flutter/material.dart';
+import 'package:petfaves/homepage/homescreen.dart';
 import 'package:petfaves/login_auth/login_form.dart';
 import 'package:petfaves/pet_match_making/pet_match_making_module.dart';
 import 'package:petfaves/profile/profile_info.dart';
 
-// In petfeeds.dart
 class PetFeeds extends StatefulWidget {
-  const PetFeeds({super.key});
+  const PetFeeds({Key? key}) : super(key: key);
 
   @override
-  State<PetFeeds> createState() => _PetFeedsState();
+  _PetFeedsState createState() => _PetFeedsState();
 }
 
 class _PetFeedsState extends State<PetFeeds> {
   int _selectedIndex = 0;
-  bool isDark = false;
+
+  final List<Widget> _pages = [
+    const BuildHomePage(), // Assuming buildHomePage is the homePage
+    const PetMatchMaking(),
+    buildDonatePage(), // Assuming you have a buildDonatePage function
+  ];
 
   void _onItemTapped(int index) {
     setState(() {
       _selectedIndex = index;
     });
-    // Check if the selected index is for the "Adopt Me" tab
-    if (index == 1) {
-      // Navigate to the PetMatchMaking module
-      Navigator.push(
-        context,
-        MaterialPageRoute(builder: (context) => PetMatchMaking()),
-      );
-    }
   }
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: Colors.grey.shade400,
       appBar: AppBar(
         backgroundColor: Colors.white,
         leading: Image.asset(
@@ -48,7 +44,7 @@ class _PetFeedsState extends State<PetFeeds> {
             fontWeight: FontWeight.bold,
             color: Colors.black,
           ),
-        ), // Include the search functionality here
+        ),
       ),
       endDrawer: Drawer(
         child: ListView(
@@ -65,26 +61,15 @@ class _PetFeedsState extends State<PetFeeds> {
                   fontSize: 24,
                 ),
               ),
-              accountEmail: null, // You can optionally add an email here
               currentAccountPicture: CircleAvatar(
                 backgroundImage: NetworkImage(
                     'https://via.placeholder.com/150'), // Replace with your user's avatar URL
               ),
+              accountEmail: null,
             ),
             ListTile(
               leading: const Icon(Icons.person_2_rounded),
               title: const Text('Profile'),
-              onTap: () {
-                Navigator.of(context).push(
-                  MaterialPageRoute(
-                    builder: (context) => const ProfilePage1(),
-                  ),
-                );
-              },
-            ),
-            ListTile(
-              leading: const Icon(Icons.person_2_rounded),
-              title: const Text('About'),
               onTap: () {
                 Navigator.of(context).push(
                   MaterialPageRoute(
@@ -125,6 +110,7 @@ class _PetFeedsState extends State<PetFeeds> {
         ),
       ),
       bottomNavigationBar: BottomNavigationBar(
+        type: BottomNavigationBarType.fixed,
         backgroundColor: const Color.fromARGB(255, 46, 46, 46),
         elevation: 10.0,
         items: const <BottomNavigationBarItem>[
@@ -147,156 +133,23 @@ class _PetFeedsState extends State<PetFeeds> {
         selectedItemColor: const Color.fromARGB(255, 99, 187, 245),
         onTap: _onItemTapped,
       ),
-      body: Column(
-        children: [
-          buildSearchFunctionality(),
-          Expanded(
-            child: buildHomePage(),
-          ),
-        ],
-      ),
+      body: _pages[_selectedIndex],
     );
   }
 
-  Widget buildSearchFunctionality() {
-    return Padding(
-        padding: const EdgeInsets.all(8.0),
-        child: SearchAnchor(
-            builder: (BuildContext context, SearchController controller) {
-          return SearchBar(
-            controller: controller,
-            padding: const MaterialStatePropertyAll<EdgeInsets>(
-                EdgeInsets.symmetric(horizontal: 14.0)),
-            onTap: () {
-              controller.openView();
-            },
-            onChanged: (_) {
-              controller.openView();
-            },
-            leading: const Icon(Icons.search),
-            trailing: <Widget>[
-              Tooltip(
-                message: 'Change brightness mode',
-                child: IconButton(
-                  isSelected: isDark,
-                  onPressed: () {
-                    setState(() {
-                      isDark = !isDark;
-                    });
-                  },
-                  icon: const Icon(Icons.filter_list_alt),
-                  selectedIcon: const Icon(Icons.filter_alt_off_rounded),
-                ),
-              )
-            ],
-          );
-        }, suggestionsBuilder:
-                (BuildContext context, SearchController controller) {
-          return List<ListTile>.generate(5, (int index) {
-            final String item = 'item $index';
-            return ListTile(
-              title: Text(item),
-              onTap: () {
-                setState(() {
-                  controller.closeView(item);
-                });
-              },
-            );
-          });
-        }));
-  }
-
-  Widget buildHomePage() {
-    return ListView.builder(
-      itemCount: 20, // Assuming 20 items for demonstration
-      itemBuilder: (BuildContext context, int index) {
-        return Card(
-          margin: const EdgeInsets.symmetric(vertical: 4.0, horizontal: 4.0),
-          child: Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: <Widget>[
-              // Header with user's profile picture and name
-              const Padding(
-                padding: EdgeInsets.all(5.0),
-                child: Row(
-                  children: <Widget>[
-                    CircleAvatar(
-                      backgroundImage: NetworkImage(
-                          'https://via.placeholder.com/150'), // Placeholder image
-                      radius: 20,
-                    ),
-                    SizedBox(width: 10),
-                    Text(
-                      'User Name', // Replace with actual user name
-                      style: TextStyle(fontWeight: FontWeight.bold),
-                    ),
-                  ],
-                ),
-              ),
-              // Post content
-              const Padding(
-                padding: EdgeInsets.all(8.0),
-                child: Text(
-                  'This is a brief description of the post.', // Replace with actual post content
-                  style: TextStyle(fontSize: 16),
-                ),
-              ),
-              // Post image
-              Image.network(
-                'https://via.placeholder.com/350x150', // Placeholder image
-                width: double.infinity,
-                height: 200,
-                fit: BoxFit.cover,
-              ),
-              // Footer with action buttons and labels
-              Padding(
-                padding: const EdgeInsets.all(10.0),
-                child: Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                  children: <Widget>[
-                    Column(
-                      children: [
-                        IconButton(
-                          icon: const Icon(Icons.thumb_up),
-                          onPressed: () {},
-                        ),
-                        const Text('Like'),
-                      ],
-                    ),
-                    Column(
-                      children: [
-                        IconButton(
-                          icon: const Icon(Icons.comment),
-                          onPressed: () {},
-                        ),
-                        const Text('Comment'),
-                      ],
-                    ),
-                    Column(
-                      children: [
-                        IconButton(
-                          icon: const Icon(Icons.share),
-                          onPressed: () {},
-                        ),
-                        const Text('Share'),
-                      ],
-                    ),
-                    Column(
-                      children: [
-                        IconButton(
-                          icon: const Icon(Icons.chat_bubble),
-                          onPressed: () {},
-                        ),
-                        const Text('Message'),
-                      ],
-                    ),
-                  ],
-                ),
-              ),
-            ],
-          ),
-        );
-      },
+  static Widget buildDonatePage() {
+    // Return your donate page widget here
+    return Scaffold(
+      appBar: AppBar(
+        automaticallyImplyLeading: false,
+        title: const Text('Donate'),
+      ),
+      body: const Center(
+        child: Text(
+          'Donate Page',
+          style: TextStyle(fontSize: 24),
+        ),
+      ),
     );
   }
 }
