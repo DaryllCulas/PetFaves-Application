@@ -19,28 +19,35 @@ class _PetMatchMakingState extends State<PetMatchMaking> {
 
   @override
   Widget build(BuildContext context) {
-    return Column(
-      children: [
-        CarouselSlider(
-          options: CarouselOptions(height: 400.0),
-          items: _images.map((imageUrl) {
-            return Container(
-              width: MediaQuery.of(context).size.width,
-              margin: const EdgeInsets.symmetric(horizontal: 5.0),
-              decoration: BoxDecoration(
-                color: Colors.amber,
-                borderRadius: BorderRadius.circular(
-                    10.0), // Optional: Add border radius for card-like appearance
-              ),
-              child: Image.network(
-                imageUrl,
-                fit: BoxFit.cover,
-              ),
-            );
-          }).toList(),
-        ),
-        // Additional widgets or content can be added here
-      ],
+    return Padding(
+      padding: const EdgeInsets.only(top: 20.0),
+      child: Column(
+        children: [
+          CarouselSlider(
+            options: CarouselOptions(
+              enlargeCenterPage: true,
+              enableInfiniteScroll: true,
+              height: 500.0,
+            ),
+            items: _images.map((imageUrl) {
+              return Container(
+                width: MediaQuery.of(context).size.width,
+                margin: const EdgeInsets.symmetric(horizontal: 5.0),
+                decoration: BoxDecoration(
+                  color: Colors.amber,
+                  borderRadius: BorderRadius.circular(
+                      10.0), // Optional: Add border radius for card-like appearance
+                ),
+                child: Image.network(
+                  imageUrl,
+                  fit: BoxFit.cover,
+                ),
+              );
+            }).toList(),
+          ),
+          // Additional widgets or content can be added here
+        ],
+      ),
     );
   }
 }
