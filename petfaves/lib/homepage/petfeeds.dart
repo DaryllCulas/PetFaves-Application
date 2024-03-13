@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:petfaves/donationpage/donation_module.dart';
 import 'package:petfaves/homepage/homescreen.dart';
 import 'package:petfaves/login_auth/login_form.dart';
 import 'package:petfaves/pet_match_making/pet_match_making_module.dart';
@@ -17,7 +18,7 @@ class _PetFeedsState extends State<PetFeeds> {
   final List<Widget> _pages = [
     const BuildHomePage(), // Assuming buildHomePage is the homePage
     const PetMatchMaking(),
-    buildDonatePage(), // Assuming you have a buildDonatePage function
+    const DonationScreen(), // Assuming you have a buildDonatePage function
   ];
 
   void _onItemTapped(int index) {
@@ -136,22 +137,6 @@ class _PetFeedsState extends State<PetFeeds> {
         onTap: _onItemTapped,
       ),
       body: _pages[_selectedIndex],
-    );
-  }
-
-  static Widget buildDonatePage() {
-    // Return your donate page widget here
-    return Scaffold(
-      appBar: AppBar(
-        automaticallyImplyLeading: false,
-        title: const Text('Donate'),
-      ),
-      body: const Center(
-        child: Text(
-          'Donate Page',
-          style: TextStyle(fontSize: 24),
-        ),
-      ),
     );
   }
 }
