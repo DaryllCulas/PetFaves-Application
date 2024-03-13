@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:petfaves/login_auth/login_form.dart';
+import 'package:petfaves/pet_match_making/pet_match_making_module.dart';
 import 'package:petfaves/profile/profile_info.dart';
 
 // In petfeeds.dart
@@ -18,6 +19,14 @@ class _PetFeedsState extends State<PetFeeds> {
     setState(() {
       _selectedIndex = index;
     });
+    // Check if the selected index is for the "Adopt Me" tab
+    if (index == 1) {
+      // Navigate to the PetMatchMaking module
+      Navigator.push(
+        context,
+        MaterialPageRoute(builder: (context) => PetMatchMaking()),
+      );
+    }
   }
 
   @override
