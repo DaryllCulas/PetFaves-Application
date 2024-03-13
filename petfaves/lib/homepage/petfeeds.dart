@@ -16,9 +16,9 @@ class _PetFeedsState extends State<PetFeeds> {
   int _selectedIndex = 0;
 
   final List<Widget> _pages = [
-    const BuildHomePage(), // Assuming buildHomePage is the homePage
+    const BuildHomePage(),
     const PetMatchMaking(),
-    const DonationScreen(), // Assuming you have a buildDonatePage function
+    const DonationScreen(),
   ];
 
   void _onItemTapped(int index) {
