@@ -2,14 +2,13 @@ import 'package:flutter/material.dart';
 import 'package:carousel_slider/carousel_slider.dart';
 
 class PetMatchMaking extends StatefulWidget {
-  const PetMatchMaking({super.key});
+  const PetMatchMaking({Key? key}) : super(key: key);
 
   @override
   _PetMatchMakingState createState() => _PetMatchMakingState();
 }
 
 class _PetMatchMakingState extends State<PetMatchMaking> {
-  // int _currentIndex = 0;
   final List<String> _images = [
     'https://as2.ftcdn.net/v2/jpg/01/99/00/79/1000_F_199007925_NolyRdRrdYqUAGdVZV38P4WX8pYfBaRP.jpg',
     'https://as1.ftcdn.net/v2/jpg/04/81/85/46/1000_F_481854656_gHGTnBscKXpFEgVTwAT4DL4NXXNhDKU9.jpg',
@@ -19,34 +18,94 @@ class _PetMatchMakingState extends State<PetMatchMaking> {
 
   @override
   Widget build(BuildContext context) {
-    return Padding(
-      padding: const EdgeInsets.only(top: 120.0),
-      child: Column(
-        children: [
-          CarouselSlider(
-            options: CarouselOptions(
-              enlargeCenterPage: true,
-              enableInfiniteScroll: true,
-              height: 500.0,
+    return CustomScrollView(
+      slivers: <Widget>[
+        const SliverToBoxAdapter(
+          child: Padding(
+            padding: EdgeInsets.symmetric(vertical: 10.0),
+            child: SingleChildScrollView(
+              scrollDirection: Axis.horizontal,
+              child: Row(
+                children: [
+                  PetIconCard(icon: Icons.pets, color: Colors.blue), // Dog icon
+                  PetIconCard(
+                      icon: Icons.pets, color: Colors.orange), // Cat icon
+                  PetIconCard(
+                      icon: Icons.pets, color: Colors.green), // Bird icon
+                  PetIconCard(
+                      icon: Icons.pets, color: Colors.red), // Reptile icon
+                  // Others icon
+                  PetIconCard(icon: Icons.pets, color: Colors.purple),
+                  PetIconCard(icon: Icons.pets, color: Colors.cyan),
+                ],
+              ),
             ),
-            items: _images.map((imageUrl) {
-              return Container(
-                width: MediaQuery.of(context).size.width,
-                margin: const EdgeInsets.symmetric(horizontal: 5.0),
-                decoration: BoxDecoration(
-                  color: Colors.amber,
-                  borderRadius: BorderRadius.circular(
-                      10.0), // Optional: Add border radius for card-like appearance
-                ),
-                child: Image.network(
-                  imageUrl,
-                  fit: BoxFit.cover,
-                ),
-              );
-            }).toList(),
           ),
-          // Additional widgets or content can be added here
-        ],
+        ),
+        SliverToBoxAdapter(
+          child: Padding(
+            padding: const EdgeInsets.only(top: 100.0),
+            child: Column(
+              children: [
+                CarouselSlider(
+                  options: CarouselOptions(
+                    enlargeCenterPage: true,
+                    enableInfiniteScroll: true,
+                    height: 350.0,
+                  ),
+                  items: _images.map((imageUrl) {
+                    return Container(
+                      width: MediaQuery.of(context).size.width,
+                      margin: const EdgeInsets.symmetric(horizontal: 5.0),
+                      decoration: BoxDecoration(
+                        color: Colors.amber,
+                        borderRadius: BorderRadius.circular(
+                            10.0), // Optional: Add border radius for card-like appearance
+                      ),
+                      child: Image.network(
+                        imageUrl,
+                        fit: BoxFit.cover,
+                      ),
+                    );
+                  }).toList(),
+                ),
+                // Additional widgets or content can be added here
+              ],
+            ),
+          ),
+        ),
+      ],
+    );
+  }
+}
+
+class PetIconCard extends StatelessWidget {
+  final IconData icon;
+  final Color color;
+
+  const PetIconCard({
+    Key? key,
+    required this.icon,
+    required this.color,
+  }) : super(key: key);
+
+  @override
+  Widget build(BuildContext context) {
+    return Padding(
+      padding: const EdgeInsets.symmetric(horizontal: 8.0),
+      child: Card(
+        shape: RoundedRectangleBorder(
+          borderRadius: BorderRadius.circular(10.0),
+        ),
+        elevation: 3.0,
+        child: Container(
+          padding: const EdgeInsets.all(12.0),
+          child: Icon(
+            icon,
+            size: 40.0,
+            color: color,
+          ),
+        ),
       ),
     );
   }
