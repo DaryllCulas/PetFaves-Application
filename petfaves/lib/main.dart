@@ -1,7 +1,8 @@
 import 'dart:async';
 import 'package:flutter/material.dart';
-import 'package:petfaves/login_auth/login_form.dart';
+
 import 'package:firebase_core/firebase_core.dart';
+import 'package:petfaves/login_auth/login_user_auth.dart';
 // import 'package:petfaves/pet_match_making/pet_match_making_module.dart';
 import 'firebase_options.dart';
 
@@ -24,7 +25,7 @@ class MyApp extends StatelessWidget {
 
       debugShowCheckedModeBanner: false,
       // home: const LoginPage(),
-      home: const LoginPage(),
+      home: const AuthPage(),
     );
   }
 }
