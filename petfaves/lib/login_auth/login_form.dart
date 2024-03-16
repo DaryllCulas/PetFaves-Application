@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:google_sign_in/google_sign_in.dart';
 import 'package:flutter_facebook_auth/flutter_facebook_auth.dart';
 import 'package:petfaves/homepage/petfeeds.dart';
+import 'package:petfaves/login_auth/sign_in_square_tile.dart';
 
 // import 'package:petfaves/homepage/petfeeds.dart';
 
@@ -60,6 +61,7 @@ class _LoginPageState extends State<LoginPage> {
                 height: 50.0, // Set a fixed height for the TextFormField
                 child: TextFormField(
                   controller: _emailController,
+                  cursorColor: Colors.black,
                   decoration: InputDecoration(
                     labelText: 'Email',
                     labelStyle: const TextStyle(
@@ -69,6 +71,16 @@ class _LoginPageState extends State<LoginPage> {
                       borderRadius:
                           BorderRadius.circular(20), // Add border radius
                     ),
+                    focusedBorder: const OutlineInputBorder(
+                      borderSide: BorderSide(
+                        color: Colors.black,
+                      ),
+                    ),
+                    fillColor: Colors.white70,
+                    filled: true,
+                    hintStyle: const TextStyle(
+                      color: Colors.black,
+                    ),
                   ),
                   style: const TextStyle(
                     color: Colors.black,
@@ -77,8 +89,9 @@ class _LoginPageState extends State<LoginPage> {
               ),
               Container(
                 margin: const EdgeInsets.symmetric(vertical: 10.0),
-                height: 50.0, // Set a fixed height for the TextFormField
+                height: 50.0,
                 child: TextFormField(
+                  cursorColor: Colors.black,
                   controller: _passwordController,
                   decoration: InputDecoration(
                     labelText: 'Password',
@@ -101,11 +114,35 @@ class _LoginPageState extends State<LoginPage> {
                     border: OutlineInputBorder(
                       borderRadius: BorderRadius.circular(20),
                     ),
+                    focusedBorder: const OutlineInputBorder(
+                      borderSide: BorderSide(
+                        color: Colors.black,
+                      ),
+                    ),
+                    fillColor: Colors.white70,
+                    filled: true,
+                    hintStyle: const TextStyle(
+                      color: Colors.black,
+                    ),
                   ),
                   style: const TextStyle(
                     color: Colors.black,
                   ),
                   obscureText: _obscureText,
+                ),
+              ),
+              const Padding(
+                padding: EdgeInsets.symmetric(horizontal: 25.0),
+                child: Row(
+                  mainAxisAlignment: MainAxisAlignment.end,
+                  children: [
+                    Text(
+                      'Forgot Password?',
+                      style: TextStyle(
+                        color: Colors.blue,
+                      ),
+                    ),
+                  ],
                 ),
               ),
               const SizedBox(height: 15),
@@ -137,57 +174,50 @@ class _LoginPageState extends State<LoginPage> {
                   ),
                 ),
               ),
-              const SizedBox(height: 10),
-              // Sign in with Google Button
-              ConstrainedBox(
-                constraints:
-                    const BoxConstraints.tightFor(width: 300, height: 50),
-                child: ElevatedButton.icon(
-                  style: const ButtonStyle(
-                    backgroundColor: MaterialStatePropertyAll<Color>(
-                      Colors.white,
+              const SizedBox(height: 30),
+
+              // or continue with
+
+              const Padding(
+                padding: EdgeInsets.symmetric(horizontal: 25.0),
+                child: Row(
+                  children: [
+                    Expanded(
+                      child: Divider(
+                        thickness: 1.0,
+                        color: Colors.grey,
+                      ),
                     ),
-                  ),
-                  onPressed: _handleSignIn,
-                  icon: Image.asset(
-                    'assets/google_icon.png',
-                    width: 24,
-                    height: 24,
-                  ),
-                  label: const Text(
-                    'Sign in with Google',
-                    style: TextStyle(color: Colors.black),
-                  ),
+                    Text(
+                      'Or continue with',
+                      style: TextStyle(color: Colors.grey),
+                    ),
+                    Expanded(
+                      child: Divider(
+                        thickness: 1.0,
+                        color: Colors.grey,
+                      ),
+                    ),
+                  ],
                 ),
               ),
-              const SizedBox(height: 10),
-              // Sign in with Facebook Button
-              ConstrainedBox(
-                constraints:
-                    const BoxConstraints.tightFor(width: 300, height: 50),
-                child: ElevatedButton.icon(
-                  style: const ButtonStyle(
-                    backgroundColor: MaterialStatePropertyAll<Color>(
-                      Colors.white,
-                    ),
+              const SizedBox(height: 30.0),
+
+              const Row(
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: [
+                  // Sign in with Google Button
+                  SquareTile(
+                    imagePath: 'assets/google_icon.png',
                   ),
-                  onPressed: _handleFacebookSignIn,
-                  icon: Image.asset(
-                    'assets/facebook_icon.png',
-                    width: 24,
-                    height: 24,
-                  ),
-                  label: const Text(
-                    'Sign in with Facebook',
-                    style: TextStyle(color: Colors.black),
-                  ),
-                ),
+                  SizedBox(width: 10.0),
+                  // Sign in with Facebook Button
+                  SquareTile(imagePath: 'assets/facebook_icon.png'),
+                ],
               ),
+
               const SizedBox(height: 10),
-              const Text(
-                'Did you forgot your password?',
-                style: TextStyle(color: Colors.black),
-              ),
+
               TextButton(
                 onPressed: () {
                   Navigator.of(context).push(
@@ -197,7 +227,7 @@ class _LoginPageState extends State<LoginPage> {
                   );
                 },
                 child: const Text(
-                  'Reset Password Here',
+                  'Don\'t have an account? Register here',
                   style: TextStyle(
                     color: Colors.blue,
                   ),
