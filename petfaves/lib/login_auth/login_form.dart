@@ -1,15 +1,23 @@
+// ignore_for_file: use_build_context_synchronously
+
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:google_sign_in/google_sign_in.dart';
 import 'package:flutter_facebook_auth/flutter_facebook_auth.dart';
-import 'package:petfaves/homepage/petfeeds.dart';
+import 'package:petfaves/login_auth/modified_buttons.dart';
 import 'package:petfaves/login_auth/sign_in_square_tile.dart';
 
 // import 'package:petfaves/homepage/petfeeds.dart';
 
 class LoginPage extends StatefulWidget {
-  const LoginPage({super.key});
+  final Function()? onTap;
+  const LoginPage({
+    super.key,
+    required this.onTap,
+  });
 
   @override
+  // ignore: library_private_types_in_public_api
   _LoginPageState createState() => _LoginPageState();
 }
 
@@ -37,6 +45,54 @@ class _LoginPageState extends State<LoginPage> {
     } catch (error) {
       // Handle Facebook sign-in error
     }
+  }
+
+  void signUserIn() async {
+    showDialog(
+      context: context,
+      builder: (context) {
+        return const Center(
+          child: CircularProgressIndicator(),
+        );
+      },
+    );
+    try {
+      await FirebaseAuth.instance.signInWithEmailAndPassword(
+          email: _emailController.text, password: _passwordController.text);
+    } on FirebaseAuthException catch (e) {
+      Navigator.pop(context);
+
+      if (e.code == 'user-not-found') {
+        debugPrint("Logged in");
+        wrongEmailMessage();
+      } else if (e.code == 'wrong-password') {
+        debugPrint("Invalid Password");
+        wrongPasswordMessage();
+      }
+    }
+    Navigator.pop(context);
+  }
+
+  void wrongEmailMessage() {
+    showDialog(
+      context: context,
+      builder: (context) {
+        return const AlertDialog(
+          title: Text('Incorrect Email'),
+        );
+      },
+    );
+  }
+
+  void wrongPasswordMessage() {
+    showDialog(
+      context: context,
+      builder: (context) {
+        return const AlertDialog(
+          title: Text('Incorrect Password'),
+        );
+      },
+    );
   }
 
   @override
@@ -147,32 +203,9 @@ class _LoginPageState extends State<LoginPage> {
               ),
               const SizedBox(height: 15),
               // Login Button
-              ConstrainedBox(
-                constraints:
-                    const BoxConstraints.tightFor(width: 300, height: 50),
-                child: ElevatedButton.icon(
-                  style: const ButtonStyle(
-                    backgroundColor: MaterialStatePropertyAll<Color>(
-                      Color.fromARGB(255, 0, 0, 0),
-                    ),
-                  ),
-                  onPressed: () {
-                    debugPrint("logged in");
-                    Navigator.of(context).push(
-                      MaterialPageRoute(
-                        builder: (context) => const PetFeeds(),
-                      ),
-                    );
-                  },
-                  icon: const Icon(
-                    Icons.login,
-                    color: Colors.white,
-                  ),
-                  label: const Text(
-                    'Login',
-                    style: TextStyle(color: Colors.white),
-                  ),
-                ),
+              ModifiedButtons(
+                text: 'Login',
+                onTap: signUserIn,
               ),
               const SizedBox(height: 30),
 
@@ -217,21 +250,25 @@ class _LoginPageState extends State<LoginPage> {
               ),
 
               const SizedBox(height: 10),
-
-              TextButton(
-                onPressed: () {
-                  Navigator.of(context).push(
-                    MaterialPageRoute(
-                      builder: (context) => const PetFeeds(),
+              Row(
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: [
+                  const Text(
+                    'Don\'t have an account? ',
+                    style: TextStyle(
+                      color: Colors.black,
                     ),
-                  );
-                },
-                child: const Text(
-                  'Don\'t have an account? Register here',
-                  style: TextStyle(
-                    color: Colors.blue,
                   ),
-                ),
+                  GestureDetector(
+                    onTap: widget.onTap,
+                    child: const Text(
+                      'Register here',
+                      style: TextStyle(
+                        color: Colors.blue,
+                      ),
+                    ),
+                  ),
+                ],
               ),
             ],
           ),
