@@ -29,10 +29,37 @@ class _LoginPageState extends State<LoginPage> {
 
   Future<void> _handleSignIn() async {
     try {
-      await _googleSignIn.signIn();
-      // Handle sign-in success (e.g., navigate to the home page)
+      // Trigger the authentication flow
+      final GoogleSignInAccount? googleUser = await _googleSignIn.signIn();
+      if (googleUser != null) {
+        // Obtain the auth details from the request
+        // ignore: unnecessary_nullable_for_final_variable_declarations
+        final GoogleSignInAuthentication? googleAuth =
+            await googleUser.authentication;
+
+        // Create a new credential
+        final credential = GoogleAuthProvider.credential(
+          accessToken: googleAuth?.accessToken,
+          idToken: googleAuth?.idToken,
+        );
+
+        // Sign in with the credential
+        await FirebaseAuth.instance.signInWithCredential(credential);
+
+        // Navigate to the next screen if login is successful
+        Navigator.push(
+          context,
+          MaterialPageRoute(
+            builder: (context) => PetFeeds(
+              onTap: widget.onTap,
+            ),
+          ),
+        );
+      }
     } catch (error) {
       // Handle sign-in error
+      debugPrint("Error signing in with Google: $error");
+      // Optionally, you can show a snackbar or dialog to inform the user about the error
     }
   }
 
