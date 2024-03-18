@@ -18,7 +18,7 @@ class ModifiedButtons extends StatelessWidget {
           color: Colors.black,
           borderRadius: BorderRadius.circular(8.0),
         ),
-        margin: const EdgeInsets.symmetric(horizontal: 20),
+        margin: const EdgeInsets.symmetric(horizontal: 30),
         padding: const EdgeInsets.all(15),
         child: Center(
           child: Text(
