@@ -1,6 +1,5 @@
 import 'dart:async';
 import 'package:flutter/material.dart';
-
 import 'package:firebase_core/firebase_core.dart';
 import 'package:petfaves/login_auth/login_user_auth.dart';
 import 'firebase_options.dart';
