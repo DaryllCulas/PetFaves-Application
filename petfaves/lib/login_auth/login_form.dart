@@ -7,7 +7,7 @@ import 'package:flutter_facebook_auth/flutter_facebook_auth.dart';
 import 'package:petfaves/login_auth/modified_buttons.dart';
 import 'package:petfaves/login_auth/sign_in_square_tile.dart';
 
-// import 'package:petfaves/homepage/petfeeds.dart';
+import 'package:petfaves/homepage/petfeeds.dart';
 
 class LoginPage extends StatefulWidget {
   final Function()? onTap;
@@ -59,26 +59,69 @@ class _LoginPageState extends State<LoginPage> {
     try {
       await FirebaseAuth.instance.signInWithEmailAndPassword(
           email: _emailController.text, password: _passwordController.text);
+      // Navigate to the next screen if login is successful
+      Navigator.pushReplacement(
+        context,
+        MaterialPageRoute(
+            builder: (context) => PetFeeds(
+                  onTap: widget.onTap,
+                )),
+      );
     } on FirebaseAuthException catch (e) {
-      Navigator.pop(context);
+      Navigator.pop(context); // Dismiss loading dialog
 
       if (e.code == 'user-not-found') {
-        debugPrint("Logged in");
+        debugPrint("User not found");
         wrongEmailMessage();
       } else if (e.code == 'wrong-password') {
         debugPrint("Invalid Password");
         wrongPasswordMessage();
+      } else {
+        debugPrint("Error occurred: ${e.message}");
+        genericErrorMessage();
       }
+    } catch (e) {
+      debugPrint("Unexpected error occurred: $e");
+      genericErrorMessage();
     }
-    Navigator.pop(context);
+  }
+
+  void genericErrorMessage() {
+    showDialog(
+      context: context,
+      builder: (ctx) {
+        return AlertDialog(
+          title: const Text('Error'),
+          content: const Text(
+              'An unexpected error occurred. Please try again later.'),
+          actions: <Widget>[
+            TextButton(
+              onPressed: () {
+                Navigator.of(ctx).pop();
+              },
+              child: const Text('OK'),
+            ),
+          ],
+        );
+      },
+    );
   }
 
   void wrongEmailMessage() {
     showDialog(
       context: context,
-      builder: (context) {
-        return const AlertDialog(
-          title: Text('Incorrect Email'),
+      builder: (ctx) {
+        return AlertDialog(
+          title: const Text('Incorrect Email'),
+          content: const Text('Invalid Email or Password, Please try again!.'),
+          actions: <Widget>[
+            TextButton(
+              onPressed: () {
+                Navigator.of(ctx).pop();
+              },
+              child: const Text('Ok'),
+            ),
+          ],
         );
       },
     );
@@ -87,9 +130,17 @@ class _LoginPageState extends State<LoginPage> {
   void wrongPasswordMessage() {
     showDialog(
       context: context,
-      builder: (context) {
-        return const AlertDialog(
-          title: Text('Incorrect Password'),
+      builder: (ctx) {
+        return AlertDialog(
+          title: const Text('Incorrect Email or Password , Please try again!'),
+          actions: <Widget>[
+            TextButton(
+              onPressed: () {
+                Navigator.of(ctx).pop();
+              },
+              child: const Text('Ok'),
+            ),
+          ],
         );
       },
     );
