@@ -3,7 +3,6 @@ import 'package:flutter/material.dart';
 
 import 'package:firebase_core/firebase_core.dart';
 import 'package:petfaves/login_auth/login_user_auth.dart';
-// import 'package:petfaves/pet_match_making/pet_match_making_module.dart';
 import 'firebase_options.dart';
 
 Future<void> main() async {
@@ -12,20 +11,25 @@ Future<void> main() async {
   runApp(const MyApp());
 }
 
-class MyApp extends StatelessWidget {
-  const MyApp({super.key});
+class MyApp extends StatefulWidget {
+  final Function()? onTap;
+  const MyApp({super.key, this.onTap});
 
-  // This widget is the root of your application.
+  @override
+  State<MyApp> createState() => _MyAppState();
+}
+
+class _MyAppState extends State<MyApp> {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
       theme: ThemeData.dark().copyWith(
         scaffoldBackgroundColor: const Color.fromARGB(255, 221, 218, 218),
       ),
-
       debugShowCheckedModeBanner: false,
-      // home: const LoginPage(),
-      home: const AuthPage(),
+      home: AuthPage(
+        onTap: widget.onTap,
+      ),
     );
   }
 }
