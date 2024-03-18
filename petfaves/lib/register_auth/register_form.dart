@@ -129,6 +129,16 @@ class _RegisterPageState extends State<RegisterPage> {
                   height: 200, // Adjust height as needed
                 ),
               ),
+              const SizedBox(height: 10.0),
+              // let's create an account for you!
+              const Text(
+                'let\'s create an account for you!',
+                style: TextStyle(
+                  color: Colors.grey,
+                  fontSize: 16,
+                ),
+              ),
+              const SizedBox(height: 20.0),
               Container(
                 margin: const EdgeInsets.symmetric(vertical: 10.0),
                 height: 40.0, // Set a fixed height for the TextFormField
@@ -252,7 +262,7 @@ class _RegisterPageState extends State<RegisterPage> {
               const SizedBox(height: 15),
               // Login Button
               ModifiedButtons(
-                text: 'Login',
+                text: 'Sign up',
                 onTap: signUserUp,
               ),
               const SizedBox(height: 30),
