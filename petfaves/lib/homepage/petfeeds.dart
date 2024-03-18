@@ -19,6 +19,7 @@ class PetFeeds extends StatefulWidget {
 }
 
 class _PetFeedsState extends State<PetFeeds> {
+  final user = FirebaseAuth.instance.currentUser!;
   int _selectedIndex = 0;
 
   final List<Widget> _pages = [
@@ -82,18 +83,19 @@ class _PetFeedsState extends State<PetFeeds> {
         child: ListView(
           padding: EdgeInsets.zero,
           children: <Widget>[
-            const UserAccountsDrawerHeader(
-              decoration: BoxDecoration(
+            UserAccountsDrawerHeader(
+              decoration: const BoxDecoration(
                 color: Color.fromARGB(255, 99, 187, 245),
               ),
               accountName: Text(
-                'User',
-                style: TextStyle(
+                user.email!,
+                style: const TextStyle(
                   color: Color.fromARGB(255, 0, 0, 0),
-                  fontSize: 24,
+                  fontSize: 15,
+                  fontWeight: FontWeight.bold,
                 ),
               ),
-              currentAccountPicture: CircleAvatar(
+              currentAccountPicture: const CircleAvatar(
                 backgroundImage: NetworkImage(
                     'https://via.placeholder.com/150'), // Replace with your user's avatar URL
               ),
