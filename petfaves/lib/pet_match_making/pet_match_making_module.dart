@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:carousel_slider/carousel_slider.dart';
 
 class PetMatchMaking extends StatefulWidget {
-  const PetMatchMaking({Key? key}) : super(key: key);
+  const PetMatchMaking({super.key});
 
   @override
   _PetMatchMakingState createState() => _PetMatchMakingState();
@@ -84,10 +84,10 @@ class PetIconCard extends StatelessWidget {
   final Color color;
 
   const PetIconCard({
-    Key? key,
+    super.key,
     required this.icon,
     required this.color,
-  }) : super(key: key);
+  });
 
   @override
   Widget build(BuildContext context) {
