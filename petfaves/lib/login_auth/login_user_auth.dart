@@ -3,9 +3,15 @@ import 'package:flutter/material.dart';
 import 'package:petfaves/homepage/petfeeds.dart';
 import 'package:petfaves/register_auth/login_or_register.dart';
 
-class AuthPage extends StatelessWidget {
-  const AuthPage({super.key});
+class AuthPage extends StatefulWidget {
+  final Function()? onTap;
+  const AuthPage({super.key, required this.onTap});
 
+  @override
+  State<AuthPage> createState() => _AuthPageState();
+}
+
+class _AuthPageState extends State<AuthPage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -14,7 +20,7 @@ class AuthPage extends StatelessWidget {
         builder: (context, snapshot) {
           // user is logged in
           if (snapshot.hasData) {
-            return const PetFeeds();
+            return PetFeeds(onTap: widget.onTap);
           } else {
             return const LoginOrRegisterUser();
           }
