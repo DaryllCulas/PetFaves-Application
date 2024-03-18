@@ -2,12 +2,17 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:petfaves/donationpage/donation_module.dart';
 import 'package:petfaves/homepage/homescreen.dart';
+import 'package:petfaves/login_auth/login_form.dart';
 // import 'package:petfaves/login_auth/login_form.dart';
 import 'package:petfaves/pet_match_making/pet_match_making_module.dart';
 import 'package:petfaves/profile/profile_info.dart';
 
 class PetFeeds extends StatefulWidget {
-  const PetFeeds({super.key});
+  final Function()? onTap;
+  const PetFeeds({
+    super.key,
+    required this.onTap,
+  });
 
   @override
   _PetFeedsState createState() => _PetFeedsState();
@@ -21,7 +26,6 @@ class _PetFeedsState extends State<PetFeeds> {
     const PetMatchMaking(),
     const DonationScreen(),
   ];
-
   void signUserOut() async {
     showDialog(
       context: context,
@@ -31,6 +35,21 @@ class _PetFeedsState extends State<PetFeeds> {
         );
       },
     );
+
+    try {
+      await FirebaseAuth.instance.signOut();
+      // Navigate to the login page after signing out
+      Navigator.pushReplacement(
+        context,
+        MaterialPageRoute(
+            builder: (context) => LoginPage(
+                  onTap: widget.onTap,
+                )),
+      );
+    } catch (e) {
+      debugPrint("Error signing out: $e");
+      // Handle sign-out error
+    }
   }
 
   void _onItemTapped(int index) {
@@ -102,7 +121,13 @@ class _PetFeedsState extends State<PetFeeds> {
               leading: const Icon(Icons.logout),
               title: const Text('Log out'),
               onTap: () {
-                Navigator.pop(context);
+                Navigator.of(context).push(
+                  MaterialPageRoute(
+                    builder: (context) => LoginPage(
+                      onTap: widget.onTap,
+                    ),
+                  ),
+                );
                 FirebaseAuth.instance.signOut();
               },
             ),
