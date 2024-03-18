@@ -287,16 +287,19 @@ class _LoginPageState extends State<LoginPage> {
               ),
               const SizedBox(height: 30.0),
 
-              const Row(
+              Row(
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
                   // Sign in with Google Button
-                  SquareTile(
-                    imagePath: 'assets/google_icon.png',
+                  GestureDetector(
+                    onTap: _handleSignIn,
+                    child: const SquareTile(
+                      imagePath: 'assets/google_icon.png',
+                    ),
                   ),
-                  SizedBox(width: 10.0),
+                  const SizedBox(width: 10.0),
                   // Sign in with Facebook Button
-                  SquareTile(imagePath: 'assets/facebook_icon.png'),
+                  const SquareTile(imagePath: 'assets/facebook_icon.png'),
                 ],
               ),
 
