@@ -11,6 +11,11 @@ class DonationScreen extends StatefulWidget {
 class _DonationScreenState extends State<DonationScreen> {
   final TextEditingController _firstNameDPController = TextEditingController();
   final TextEditingController _lastNameDPController = TextEditingController();
+  final TextEditingController _emailAddressDPController =
+      TextEditingController();
+  final TextEditingController _amountToDonateController =
+      TextEditingController();
+  final TextEditingController _commentsController = TextEditingController();
 
   @override
   Widget build(BuildContext context) {
@@ -33,6 +38,7 @@ class _DonationScreenState extends State<DonationScreen> {
               padding: const EdgeInsets.symmetric(horizontal: 15.0),
               child: TextField(
                 controller: _firstNameDPController,
+                cursorColor: Colors.black,
                 decoration: InputDecoration(
                   labelText: 'First Name',
                   labelStyle: const TextStyle(
@@ -49,6 +55,7 @@ class _DonationScreenState extends State<DonationScreen> {
                   fillColor: Colors.white,
                   filled: true,
                 ),
+                style: const TextStyle(color: Colors.black),
               ),
             ),
             const SizedBox(height: 10),
@@ -56,6 +63,7 @@ class _DonationScreenState extends State<DonationScreen> {
               padding: const EdgeInsets.symmetric(horizontal: 15.0),
               child: TextField(
                 controller: _lastNameDPController,
+                cursorColor: Colors.black,
                 decoration: InputDecoration(
                   labelText: 'Last Name',
                   labelStyle: const TextStyle(
@@ -72,13 +80,15 @@ class _DonationScreenState extends State<DonationScreen> {
                   fillColor: Colors.white,
                   filled: true,
                 ),
+                style: const TextStyle(color: Colors.black),
               ),
             ),
             const SizedBox(height: 10),
             Padding(
               padding: const EdgeInsets.symmetric(horizontal: 15.0),
               child: TextField(
-                controller: _lastNameDPController,
+                controller: _emailAddressDPController,
+                cursorColor: Colors.black,
                 decoration: InputDecoration(
                   labelText: 'Email Address',
                   labelStyle: const TextStyle(
@@ -95,13 +105,15 @@ class _DonationScreenState extends State<DonationScreen> {
                   fillColor: Colors.white,
                   filled: true,
                 ),
+                style: const TextStyle(color: Colors.black),
               ),
             ),
             const SizedBox(height: 10),
             Padding(
               padding: const EdgeInsets.symmetric(horizontal: 13.0),
               child: TextField(
-                controller: _lastNameDPController,
+                controller: _amountToDonateController,
+                cursorColor: Colors.black,
                 decoration: InputDecoration(
                   labelText: 'Amount to donate',
                   labelStyle: const TextStyle(
@@ -118,13 +130,15 @@ class _DonationScreenState extends State<DonationScreen> {
                   fillColor: Colors.white,
                   filled: true,
                 ),
+                style: const TextStyle(color: Colors.black),
               ),
             ),
             const SizedBox(height: 10),
             Padding(
               padding: const EdgeInsets.symmetric(horizontal: 15.0),
               child: TextField(
-                controller: _lastNameDPController,
+                controller: _commentsController,
+                cursorColor: Colors.black,
                 maxLines: null,
                 decoration: InputDecoration(
                   labelText: 'Comment',
@@ -133,7 +147,7 @@ class _DonationScreenState extends State<DonationScreen> {
                   ),
                   prefixIcon: const SizedBox(
                       width: 120.0), // Transparent icon to occupy space
-                  suffixIcon: const SizedBox(width: 120.0),
+                  suffixIcon: const SizedBox(width: 100.0),
                   contentPadding: const EdgeInsets.symmetric(vertical: 50.0),
                   border: OutlineInputBorder(
                     borderRadius: BorderRadius.circular(15.0),
@@ -146,12 +160,16 @@ class _DonationScreenState extends State<DonationScreen> {
                   fillColor: Colors.white,
                   filled: true,
                 ),
+                style: const TextStyle(color: Colors.black),
               ),
             ),
             const SizedBox(height: 30),
-            ModifiedButtons(
-              onTap: submitDonation,
-              text: 'Submit Donation',
+            Padding(
+              padding: const EdgeInsets.all(30.0),
+              child: ModifiedButtons(
+                onTap: submitDonation,
+                text: 'Submit Donation',
+              ),
             ),
           ],
         ),
