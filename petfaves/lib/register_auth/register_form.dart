@@ -1,17 +1,12 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
-import 'package:google_sign_in/google_sign_in.dart';
-import 'package:flutter_facebook_auth/flutter_facebook_auth.dart';
-import 'package:petfaves/login_auth/modified_buttons.dart';
-import 'package:petfaves/login_auth/sign_in_square_tile.dart';
+import 'package:petfaves/login_auth/login_form.dart';
 
-// import 'package:petfaves/homepage/petfeeds.dart';
+import 'package:petfaves/login_auth/modified_buttons.dart';
 
 class RegisterPage extends StatefulWidget {
-  final Function()? onTap;
   const RegisterPage({
     super.key,
-    required this.onTap,
   });
 
   @override
@@ -19,7 +14,7 @@ class RegisterPage extends StatefulWidget {
 }
 
 class _RegisterPageState extends State<RegisterPage> {
-  final GoogleSignIn _googleSignIn = GoogleSignIn();
+  // final GoogleSignIn _googleSignIn = GoogleSignIn();
   final TextEditingController _emailController = TextEditingController();
   final TextEditingController _passwordController = TextEditingController();
   final TextEditingController _confirmPasswordController =
@@ -90,26 +85,6 @@ class _RegisterPageState extends State<RegisterPage> {
     }
     // ignore: use_build_context_synchronously
     Navigator.pop(context);
-  }
-
-  Future<void> _handleSignIn() async {
-    try {
-      await _googleSignIn.signIn();
-      // Handle sign-in success (e.g., navigate to the home page)
-    } catch (error) {
-      // Handle sign-in error
-    }
-  }
-
-  Future<void> _handleFacebookSignIn() async {
-    try {
-      final LoginResult result = await FacebookAuth.instance.login();
-      if (result.status == LoginStatus.success) {
-        // Handle Facebook sign-in success
-      }
-    } catch (error) {
-      // Handle Facebook sign-in error
-    }
   }
 
   @override
@@ -267,45 +242,7 @@ class _RegisterPageState extends State<RegisterPage> {
               ),
               const SizedBox(height: 30),
 
-              // or continue with
-
-              const Padding(
-                padding: EdgeInsets.symmetric(horizontal: 25.0),
-                child: Row(
-                  children: [
-                    Expanded(
-                      child: Divider(
-                        thickness: 1.0,
-                        color: Colors.grey,
-                      ),
-                    ),
-                    Text(
-                      'Or continue with',
-                      style: TextStyle(color: Colors.grey),
-                    ),
-                    Expanded(
-                      child: Divider(
-                        thickness: 1.0,
-                        color: Colors.grey,
-                      ),
-                    ),
-                  ],
-                ),
-              ),
               const SizedBox(height: 30.0),
-
-              const Row(
-                mainAxisAlignment: MainAxisAlignment.center,
-                children: [
-                  // Sign in with Google Button
-                  SquareTile(
-                    imagePath: 'assets/google_icon.png',
-                  ),
-                  SizedBox(width: 10.0),
-                  // Sign in with Facebook Button
-                  SquareTile(imagePath: 'assets/facebook_icon.png'),
-                ],
-              ),
 
               const SizedBox(height: 20),
               Row(
@@ -318,7 +255,15 @@ class _RegisterPageState extends State<RegisterPage> {
                     ),
                   ),
                   GestureDetector(
-                    onTap: widget.onTap,
+                    onTap: () {
+                      Navigator.push(
+                        context,
+                        MaterialPageRoute(
+                          builder: (context) =>
+                              const LoginPage(), // Or LoginPage() if in RegisterPage
+                        ),
+                      );
+                    },
                     child: const Text(
                       ' Login here',
                       style: TextStyle(
