@@ -8,12 +8,11 @@ import 'package:petfaves/login_auth/modified_buttons.dart';
 import 'package:petfaves/login_auth/sign_in_square_tile.dart';
 
 import 'package:petfaves/homepage/petfeeds.dart';
+import 'package:petfaves/register_auth/register_form.dart';
 
 class LoginPage extends StatefulWidget {
-  final Function()? onTap;
   const LoginPage({
     super.key,
-    required this.onTap,
   });
 
   @override
@@ -50,9 +49,7 @@ class _LoginPageState extends State<LoginPage> {
         Navigator.push(
           context,
           MaterialPageRoute(
-            builder: (context) => PetFeeds(
-              onTap: widget.onTap,
-            ),
+            builder: (context) => PetFeeds(),
           ),
         );
       }
@@ -89,10 +86,7 @@ class _LoginPageState extends State<LoginPage> {
       // Navigate to the next screen if login is successful
       Navigator.pushReplacement(
         context,
-        MaterialPageRoute(
-            builder: (context) => PetFeeds(
-                  onTap: widget.onTap,
-                )),
+        MaterialPageRoute(builder: (context) => PetFeeds()),
       );
     } on FirebaseAuthException catch (e) {
       Navigator.pop(context); // Dismiss loading dialog
@@ -281,7 +275,15 @@ class _LoginPageState extends State<LoginPage> {
                     ),
                   ),
                   GestureDetector(
-                    onTap: widget.onTap,
+                    onTap: () {
+                      Navigator.push(
+                        context,
+                        MaterialPageRoute(
+                          builder: (context) =>
+                              const RegisterPage(), // Or LoginPage() if in RegisterPage
+                        ),
+                      );
+                    },
                     child: const Text(
                       'Register here',
                       style: TextStyle(
