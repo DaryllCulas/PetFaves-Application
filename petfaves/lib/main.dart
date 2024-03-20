@@ -26,9 +26,7 @@ class _MyAppState extends State<MyApp> {
         scaffoldBackgroundColor: const Color.fromARGB(255, 221, 218, 218),
       ),
       debugShowCheckedModeBanner: false,
-      home: AuthPage(
-        onTap: widget.onTap,
-      ),
+      home: AuthPage(),
     );
   }
 }
