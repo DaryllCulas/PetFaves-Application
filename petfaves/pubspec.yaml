@@ -30,12 +30,12 @@ environment:
 dependencies:
   flutter:
     sdk: flutter
-  google_sign_in: ^6.2.1
+  
   flutter_facebook_auth: ^4.0.0
   font_awesome_flutter: ^10.7.0
   expansion_tile_card: ^3.0.0
   carousel_slider: ^4.2.1
- 
+  google_sign_in: ^6.2.1
 
 
   # The following adds the Cupertino Icons font to your application.
