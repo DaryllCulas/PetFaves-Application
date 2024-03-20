@@ -67,6 +67,8 @@ class DefaultFirebaseOptions {
     messagingSenderId: '499428402262',
     projectId: 'petfaves-b8751',
     storageBucket: 'petfaves-b8751.appspot.com',
+    androidClientId: '499428402262-a42bejovvu7jcu5atvue3ia6s52jio21.apps.googleusercontent.com',
+    iosClientId: '499428402262-jaao7v5b6pa8elm7r947f5o6gtlqu9et.apps.googleusercontent.com',
     iosBundleId: 'com.example.petfaves',
   );
 
@@ -76,6 +78,8 @@ class DefaultFirebaseOptions {
     messagingSenderId: '499428402262',
     projectId: 'petfaves-b8751',
     storageBucket: 'petfaves-b8751.appspot.com',
+    androidClientId: '499428402262-a42bejovvu7jcu5atvue3ia6s52jio21.apps.googleusercontent.com',
+    iosClientId: '499428402262-45pis74eoddlfmjg5a13cu76bpdi8pip.apps.googleusercontent.com',
     iosBundleId: 'com.example.petfaves.RunnerTests',
   );
 }
