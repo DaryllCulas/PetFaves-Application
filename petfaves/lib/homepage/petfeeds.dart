@@ -8,10 +8,8 @@ import 'package:petfaves/pet_match_making/pet_match_making_module.dart';
 import 'package:petfaves/profile/profile_info.dart';
 
 class PetFeeds extends StatefulWidget {
-  final Function()? onTap;
   const PetFeeds({
     super.key,
-    required this.onTap,
   });
 
   @override
@@ -42,10 +40,7 @@ class _PetFeedsState extends State<PetFeeds> {
       // Navigate to the login page after signing out
       Navigator.pushReplacement(
         context,
-        MaterialPageRoute(
-            builder: (context) => LoginPage(
-                  onTap: widget.onTap,
-                )),
+        MaterialPageRoute(builder: (context) => LoginPage()),
       );
     } catch (e) {
       debugPrint("Error signing out: $e");
@@ -125,9 +120,7 @@ class _PetFeedsState extends State<PetFeeds> {
               onTap: () {
                 Navigator.of(context).push(
                   MaterialPageRoute(
-                    builder: (context) => LoginPage(
-                      onTap: widget.onTap,
-                    ),
+                    builder: (context) => LoginPage(),
                   ),
                 );
                 FirebaseAuth.instance.signOut();
