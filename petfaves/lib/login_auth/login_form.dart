@@ -27,7 +27,7 @@ class _LoginPageState extends State<LoginPage> {
   final TextEditingController _passwordController = TextEditingController();
   bool _obscureText = true; // Variable to toggle password visibility
 
-  Future<void> _handleSignIn() async {
+  Future<void> _handleGoogleSignIn() async {
     try {
       // Trigger the authentication flow
       final GoogleSignInAccount? googleUser = await _googleSignIn.signIn();
@@ -111,66 +111,6 @@ class _LoginPageState extends State<LoginPage> {
       debugPrint("Unexpected error occurred: $e");
       genericErrorMessage();
     }
-  }
-
-  void genericErrorMessage() {
-    showDialog(
-      context: context,
-      builder: (ctx) {
-        return AlertDialog(
-          title: const Text('Error'),
-          content: const Text(
-              'An unexpected error occurred. Please try again later.'),
-          actions: <Widget>[
-            TextButton(
-              onPressed: () {
-                Navigator.of(ctx).pop();
-              },
-              child: const Text('OK'),
-            ),
-          ],
-        );
-      },
-    );
-  }
-
-  void wrongEmailMessage() {
-    showDialog(
-      context: context,
-      builder: (ctx) {
-        return AlertDialog(
-          title: const Text('Incorrect Email'),
-          content: const Text('Invalid Email or Password, Please try again!.'),
-          actions: <Widget>[
-            TextButton(
-              onPressed: () {
-                Navigator.of(ctx).pop();
-              },
-              child: const Text('Ok'),
-            ),
-          ],
-        );
-      },
-    );
-  }
-
-  void wrongPasswordMessage() {
-    showDialog(
-      context: context,
-      builder: (ctx) {
-        return AlertDialog(
-          title: const Text('Incorrect Email or Password , Please try again!'),
-          actions: <Widget>[
-            TextButton(
-              onPressed: () {
-                Navigator.of(ctx).pop();
-              },
-              child: const Text('Ok'),
-            ),
-          ],
-        );
-      },
-    );
   }
 
   @override
@@ -319,7 +259,7 @@ class _LoginPageState extends State<LoginPage> {
                 children: [
                   // Sign in with Google Button
                   GestureDetector(
-                    onTap: _handleSignIn,
+                    onTap: _handleGoogleSignIn,
                     child: const SquareTile(
                       imagePath: 'assets/google_icon.png',
                     ),
@@ -355,6 +295,66 @@ class _LoginPageState extends State<LoginPage> {
           ),
         ),
       ),
+    );
+  }
+
+  void genericErrorMessage() {
+    showDialog(
+      context: context,
+      builder: (ctx) {
+        return AlertDialog(
+          title: const Text('Error'),
+          content: const Text(
+              'An unexpected error occurred. Please try again later.'),
+          actions: <Widget>[
+            TextButton(
+              onPressed: () {
+                Navigator.of(ctx).pop();
+              },
+              child: const Text('OK'),
+            ),
+          ],
+        );
+      },
+    );
+  }
+
+  void wrongEmailMessage() {
+    showDialog(
+      context: context,
+      builder: (ctx) {
+        return AlertDialog(
+          title: const Text('Incorrect Email'),
+          content: const Text('Invalid Email or Password, Please try again!.'),
+          actions: <Widget>[
+            TextButton(
+              onPressed: () {
+                Navigator.of(ctx).pop();
+              },
+              child: const Text('Ok'),
+            ),
+          ],
+        );
+      },
+    );
+  }
+
+  void wrongPasswordMessage() {
+    showDialog(
+      context: context,
+      builder: (ctx) {
+        return AlertDialog(
+          title: const Text('Incorrect Email or Password , Please try again!'),
+          actions: <Widget>[
+            TextButton(
+              onPressed: () {
+                Navigator.of(ctx).pop();
+              },
+              child: const Text('Ok'),
+            ),
+          ],
+        );
+      },
     );
   }
 }
