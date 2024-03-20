@@ -4,8 +4,7 @@ import 'package:petfaves/homepage/petfeeds.dart';
 import 'package:petfaves/register_auth/login_or_register.dart';
 
 class AuthPage extends StatefulWidget {
-  final Function()? onTap;
-  const AuthPage({super.key, required this.onTap});
+  const AuthPage({super.key});
 
   @override
   State<AuthPage> createState() => _AuthPageState();
@@ -20,7 +19,7 @@ class _AuthPageState extends State<AuthPage> {
         builder: (context, snapshot) {
           // user is logged in
           if (snapshot.hasData) {
-            return PetFeeds(onTap: widget.onTap);
+            return PetFeeds();
           } else {
             return const LoginOrRegisterUser();
           }
