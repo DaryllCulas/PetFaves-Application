@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:carousel_slider/carousel_slider.dart';
+import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 
 class PetMatchMaking extends StatefulWidget {
   const PetMatchMaking({super.key});
@@ -22,21 +23,27 @@ class _PetMatchMakingState extends State<PetMatchMaking> {
       slivers: <Widget>[
         const SliverToBoxAdapter(
           child: Padding(
-            padding: EdgeInsets.symmetric(vertical: 10.0),
+            padding: EdgeInsets.symmetric(vertical: 5.0),
             child: SingleChildScrollView(
               scrollDirection: Axis.horizontal,
               child: Row(
                 children: [
-                  PetIconCard(icon: Icons.pets, color: Colors.blue), // Dog icon
                   PetIconCard(
-                      icon: Icons.pets, color: Colors.orange), // Cat icon
+                      icon: FontAwesomeIcons.dog,
+                      color: Colors.blue), // Dog icon
                   PetIconCard(
-                      icon: Icons.pets, color: Colors.green), // Bird icon
+                      icon: FontAwesomeIcons.cat,
+                      color: Colors.orange), // Cat icon
                   PetIconCard(
-                      icon: Icons.pets, color: Colors.red), // Reptile icon
+                      icon: FontAwesomeIcons.dove,
+                      color: Colors.green), // Bird icon
+                  PetIconCard(
+                      icon: FontAwesomeIcons.fish, color: Colors.blueGrey),
+
                   // Others icon
-                  PetIconCard(icon: Icons.pets, color: Colors.purple),
-                  PetIconCard(icon: Icons.pets, color: Colors.cyan),
+
+                  PetIconCard(
+                      icon: FontAwesomeIcons.ellipsis, color: Colors.cyan),
                 ],
               ),
             ),
@@ -44,9 +51,11 @@ class _PetMatchMakingState extends State<PetMatchMaking> {
         ),
         SliverToBoxAdapter(
           child: Padding(
-            padding: const EdgeInsets.only(top: 100.0),
+            padding: const EdgeInsets.only(top: 60.0),
             child: Column(
               children: [
+                // Carousel slider
+
                 CarouselSlider(
                   options: CarouselOptions(
                     enlargeCenterPage: true,
@@ -59,8 +68,7 @@ class _PetMatchMakingState extends State<PetMatchMaking> {
                       margin: const EdgeInsets.symmetric(horizontal: 5.0),
                       decoration: BoxDecoration(
                         color: Colors.amber,
-                        borderRadius: BorderRadius.circular(
-                            10.0), // Optional: Add border radius for card-like appearance
+                        borderRadius: BorderRadius.circular(10.0),
                       ),
                       child: Image.network(
                         imageUrl,
