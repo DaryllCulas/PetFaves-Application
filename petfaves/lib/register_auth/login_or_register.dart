@@ -21,9 +21,9 @@ class _LoginOrRegisterUserState extends State<LoginOrRegisterUser> {
   @override
   Widget build(BuildContext context) {
     if (showLoginPage) {
-      return LoginPage();
+      return const LoginPage();
     } else {
-      return RegisterPage();
+      return const RegisterPage();
     }
   }
 }
