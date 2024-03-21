@@ -24,8 +24,8 @@ class _BuildHomePageState extends State<BuildHomePage> {
                 child: Row(
                   children: <Widget>[
                     CircleAvatar(
-                      backgroundImage: NetworkImage(
-                          'https://via.placeholder.com/150'), // Placeholder image
+                      backgroundImage: AssetImage(
+                          'assets/usernameIcon.png'), // Placeholder image
                       radius: 20,
                     ),
                     SizedBox(width: 10),
@@ -44,9 +44,8 @@ class _BuildHomePageState extends State<BuildHomePage> {
                   style: TextStyle(fontSize: 16),
                 ),
               ),
-              // Post image
-              Image.network(
-                'https://via.placeholder.com/350x150', // Placeholder image
+              Image.asset(
+                'assets/placeholder.png',
                 width: double.infinity,
                 height: 200,
                 fit: BoxFit.cover,
