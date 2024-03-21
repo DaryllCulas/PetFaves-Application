@@ -1,5 +1,3 @@
-// ignore_for_file: use_build_context_synchronously
-
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:google_sign_in/google_sign_in.dart';
@@ -47,9 +45,10 @@ class _LoginPageState extends State<LoginPage> {
 
         // Navigate to the next screen if login is successful
         Navigator.push(
+          // ignore: use_build_context_synchronously
           context,
           MaterialPageRoute(
-            builder: (context) => PetFeeds(),
+            builder: (context) => const PetFeeds(),
           ),
         );
       }
