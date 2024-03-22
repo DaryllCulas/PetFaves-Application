@@ -1,6 +1,7 @@
 import 'dart:async';
 import 'package:flutter/material.dart';
 import 'package:firebase_core/firebase_core.dart';
+// import 'package:petfaves/admin/admin_dashboard.dart';
 import 'package:petfaves/login_auth/login_user_auth.dart';
 import 'firebase_options.dart';
 
@@ -27,6 +28,7 @@ class _MyAppState extends State<MyApp> {
       ),
       debugShowCheckedModeBanner: false,
       home: const AuthPage(),
+      // home: const AdminPanel(),
     );
   }
 }
