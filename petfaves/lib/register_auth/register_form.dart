@@ -1,5 +1,8 @@
+// ignore_for_file: use_build_context_synchronously
+
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
+import 'package:petfaves/homepage/petfeeds.dart';
 import 'package:petfaves/login_auth/login_form.dart';
 
 import 'package:petfaves/login_auth/modified_buttons.dart';
@@ -14,12 +17,12 @@ class RegisterPage extends StatefulWidget {
 }
 
 class _RegisterPageState extends State<RegisterPage> {
-  // final GoogleSignIn _googleSignIn = GoogleSignIn();
   final TextEditingController _emailController = TextEditingController();
   final TextEditingController _passwordController = TextEditingController();
   final TextEditingController _confirmPasswordController =
       TextEditingController();
-  bool _obscureText = true; // Variable to toggle password visibility
+  bool _obscurePassword = true;
+  bool _obscureConfirmPassword = true;
 
   void signUserUp() async {
     showDialog(
@@ -31,41 +34,6 @@ class _RegisterPageState extends State<RegisterPage> {
       },
     );
 
-    // Wrong email message popup
-    void wrongEmailMessage(String message) {
-      showDialog(
-        context: context,
-        builder: (context) {
-          return AlertDialog(
-            backgroundColor: Colors.red.shade200,
-            title: Text(
-              message,
-              style: const TextStyle(
-                color: Colors.white,
-              ),
-            ),
-          );
-        },
-      );
-    }
-
-    void wrongPasswordMessage(String message) {
-      showDialog(
-        context: context,
-        builder: (context) {
-          return AlertDialog(
-            backgroundColor: Colors.red.shade200,
-            title: Text(
-              message,
-              style: const TextStyle(
-                color: Colors.white,
-              ),
-            ),
-          );
-        },
-      );
-    }
-
     // Register user method
     try {
       if (_passwordController.text == _confirmPasswordController.text) {
@@ -73,18 +41,92 @@ class _RegisterPageState extends State<RegisterPage> {
           email: _emailController.text,
           password: _passwordController.text,
         );
+        // Navigate to the next screen after successful registration
+        Navigator.pop(context); // Dismiss the loading dialog
+        Navigator.pushReplacement(
+          // Replace the current route with the next one
+          context,
+          MaterialPageRoute(
+            builder: (context) => const PetFeeds(),
+          ),
+        );
       } else {
-        wrongPasswordMessage("Password don't match");
+        // Show error message if passwords don't match
+        wrongPasswordMessage("Passwords don't match");
       }
     } on FirebaseAuthException catch (e) {
-      if (e.code == 'user-not-found') {
-        wrongEmailMessage("Wrong or Invalid Email");
-      } else if (e.code == 'wrong-password') {
-        wrongPasswordMessage("Wrong or Invalid Password");
+      // Show error message for Firebase Auth exceptions
+      if (e.code == 'weak-password') {
+        wrongPasswordMessage("The password provided is too weak");
+      } else if (e.code == 'email-already-in-use') {
+        wrongEmailMessage("The account already exists for that email");
       }
+    } catch (e) {
+      // Show generic error message for other exceptions
+      genericErrorMessage();
     }
-    // ignore: use_build_context_synchronously
-    Navigator.pop(context);
+
+    Navigator.pop(context); // Dismiss loading dialog
+  }
+
+  // Method to show wrong email message
+  void wrongEmailMessage(String message) {
+    showDialog(
+      context: context,
+      builder: (context) {
+        return AlertDialog(
+          backgroundColor: Colors.red.shade200,
+          title: Text(
+            message,
+            style: const TextStyle(
+              color: Colors.white,
+            ),
+          ),
+        );
+      },
+    );
+  }
+
+  // Method to show wrong password message
+  void wrongPasswordMessage(String message) {
+    showDialog(
+      context: context,
+      builder: (context) {
+        return AlertDialog(
+          backgroundColor: Colors.red.shade200,
+          title: Text(
+            message,
+            style: const TextStyle(
+              color: Colors.white,
+            ),
+          ),
+        );
+      },
+    );
+  }
+
+  // Method to show generic error message
+  void genericErrorMessage() {
+    showDialog(
+      context: context,
+      builder: (context) {
+        return AlertDialog(
+          backgroundColor: Colors.red.shade200,
+          title: const Text(
+            'Error',
+            style: TextStyle(
+              color: Colors.white,
+            ),
+          ),
+          content: const Text(
+            'An unexpected error occurred. Please try again later.',
+            style: TextStyle(
+              color: Colors.white,
+            ),
+          ),
+        );
+      },
+    );
   }
 
   @override
@@ -126,8 +168,7 @@ class _RegisterPageState extends State<RegisterPage> {
                       color: Colors.grey,
                     ),
                     border: OutlineInputBorder(
-                      borderRadius:
-                          BorderRadius.circular(20), // Add border radius
+                      borderRadius: BorderRadius.circular(20),
                     ),
                     focusedBorder: const OutlineInputBorder(
                       borderSide: BorderSide(
@@ -159,14 +200,14 @@ class _RegisterPageState extends State<RegisterPage> {
                     suffixIcon: IconButton(
                       icon: Icon(
                         color: Colors.black,
-                        _obscureText ? Icons.visibility : Icons.visibility_off,
+                        _obscurePassword
+                            ? Icons.visibility
+                            : Icons.visibility_off,
                       ),
                       onPressed: () {
-                        setState(
-                          () {
-                            _obscureText = !_obscureText;
-                          },
-                        );
+                        setState(() {
+                          _obscurePassword = !_obscurePassword;
+                        });
                       },
                     ),
                     border: OutlineInputBorder(
@@ -186,7 +227,7 @@ class _RegisterPageState extends State<RegisterPage> {
                   style: const TextStyle(
                     color: Colors.black,
                   ),
-                  obscureText: _obscureText,
+                  obscureText: _obscurePassword,
                 ),
               ),
               Container(
@@ -203,14 +244,14 @@ class _RegisterPageState extends State<RegisterPage> {
                     suffixIcon: IconButton(
                       icon: Icon(
                         color: Colors.black,
-                        _obscureText ? Icons.visibility : Icons.visibility_off,
+                        _obscureConfirmPassword
+                            ? Icons.visibility
+                            : Icons.visibility_off,
                       ),
                       onPressed: () {
-                        setState(
-                          () {
-                            _obscureText = !_obscureText;
-                          },
-                        );
+                        setState(() {
+                          _obscureConfirmPassword = !_obscureConfirmPassword;
+                        });
                       },
                     ),
                     border: OutlineInputBorder(
@@ -230,12 +271,11 @@ class _RegisterPageState extends State<RegisterPage> {
                   style: const TextStyle(
                     color: Colors.black,
                   ),
-                  obscureText: _obscureText,
+                  obscureText: _obscureConfirmPassword,
                 ),
               ),
-
               const SizedBox(height: 15),
-              // Login Button
+              // Sign Up Button
               ModifiedButtons(
                 text: 'Sign up',
                 onTap: signUserUp,
@@ -259,8 +299,7 @@ class _RegisterPageState extends State<RegisterPage> {
                       Navigator.push(
                         context,
                         MaterialPageRoute(
-                          builder: (context) =>
-                              const LoginPage(), // Or LoginPage() if in RegisterPage
+                          builder: (context) => const LoginPage(),
                         ),
                       );
                     },
