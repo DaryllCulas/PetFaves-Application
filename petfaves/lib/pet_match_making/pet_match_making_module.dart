@@ -3,13 +3,14 @@ import 'package:carousel_slider/carousel_slider.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 
 class PetMatchMaking extends StatefulWidget {
-  const PetMatchMaking({super.key});
+  const PetMatchMaking({Key? key}) : super(key: key);
 
   @override
   _PetMatchMakingState createState() => _PetMatchMakingState();
 }
 
 class _PetMatchMakingState extends State<PetMatchMaking> {
+  int activeIndex = 0;
   final List<String> _images = [
     'https://as2.ftcdn.net/v2/jpg/01/99/00/79/1000_F_199007925_NolyRdRrdYqUAGdVZV38P4WX8pYfBaRP.jpg',
     'https://as1.ftcdn.net/v2/jpg/04/81/85/46/1000_F_481854656_gHGTnBscKXpFEgVTwAT4DL4NXXNhDKU9.jpg',
@@ -29,21 +30,26 @@ class _PetMatchMakingState extends State<PetMatchMaking> {
               child: Row(
                 children: [
                   PetIconCard(
-                      icon: FontAwesomeIcons.dog,
-                      color: Colors.blue), // Dog icon
+                    icon: FontAwesomeIcons.dog,
+                    color: Colors.blue,
+                  ), // Dog icon
                   PetIconCard(
-                      icon: FontAwesomeIcons.cat,
-                      color: Colors.orange), // Cat icon
+                    icon: FontAwesomeIcons.cat,
+                    color: Colors.orange,
+                  ), // Cat icon
                   PetIconCard(
-                      icon: FontAwesomeIcons.dove,
-                      color: Colors.green), // Bird icon
+                    icon: FontAwesomeIcons.dove,
+                    color: Colors.green,
+                  ), // Bird icon
                   PetIconCard(
-                      icon: FontAwesomeIcons.fish, color: Colors.blueGrey),
-
+                    icon: FontAwesomeIcons.fish,
+                    color: Colors.blueGrey,
+                  ),
                   // Others icon
-
                   PetIconCard(
-                      icon: FontAwesomeIcons.ellipsis, color: Colors.cyan),
+                    icon: FontAwesomeIcons.ellipsis,
+                    color: Colors.cyan,
+                  ),
                 ],
               ),
             ),
@@ -55,34 +61,195 @@ class _PetMatchMakingState extends State<PetMatchMaking> {
             child: Column(
               children: [
                 // Carousel slider
-
-                CarouselSlider(
+                CarouselSlider.builder(
+                  itemCount: _images.length,
                   options: CarouselOptions(
                     enlargeCenterPage: true,
                     enableInfiniteScroll: true,
                     height: 350.0,
+                    onPageChanged: (index, reason) {
+                      setState(() {
+                        activeIndex = index;
+                      });
+                    },
                   ),
-                  items: _images.map((imageUrl) {
-                    return Container(
-                      width: MediaQuery.of(context).size.width,
-                      margin: const EdgeInsets.symmetric(horizontal: 5.0),
-                      decoration: BoxDecoration(
-                        color: Colors.amber,
-                        borderRadius: BorderRadius.circular(10.0),
-                      ),
-                      child: Image.network(
-                        imageUrl,
-                        fit: BoxFit.cover,
+                  itemBuilder: (context, index, realIndex) {
+                    final imageUrl = _images[index];
+                    return GestureDetector(
+                      onTap: () {
+                        // Navigate to the complete details page for the pet
+                        Navigator.push(
+                          context,
+                          MaterialPageRoute(
+                            builder: (context) => PetDetailsPage(
+                              imageUrl: imageUrl,
+                            ),
+                          ),
+                        );
+                      },
+                      child: Container(
+                        width: MediaQuery.of(context).size.width,
+                        margin: const EdgeInsets.symmetric(horizontal: 5.0),
+                        decoration: BoxDecoration(
+                          color: Colors.amber,
+                          borderRadius: BorderRadius.circular(10.0),
+                        ),
+                        child: Image.network(
+                          imageUrl,
+                          fit: BoxFit.cover,
+                        ),
                       ),
                     );
-                  }).toList(),
+                  },
                 ),
                 // Additional widgets or content can be added here
+                Positioned(
+                  bottom: 10.0,
+                  left: 0.0,
+                  right: 0.0,
+                  child: Align(
+                    alignment: Alignment.center,
+                    child: Container(
+                      decoration: BoxDecoration(
+                        borderRadius: BorderRadius.circular(10.0),
+                      ),
+                      padding: const EdgeInsets.all(10.0),
+                      child: Row(
+                        mainAxisAlignment: MainAxisAlignment.center,
+                        children: [
+                          const SizedBox(width: 5.0),
+                          Container(
+                            alignment: Alignment.center,
+                            width: MediaQuery.of(context).size.width * 0.80,
+                            decoration: BoxDecoration(
+                              color: Colors.white,
+                              borderRadius: BorderRadius.circular(10.0),
+                            ),
+                            height: MediaQuery.of(context).size.width * 0.20,
+                            child: GestureDetector(
+                              onTap: () {
+                                Navigator.of(context).push(
+                                  MaterialPageRoute(
+                                    builder: (context) => PetDetailsPage(
+                                      imageUrl: _images[activeIndex],
+                                    ),
+                                  ),
+                                );
+                              },
+                              child: const Column(
+                                mainAxisAlignment: MainAxisAlignment.center,
+                                children: [
+                                  Icon(
+                                    Icons.favorite,
+                                    color: Colors.red,
+                                    size: 25.0,
+                                  ),
+                                  Text(
+                                    'View me',
+                                    style: TextStyle(
+                                      color: Colors.black,
+                                      fontSize: 15.0,
+                                      fontWeight: FontWeight.bold,
+                                    ),
+                                  ),
+                                ],
+                              ),
+                            ),
+                          ),
+                        ],
+                      ),
+                    ),
+                  ),
+                ),
               ],
             ),
           ),
         ),
       ],
+    );
+  }
+}
+
+class PetDetailsPage extends StatelessWidget {
+  final String imageUrl;
+
+  const PetDetailsPage({super.key, required this.imageUrl});
+
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+      appBar: AppBar(
+        title: const Text('Pet Details'),
+      ),
+      body: SingleChildScrollView(
+        child: Column(
+          children: [
+            Center(
+              child: Image.network(imageUrl),
+            ),
+            Row(
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: [
+                ElevatedButton(
+                  onPressed: () {},
+                  style: ElevatedButton.styleFrom(
+                    elevation: 4.0, // <-- Add shadow effect
+                    shape: const RoundedRectangleBorder(
+                      borderRadius: BorderRadius.all(Radius.circular(10)),
+                    ),
+                  ),
+                  child: const Row(
+                    children: [
+                      Icon(
+                        Icons.favorite,
+                        color: Colors.red,
+                        size: 30.0,
+                      ),
+                      SizedBox(width: 5),
+                      Text(
+                        'Adopt me',
+                        style: TextStyle(
+                          color: Colors.white,
+                          fontSize: 15.0,
+                          fontWeight: FontWeight.bold,
+                        ),
+                      ),
+                    ],
+                  ),
+                ),
+                const SizedBox(width: 10),
+                ElevatedButton(
+                  onPressed: () {},
+                  style: ElevatedButton.styleFrom(
+                    elevation: 4.0, // <-- Add shadow effect
+                    shape: const RoundedRectangleBorder(
+                      borderRadius: BorderRadius.all(Radius.circular(10)),
+                    ),
+                  ),
+                  child: const Row(
+                    children: [
+                      Icon(
+                        Icons.chat,
+                        color: Colors.blue,
+                        size: 30.0,
+                      ),
+                      SizedBox(width: 5),
+                      Text(
+                        'Message me',
+                        style: TextStyle(
+                          color: Colors.white,
+                          fontSize: 15.0,
+                          fontWeight: FontWeight.bold,
+                        ),
+                      ),
+                    ],
+                  ),
+                ),
+              ],
+            ),
+          ],
+        ),
+      ),
     );
   }
 }
