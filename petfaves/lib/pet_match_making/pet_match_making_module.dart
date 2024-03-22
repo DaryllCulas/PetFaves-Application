@@ -76,30 +76,43 @@ class _PetMatchMakingState extends State<PetMatchMaking> {
                   itemBuilder: (context, index, realIndex) {
                     final imageUrl = _images[index];
                     return GestureDetector(
-                      onTap: () {
-                        // Navigate to the complete details page for the pet
-                        Navigator.push(
-                          context,
-                          MaterialPageRoute(
-                            builder: (context) => PetDetailsPage(
-                              imageUrl: imageUrl,
+                        onTap: () {
+                          // Navigate to the complete details page for the pet
+                          Navigator.push(
+                            context,
+                            MaterialPageRoute(
+                              builder: (context) => PetDetailsPage(
+                                imageUrl: imageUrl,
+                              ),
+                            ),
+                          );
+                        },
+                        child: Container(
+                          width: MediaQuery.of(context).size.width,
+                          margin: const EdgeInsets.symmetric(horizontal: 5.0),
+                          decoration: BoxDecoration(
+                            color: Colors.amber,
+                            borderRadius: BorderRadius.circular(10.0),
+                          ),
+                          child: Container(
+                            decoration: BoxDecoration(
+                              color: Colors.amber,
+                              borderRadius: BorderRadius.circular(10.0),
+                              boxShadow: [
+                                BoxShadow(
+                                  color: Colors.black.withOpacity(0.2),
+                                  spreadRadius: 2,
+                                  blurRadius: 7,
+                                  offset: const Offset(0, 3),
+                                )
+                              ],
+                            ),
+                            child: Image.network(
+                              imageUrl,
+                              fit: BoxFit.cover,
                             ),
                           ),
-                        );
-                      },
-                      child: Container(
-                        width: MediaQuery.of(context).size.width,
-                        margin: const EdgeInsets.symmetric(horizontal: 5.0),
-                        decoration: BoxDecoration(
-                          color: Colors.amber,
-                          borderRadius: BorderRadius.circular(10.0),
-                        ),
-                        child: Image.network(
-                          imageUrl,
-                          fit: BoxFit.cover,
-                        ),
-                      ),
-                    );
+                        ));
                   },
                 ),
                 // Additional widgets or content can be added here
@@ -122,9 +135,15 @@ class _PetMatchMakingState extends State<PetMatchMaking> {
                             alignment: Alignment.center,
                             width: MediaQuery.of(context).size.width * 0.80,
                             decoration: BoxDecoration(
-                              color: Colors.white,
-                              borderRadius: BorderRadius.circular(10.0),
-                            ),
+                                color: const Color.fromARGB(255, 255, 250, 250),
+                                borderRadius: BorderRadius.circular(10.0),
+                                boxShadow: const [
+                                  BoxShadow(
+                                    color: Colors.black12,
+                                    blurRadius: 5.0,
+                                    offset: Offset(0, 5),
+                                  ),
+                                ]),
                             height: MediaQuery.of(context).size.width * 0.20,
                             child: GestureDetector(
                               onTap: () {
@@ -187,6 +206,7 @@ class PetDetailsPage extends StatelessWidget {
             Center(
               child: Image.network(imageUrl),
             ),
+            const SizedBox(height: 20),
             Row(
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
