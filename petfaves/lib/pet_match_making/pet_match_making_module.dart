@@ -3,7 +3,7 @@ import 'package:carousel_slider/carousel_slider.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 
 class PetMatchMaking extends StatefulWidget {
-  const PetMatchMaking({Key? key}) : super(key: key);
+  const PetMatchMaking({super.key});
 
   @override
   _PetMatchMakingState createState() => _PetMatchMakingState();
