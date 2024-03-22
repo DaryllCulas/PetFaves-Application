@@ -1,7 +1,7 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:google_sign_in/google_sign_in.dart';
-import 'package:flutter_facebook_auth/flutter_facebook_auth.dart';
+// import 'package:flutter_facebook_auth/flutter_facebook_auth.dart';
 import 'package:petfaves/login_auth/modified_buttons.dart';
 import 'package:petfaves/login_auth/sign_in_square_tile.dart';
 
@@ -59,16 +59,16 @@ class _LoginPageState extends State<LoginPage> {
     }
   }
 
-  Future<void> _handleFacebookSignIn() async {
-    try {
-      final LoginResult result = await FacebookAuth.instance.login();
-      if (result.status == LoginStatus.success) {
-        // Handle Facebook sign-in success
-      }
-    } catch (error) {
-      // Handle Facebook sign-in error
-    }
-  }
+  // Future<void> _handleFacebookSignIn() async {
+  //   try {
+  //     final LoginResult result = await FacebookAuth.instance.login();
+  //     if (result.status == LoginStatus.success) {
+  //       // Handle Facebook sign-in success
+  //     }
+  //   } catch (error) {
+  //     // Handle Facebook sign-in error
+  //   }
+  // }
 
   void signUserIn() async {
     showDialog(
@@ -83,9 +83,9 @@ class _LoginPageState extends State<LoginPage> {
       await FirebaseAuth.instance.signInWithEmailAndPassword(
           email: _emailController.text, password: _passwordController.text);
       // Navigate to the next screen if login is successful
-      Navigator.pushReplacement(
+      Navigator.push(
         context,
-        MaterialPageRoute(builder: (context) => PetFeeds()),
+        MaterialPageRoute(builder: (context) => const PetFeeds()),
       );
     } on FirebaseAuthException catch (e) {
       Navigator.pop(context); // Dismiss loading dialog
