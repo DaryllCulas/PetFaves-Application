@@ -19,7 +19,7 @@ class _AuthPageState extends State<AuthPage> {
         builder: (context, snapshot) {
           // user is logged in
           if (snapshot.hasData) {
-            return PetFeeds();
+            return const PetFeeds();
           } else {
             return const LoginOrRegisterUser();
           }
