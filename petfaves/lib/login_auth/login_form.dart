@@ -1,8 +1,9 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:google_sign_in/google_sign_in.dart';
-// import 'package:flutter_facebook_auth/flutter_facebook_auth.dart';
-import 'package:petfaves/login_auth/modified_buttons.dart';
+import 'package:flutter_facebook_auth/flutter_facebook_auth.dart';
+import 'package:petfaves/components/modified_buttons.dart';
 import 'package:petfaves/login_auth/sign_in_square_tile.dart';
 
 import 'package:petfaves/homepage/petfeeds.dart';
@@ -41,11 +42,29 @@ class _LoginPageState extends State<LoginPage> {
         );
 
         // Sign in with the credential
-        await FirebaseAuth.instance.signInWithCredential(credential);
+        final UserCredential userCredential =
+            await FirebaseAuth.instance.signInWithCredential(credential);
+
+        // Get reference to the Firestore collection
+        final CollectionReference users =
+            FirebaseFirestore.instance.collection('users');
+
+        // Check if the user exists in Firestore
+        final DocumentSnapshot userSnapshot =
+            await users.doc(userCredential.user!.uid).get();
+
+        if (!userSnapshot.exists) {
+          // If the user does not exist, add their data to Firestore
+          await users.doc(userCredential.user!.uid).set({
+            'email': userCredential.user!.email,
+            'password': userCredential.user!.uid,
+            'role': 'user'
+            // Add other user data here if needed
+          });
+        }
 
         // Navigate to the next screen if login is successful
         Navigator.push(
-          // ignore: use_build_context_synchronously
           context,
           MaterialPageRoute(
             builder: (context) => const PetFeeds(),
@@ -59,16 +78,16 @@ class _LoginPageState extends State<LoginPage> {
     }
   }
 
-  // Future<void> _handleFacebookSignIn() async {
-  //   try {
-  //     final LoginResult result = await FacebookAuth.instance.login();
-  //     if (result.status == LoginStatus.success) {
-  //       // Handle Facebook sign-in success
-  //     }
-  //   } catch (error) {
-  //     // Handle Facebook sign-in error
-  //   }
-  // }
+  Future<void> _handleFacebookSignIn() async {
+    try {
+      final LoginResult result = await FacebookAuth.instance.login();
+      if (result.status == LoginStatus.success) {
+        // Handle Facebook sign-in success
+      }
+    } catch (error) {
+      // Handle Facebook sign-in error
+    }
+  }
 
   void signUserIn() async {
     showDialog(
@@ -82,10 +101,19 @@ class _LoginPageState extends State<LoginPage> {
     try {
       await FirebaseAuth.instance.signInWithEmailAndPassword(
           email: _emailController.text, password: _passwordController.text);
+
+      await FirebaseFirestore.instance
+          .collection('users')
+          .doc(_emailController.text)
+          .set({
+        'email': _emailController.text,
+        'password': _passwordController.text,
+      });
+
       // Navigate to the next screen if login is successful
-      Navigator.push(
+      Navigator.pushReplacement(
         context,
-        MaterialPageRoute(builder: (context) => const PetFeeds()),
+        MaterialPageRoute(builder: (context) => PetFeeds()),
       );
     } on FirebaseAuthException catch (e) {
       Navigator.pop(context); // Dismiss loading dialog
