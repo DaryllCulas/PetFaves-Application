@@ -5,7 +5,7 @@ import 'package:petfaves/login_auth/login_form.dart';
 import 'package:petfaves/components/modified_buttons.dart';
 
 class RegisterPage extends StatefulWidget {
-  const RegisterPage({Key? key}) : super(key: key);
+  const RegisterPage({super.key});
 
   @override
   _RegisterPageState createState() => _RegisterPageState();
@@ -50,7 +50,7 @@ class _RegisterPageState extends State<RegisterPage> {
           Navigator.pushReplacement(
             context,
             MaterialPageRoute(
-              builder: (context) => LoginPage(
+              builder: (context) => const LoginPage(
                   // Pass registered email
                   ),
             ),

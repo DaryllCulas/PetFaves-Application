@@ -4,9 +4,8 @@ import 'package:flutter/material.dart';
 import 'package:google_sign_in/google_sign_in.dart';
 import 'package:flutter_facebook_auth/flutter_facebook_auth.dart';
 import 'package:petfaves/components/modified_buttons.dart';
-import 'package:petfaves/login_auth/sign_in_square_tile.dart';
-
 import 'package:petfaves/homepage/petfeeds.dart';
+import 'package:petfaves/login_auth/sign_in_square_tile.dart';
 import 'package:petfaves/register_auth/register_form.dart';
 
 class LoginPage extends StatefulWidget {
@@ -113,7 +112,7 @@ class _LoginPageState extends State<LoginPage> {
       // Navigate to the next screen if login is successful
       Navigator.pushReplacement(
         context,
-        MaterialPageRoute(builder: (context) => PetFeeds()),
+        MaterialPageRoute(builder: (context) => const PetFeeds()),
       );
     } on FirebaseAuthException catch (e) {
       Navigator.pop(context); // Dismiss loading dialog
@@ -132,6 +131,14 @@ class _LoginPageState extends State<LoginPage> {
       debugPrint("Unexpected error occurred: $e");
       genericErrorMessage();
     }
+  }
+
+  @override
+  void dispose() {
+    // Dispose of your controllers here
+    _emailController.dispose();
+    _passwordController.dispose();
+    super.dispose();
   }
 
   @override

@@ -6,7 +6,7 @@ import 'package:petfaves/register_auth/login_or_register.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 
 class AuthPage extends StatefulWidget {
-  const AuthPage({Key? key});
+  const AuthPage({super.key});
 
   @override
   State<AuthPage> createState() => _AuthPageState();
@@ -36,12 +36,12 @@ class _AuthPageState extends State<AuthPage> {
   Future<void> authorizeAccess(BuildContext context) async {
     final user = FirebaseAuth.instance.currentUser;
     if (user == null) {
-      return;
+      return Future.error('User not authenticated');
     }
 
     try {
       final querySnapshot = await FirebaseFirestore.instance
-          .collection('admin')
+          .collection('/admin')
           .doc('nwCQ1OBofuMzBMSxj5Ha') // Use the document ID here
           .get();
 
@@ -53,9 +53,9 @@ class _AuthPageState extends State<AuthPage> {
         if (isAdmin) {
           Navigator.pushReplacement(
             context,
-            MaterialPageRoute(builder: (context) => AdminDashboard()),
+            MaterialPageRoute(builder: (context) => const AdminDashboard()),
           );
-          return;
+          return Future.value();
         }
       }
 
