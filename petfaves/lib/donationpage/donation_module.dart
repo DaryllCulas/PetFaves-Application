@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:petfaves/login_auth/modified_buttons.dart';
+import 'package:petfaves/components/modified_buttons.dart';
 
 class DonationScreen extends StatefulWidget {
   const DonationScreen({super.key});
