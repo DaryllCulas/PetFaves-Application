@@ -2,25 +2,21 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:petfaves/login_auth/login_form.dart';
-
 import 'package:petfaves/components/modified_buttons.dart';
 
 class RegisterPage extends StatefulWidget {
-  const RegisterPage({
-    super.key,
-  });
+  const RegisterPage({Key? key}) : super(key: key);
 
   @override
   _RegisterPageState createState() => _RegisterPageState();
 }
 
 class _RegisterPageState extends State<RegisterPage> {
-  // final GoogleSignIn _googleSignIn = GoogleSignIn();
   final TextEditingController _emailController = TextEditingController();
   final TextEditingController _passwordController = TextEditingController();
   final TextEditingController _confirmPasswordController =
       TextEditingController();
-  bool _obscureText = true; // Variable to toggle password visibility
+  bool _obscureText = true;
 
   void signUserUp() async {
     showDialog(
@@ -34,38 +30,45 @@ class _RegisterPageState extends State<RegisterPage> {
 
     try {
       if (_passwordController.text == _confirmPasswordController.text) {
-        // Register user with email and password
-        await FirebaseAuth.instance.createUserWithEmailAndPassword(
+        final userCredential =
+            await FirebaseAuth.instance.createUserWithEmailAndPassword(
           email: _emailController.text,
           password: _passwordController.text,
         );
 
-        // Get reference to the Firestore collection
-        final CollectionReference users =
-            FirebaseFirestore.instance.collection('users');
+        final userId = userCredential.user?.uid;
 
-        // Add user data to Firestore
-        await users.doc(FirebaseAuth.instance.currentUser!.uid).set({
-          'email': _emailController.text,
-          // Add other user data here if needed
-        });
+        if (userId != null) {
+          final CollectionReference users =
+              FirebaseFirestore.instance.collection('users');
 
-        // Navigate to login screen after successful registration
-        Navigator.pop(context); // Dismiss loading dialog
-        Navigator.push(
-          context,
-          MaterialPageRoute(
-            builder: (context) => const LoginPage(),
-          ),
-        );
+          await users.doc(userId).set({
+            'email': _emailController.text,
+          });
+
+          Navigator.pop(context);
+          Navigator.pushReplacement(
+            context,
+            MaterialPageRoute(
+              builder: (context) => LoginPage(
+                  // Pass registered email
+                  ),
+            ),
+          );
+        } else {
+          throw FirebaseAuthException(
+              code: 'user-id-null',
+              message: 'User ID is null after registration');
+        }
       } else {
         wrongPasswordMessage("Passwords don't match");
       }
     } on FirebaseAuthException catch (e) {
-      if (e.code == 'user-not-found') {
-        wrongEmailMessage("Wrong or Invalid Email");
-      } else if (e.code == 'wrong-password') {
-        wrongPasswordMessage("Wrong or Invalid Password");
+      if (e.code == 'email-already-in-use') {
+        wrongEmailMessage("Email already in use");
+      } else {
+        debugPrint("FirebaseAuthException: ${e.code} - ${e.message}");
+        genericErrorMessage();
       }
     } catch (e) {
       debugPrint("Unexpected error occurred: $e");
@@ -86,150 +89,39 @@ class _RegisterPageState extends State<RegisterPage> {
               Center(
                 child: Image.asset(
                   'assets/LOGO PETFAVES.png',
-                  width: 600, // Adjust width as needed
-                  height: 200, // Adjust height as needed
+                  width: 600,
+                  height: 200,
                 ),
               ),
               const SizedBox(height: 10.0),
-              // let's create an account for you!
               const Text(
-                'let\'s create an account for you!',
+                'Let\'s create an account for you!',
                 style: TextStyle(
                   color: Colors.grey,
                   fontSize: 16,
                 ),
               ),
               const SizedBox(height: 20.0),
-              Container(
-                margin: const EdgeInsets.symmetric(vertical: 10.0),
-                height: 40.0, // Set a fixed height for the TextFormField
-                child: TextFormField(
-                  controller: _emailController,
-                  cursorColor: Colors.black,
-                  decoration: InputDecoration(
-                    labelText: 'Email',
-                    labelStyle: const TextStyle(
-                      color: Colors.grey,
-                    ),
-                    border: OutlineInputBorder(
-                      borderRadius:
-                          BorderRadius.circular(20), // Add border radius
-                    ),
-                    focusedBorder: const OutlineInputBorder(
-                      borderSide: BorderSide(
-                        color: Colors.black,
-                      ),
-                    ),
-                    fillColor: Colors.white70,
-                    filled: true,
-                    hintStyle: const TextStyle(
-                      color: Colors.black,
-                    ),
-                  ),
-                  style: const TextStyle(
-                    color: Colors.black,
-                  ),
-                ),
+              buildTextField(
+                controller: _emailController,
+                labelText: 'Email',
               ),
-              Container(
-                margin: const EdgeInsets.symmetric(vertical: 10.0),
-                height: 50.0,
-                child: TextFormField(
-                  cursorColor: Colors.black,
-                  controller: _passwordController,
-                  decoration: InputDecoration(
-                    labelText: 'Password',
-                    labelStyle: const TextStyle(
-                      color: Colors.grey,
-                    ),
-                    suffixIcon: IconButton(
-                      icon: Icon(
-                        color: Colors.black,
-                        _obscureText ? Icons.visibility : Icons.visibility_off,
-                      ),
-                      onPressed: () {
-                        setState(
-                          () {
-                            _obscureText = !_obscureText;
-                          },
-                        );
-                      },
-                    ),
-                    border: OutlineInputBorder(
-                      borderRadius: BorderRadius.circular(20),
-                    ),
-                    focusedBorder: const OutlineInputBorder(
-                      borderSide: BorderSide(
-                        color: Colors.black,
-                      ),
-                    ),
-                    fillColor: Colors.white70,
-                    filled: true,
-                    hintStyle: const TextStyle(
-                      color: Colors.black,
-                    ),
-                  ),
-                  style: const TextStyle(
-                    color: Colors.black,
-                  ),
-                  obscureText: _obscureText,
-                ),
+              buildTextField(
+                controller: _passwordController,
+                labelText: 'Password',
+                isPassword: true,
               ),
-              Container(
-                margin: const EdgeInsets.symmetric(vertical: 10.0),
-                height: 50.0,
-                child: TextFormField(
-                  cursorColor: Colors.black,
-                  controller: _confirmPasswordController,
-                  decoration: InputDecoration(
-                    labelText: 'Confirm Password',
-                    labelStyle: const TextStyle(
-                      color: Colors.grey,
-                    ),
-                    suffixIcon: IconButton(
-                      icon: Icon(
-                        color: Colors.black,
-                        _obscureText ? Icons.visibility : Icons.visibility_off,
-                      ),
-                      onPressed: () {
-                        setState(
-                          () {
-                            _obscureText = !_obscureText;
-                          },
-                        );
-                      },
-                    ),
-                    border: OutlineInputBorder(
-                      borderRadius: BorderRadius.circular(20),
-                    ),
-                    focusedBorder: const OutlineInputBorder(
-                      borderSide: BorderSide(
-                        color: Colors.black,
-                      ),
-                    ),
-                    fillColor: Colors.white70,
-                    filled: true,
-                    hintStyle: const TextStyle(
-                      color: Colors.black,
-                    ),
-                  ),
-                  style: const TextStyle(
-                    color: Colors.black,
-                  ),
-                  obscureText: _obscureText,
-                ),
+              buildTextField(
+                controller: _confirmPasswordController,
+                labelText: 'Confirm Password',
+                isPassword: true,
               ),
-
               const SizedBox(height: 15),
-              // Login Button
               ModifiedButtons(
                 text: 'Sign up',
                 onTap: signUserUp,
               ),
               const SizedBox(height: 30),
-
-              const SizedBox(height: 30.0),
-
               const SizedBox(height: 20),
               Row(
                 mainAxisAlignment: MainAxisAlignment.center,
@@ -245,8 +137,7 @@ class _RegisterPageState extends State<RegisterPage> {
                       Navigator.push(
                         context,
                         MaterialPageRoute(
-                          builder: (context) =>
-                              const LoginPage(), // Or LoginPage() if in RegisterPage
+                          builder: (context) => const LoginPage(),
                         ),
                       );
                     },
@@ -261,6 +152,57 @@ class _RegisterPageState extends State<RegisterPage> {
               ),
             ],
           ),
+        ),
+      ),
+    );
+  }
+
+  Widget buildTextField({
+    required TextEditingController controller,
+    required String labelText,
+    bool isPassword = false,
+  }) {
+    return Container(
+      margin: const EdgeInsets.symmetric(vertical: 10.0),
+      height: 50.0,
+      child: TextFormField(
+        controller: controller,
+        cursorColor: Colors.black,
+        obscureText: isPassword ? _obscureText : false,
+        decoration: InputDecoration(
+          labelText: labelText,
+          labelStyle: const TextStyle(
+            color: Colors.grey,
+          ),
+          suffixIcon: isPassword
+              ? IconButton(
+                  icon: Icon(
+                    _obscureText ? Icons.visibility : Icons.visibility_off,
+                    color: Colors.black,
+                  ),
+                  onPressed: () {
+                    setState(() {
+                      _obscureText = !_obscureText;
+                    });
+                  },
+                )
+              : null,
+          border: OutlineInputBorder(
+            borderRadius: BorderRadius.circular(20),
+          ),
+          focusedBorder: const OutlineInputBorder(
+            borderSide: BorderSide(
+              color: Colors.black,
+            ),
+          ),
+          fillColor: Colors.white70,
+          filled: true,
+          hintStyle: const TextStyle(
+            color: Colors.black,
+          ),
+        ),
+        style: const TextStyle(
+          color: Colors.black,
         ),
       ),
     );
@@ -283,7 +225,6 @@ class _RegisterPageState extends State<RegisterPage> {
     );
   }
 
-  // Wrong email message popup
   void wrongEmailMessage(String message) {
     showDialog(
       context: context,
