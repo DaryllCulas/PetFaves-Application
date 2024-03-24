@@ -1,5 +1,6 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
+import 'package:petfaves/admin/admin_dashboard.dart';
 import 'package:petfaves/donationpage/donation_module.dart';
 import 'package:petfaves/homepage/homescreen.dart';
 import 'package:petfaves/login_auth/login_form.dart';
@@ -111,7 +112,11 @@ class _PetFeedsState extends State<PetFeeds> {
               leading: const Icon(Icons.settings),
               title: const Text('Account Settings'),
               onTap: () {
-                Navigator.pop(context);
+                Navigator.of(context).push(
+                  MaterialPageRoute(
+                    builder: (context) => AdminDashboard(),
+                  ),
+                );
               },
             ),
             ListTile(
