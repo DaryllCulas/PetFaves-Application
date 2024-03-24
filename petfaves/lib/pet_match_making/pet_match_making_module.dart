@@ -107,9 +107,12 @@ class _PetMatchMakingState extends State<PetMatchMaking> {
                                 )
                               ],
                             ),
-                            child: Image.network(
-                              imageUrl,
-                              fit: BoxFit.cover,
+                            child: ClipRRect(
+                              borderRadius: BorderRadius.circular(10.0),
+                              child: Image.network(
+                                imageUrl,
+                                fit: BoxFit.cover,
+                              ),
                             ),
                           ),
                         ));
