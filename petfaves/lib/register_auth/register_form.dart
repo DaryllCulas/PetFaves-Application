@@ -5,7 +5,7 @@ import 'package:petfaves/login_auth/login_form.dart';
 import 'package:petfaves/components/modified_buttons.dart';
 
 class RegisterPage extends StatefulWidget {
-  const RegisterPage({super.key});
+  const RegisterPage({Key? key}) : super(key: key);
 
   @override
   _RegisterPageState createState() => _RegisterPageState();
@@ -17,6 +17,8 @@ class _RegisterPageState extends State<RegisterPage> {
   final TextEditingController _confirmPasswordController =
       TextEditingController();
   bool _obscureText = true;
+
+// TODO: Modify this function that can automatically stored the data in both firebase authentication and cloud firestore
 
   void signUserUp() async {
     showDialog(
@@ -42,17 +44,17 @@ class _RegisterPageState extends State<RegisterPage> {
           final CollectionReference users =
               FirebaseFirestore.instance.collection('users');
 
+          // Store additional user data in Firestore
           await users.doc(userId).set({
             'email': _emailController.text,
+            // Add more user data if needed
           });
 
           Navigator.pop(context);
           Navigator.pushReplacement(
             context,
             MaterialPageRoute(
-              builder: (context) => const LoginPage(
-                  // Pass registered email
-                  ),
+              builder: (context) => const LoginPage(),
             ),
           );
         } else {
@@ -204,6 +206,16 @@ class _RegisterPageState extends State<RegisterPage> {
         style: const TextStyle(
           color: Colors.black,
         ),
+        validator: (value) {
+          if (value == null || value.isEmpty) {
+            return 'Please enter an email';
+          }
+          // Check if email is valid
+          if (!RegExp(r'^[\w-\.]+@([\w-]+\.)+[\w-]{2,4}$').hasMatch(value)) {
+            return 'Please enter a valid email';
+          }
+          return null;
+        },
       ),
     );
   }
