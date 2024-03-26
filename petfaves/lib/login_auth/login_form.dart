@@ -1,20 +1,17 @@
-import 'package:cloud_firestore/cloud_firestore.dart';
-import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:google_sign_in/google_sign_in.dart';
 import 'package:flutter_facebook_auth/flutter_facebook_auth.dart';
 import 'package:petfaves/components/modified_buttons.dart';
-import 'package:petfaves/homepage/petfeeds.dart';
 import 'package:petfaves/login_auth/sign_in_square_tile.dart';
+import 'package:petfaves/homepage/petfeeds.dart';
 import 'package:petfaves/register_auth/register_form.dart';
+import 'package:firebase_auth/firebase_auth.dart';
+import 'package:cloud_firestore/cloud_firestore.dart';
 
 class LoginPage extends StatefulWidget {
-  const LoginPage({
-    super.key,
-  });
+  const LoginPage({Key? key}) : super(key: key);
 
   @override
-  // ignore: library_private_types_in_public_api
   _LoginPageState createState() => _LoginPageState();
 }
 
@@ -22,47 +19,37 @@ class _LoginPageState extends State<LoginPage> {
   final GoogleSignIn _googleSignIn = GoogleSignIn();
   final TextEditingController _emailController = TextEditingController();
   final TextEditingController _passwordController = TextEditingController();
-  bool _obscureText = true; // Variable to toggle password visibility
+  bool _obscureText = true;
+
+  @override
+  void dispose() {
+    _emailController.dispose();
+    _passwordController.dispose();
+    super.dispose();
+  }
 
   Future<void> _handleGoogleSignIn() async {
     try {
-      // Trigger the authentication flow
       final GoogleSignInAccount? googleUser = await _googleSignIn.signIn();
       if (googleUser != null) {
-        // Obtain the auth details from the request
-        // ignore: unnecessary_nullable_for_final_variable_declarations
         final GoogleSignInAuthentication? googleAuth =
             await googleUser.authentication;
-
-        // Create a new credential
         final credential = GoogleAuthProvider.credential(
           accessToken: googleAuth?.accessToken,
           idToken: googleAuth?.idToken,
         );
-
-        // Sign in with the credential
         final UserCredential userCredential =
             await FirebaseAuth.instance.signInWithCredential(credential);
-
-        // Get reference to the Firestore collection
         final CollectionReference users =
             FirebaseFirestore.instance.collection('users');
-
-        // Check if the user exists in Firestore
         final DocumentSnapshot userSnapshot =
             await users.doc(userCredential.user!.uid).get();
-
         if (!userSnapshot.exists) {
-          // If the user does not exist, add their data to Firestore
           await users.doc(userCredential.user!.uid).set({
             'email': userCredential.user!.email,
             'password': userCredential.user!.uid,
-            'role': 'user'
-            // Add other user data here if needed
           });
         }
-
-        // Navigate to the next screen if login is successful
         Navigator.push(
           context,
           MaterialPageRoute(
@@ -71,9 +58,7 @@ class _LoginPageState extends State<LoginPage> {
         );
       }
     } catch (error) {
-      // Handle sign-in error
       debugPrint("Error signing in with Google: $error");
-      // Optionally, you can show a snackbar or dialog to inform the user about the error
     }
   }
 
@@ -99,8 +84,9 @@ class _LoginPageState extends State<LoginPage> {
     );
     try {
       await FirebaseAuth.instance.signInWithEmailAndPassword(
-          email: _emailController.text, password: _passwordController.text);
-
+        email: _emailController.text,
+        password: _passwordController.text,
+      );
       await FirebaseFirestore.instance
           .collection('users')
           .doc(_emailController.text)
@@ -108,15 +94,12 @@ class _LoginPageState extends State<LoginPage> {
         'email': _emailController.text,
         'password': _passwordController.text,
       });
-
-      // Navigate to the next screen if login is successful
       Navigator.pushReplacement(
         context,
         MaterialPageRoute(builder: (context) => const PetFeeds()),
       );
     } on FirebaseAuthException catch (e) {
-      Navigator.pop(context); // Dismiss loading dialog
-
+      Navigator.pop(context);
       if (e.code == 'user-not-found') {
         debugPrint("User not found");
         wrongEmailMessage();
@@ -134,14 +117,6 @@ class _LoginPageState extends State<LoginPage> {
   }
 
   @override
-  void dispose() {
-    // Dispose of your controllers here
-    _emailController.dispose();
-    _passwordController.dispose();
-    super.dispose();
-  }
-
-  @override
   Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: Colors.grey.shade300,
@@ -154,13 +129,13 @@ class _LoginPageState extends State<LoginPage> {
               Center(
                 child: Image.asset(
                   'assets/LOGO PETFAVES.png',
-                  width: 600, // Adjust width as needed
-                  height: 300, // Adjust height as needed
+                  width: 600,
+                  height: 300,
                 ),
               ),
               Container(
                 margin: const EdgeInsets.symmetric(vertical: 10.0),
-                height: 50.0, // Set a fixed height for the TextFormField
+                height: 50.0,
                 child: TextFormField(
                   controller: _emailController,
                   cursorColor: Colors.black,
@@ -170,8 +145,7 @@ class _LoginPageState extends State<LoginPage> {
                       color: Colors.grey,
                     ),
                     border: OutlineInputBorder(
-                      borderRadius:
-                          BorderRadius.circular(20), // Add border radius
+                      borderRadius: BorderRadius.circular(20),
                     ),
                     focusedBorder: const OutlineInputBorder(
                       borderSide: BorderSide(
