@@ -1,7 +1,6 @@
 import 'dart:async';
 import 'package:flutter/material.dart';
 import 'package:firebase_core/firebase_core.dart';
-// import 'package:petfaves/admin/admin_dashboard.dart';
 import 'package:petfaves/login_auth/login_user_auth.dart';
 import 'firebase_options.dart';
 
@@ -11,15 +10,9 @@ Future<void> main() async {
   runApp(const MyApp());
 }
 
-class MyApp extends StatefulWidget {
-  final Function()? onTap;
-  const MyApp({super.key, this.onTap});
+class MyApp extends StatelessWidget {
+  const MyApp({Key? key}) : super(key: key);
 
-  @override
-  State<MyApp> createState() => _MyAppState();
-}
-
-class _MyAppState extends State<MyApp> {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
@@ -28,7 +21,6 @@ class _MyAppState extends State<MyApp> {
       ),
       debugShowCheckedModeBanner: false,
       home: const AuthPage(),
-      // home: const AdminPanel(),
     );
   }
 }
