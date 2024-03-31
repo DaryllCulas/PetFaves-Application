@@ -1,6 +1,7 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
-import 'package:petfaves/admin/admin_dashboard.dart';
+
+import 'package:petfaves/adminDashboard/admin_dashboard.dart';
 import 'package:petfaves/donationpage/donation_module.dart';
 import 'package:petfaves/homepage/homescreen.dart';
 import 'package:petfaves/login_auth/login_form.dart';
