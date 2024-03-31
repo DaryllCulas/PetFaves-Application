@@ -1,13 +1,17 @@
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
+import 'package:petfaves/login_auth/login_form.dart';
 
 class AdminDashboard extends StatefulWidget {
-  const AdminDashboard({super.key});
+  const AdminDashboard({Key? key}) : super(key: key);
 
   @override
   State<AdminDashboard> createState() => _AdminDashboardState();
 }
 
 class _AdminDashboardState extends State<AdminDashboard> {
+  User? user;
+
   int _selectedIndex = 0;
   static const List<Widget> _screens = <Widget>[
     HomeScreen(),
@@ -23,6 +27,9 @@ class _AdminDashboardState extends State<AdminDashboard> {
 
   @override
   Widget build(BuildContext context) {
+    // Access currentUser during build method
+    user = FirebaseAuth.instance.currentUser;
+
     return Scaffold(
       backgroundColor: const Color.fromARGB(255, 185, 180, 180),
       appBar: AppBar(
@@ -35,6 +42,7 @@ class _AdminDashboardState extends State<AdminDashboard> {
         iconTheme: const IconThemeData(
           color: Colors.black,
         ),
+        automaticallyImplyLeading: false, // This line removes the leading arrow
       ),
       body: _screens[_selectedIndex],
       bottomNavigationBar: BottomNavigationBar(
@@ -60,26 +68,28 @@ class _AdminDashboardState extends State<AdminDashboard> {
         child: ListView(
           padding: EdgeInsets.zero,
           children: <Widget>[
-            const DrawerHeader(
-              decoration: BoxDecoration(
+            DrawerHeader(
+              decoration: const BoxDecoration(
                 color: Colors.blue,
               ),
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
-                  CircleAvatar(
-                    radius: 40.0,
-                    backgroundImage:
-                        NetworkImage('https://picsum.photos/200/300'),
-                  ),
-                  SizedBox(height: 15.0),
-                  Text(
-                    'Admin User name',
-                    style: TextStyle(
-                      color: Color.fromARGB(255, 0, 0, 0),
-                      fontSize: 18.0,
+                  if (user != null) ...[
+                    const CircleAvatar(
+                      radius: 40.0,
+                      backgroundImage:
+                          NetworkImage('https://picsum.photos/200/300'),
                     ),
-                  ),
+                    const SizedBox(height: 15.0),
+                    Text(
+                      user!.email!,
+                      style: const TextStyle(
+                        color: Color.fromARGB(255, 0, 0, 0),
+                        fontSize: 18.0,
+                      ),
+                    ),
+                  ],
                 ],
               ),
             ),
@@ -130,6 +140,12 @@ class _AdminDashboardState extends State<AdminDashboard> {
               title: const Text('Logout'),
               onTap: () {
                 // Perform logout operation
+                Navigator.of(context).push(
+                  MaterialPageRoute(
+                    builder: (context) => const LoginPage(),
+                  ),
+                );
+                FirebaseAuth.instance.signOut();
               },
             ),
           ],
@@ -140,7 +156,7 @@ class _AdminDashboardState extends State<AdminDashboard> {
 }
 
 class HomeScreen extends StatelessWidget {
-  const HomeScreen({super.key});
+  const HomeScreen({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -154,7 +170,7 @@ class HomeScreen extends StatelessWidget {
 }
 
 class MessagesScreen extends StatelessWidget {
-  const MessagesScreen({super.key});
+  const MessagesScreen({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -168,7 +184,7 @@ class MessagesScreen extends StatelessWidget {
 }
 
 class SettingsScreen extends StatelessWidget {
-  const SettingsScreen({super.key});
+  const SettingsScreen({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
