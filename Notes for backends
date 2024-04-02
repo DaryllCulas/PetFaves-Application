@@ -1,0 +1,39 @@
+1.) if the xampp is running, check the port and ssl in config: (should be default params)
+2.) type 'ngrok http 80' to establish the connection between devices
+3.) check the firewall 'sudo ufw status'
+4.) if it's not connecting via ssh tunnel => sudo ufw allow 80/tcp comment 'Allow Apache HTTP'
+5.) check the number of connection via tcp/ssh tunnel => sudo ufw status numbered
+
+
+
+
+take note: 
+- The connection between devices should be the same as well as the wifi IP4
+- sudo ufw enable
+- systemctl status ufw.service
+
+>> sudo ufw default deny incoming
+
+Default incoming policy changed to 'deny'
+(be sure to update your rules accordingly)
+
+>> grep IPV6 /etc/default/ufw
+
+IPV6=yes
+
+
+>> sudo ufw allow ssh
+
+Rule added
+Rule added (v6)
+
+>> sudo ufw allow 443
+Rule added
+Rule added (v6)
+
+>> sudo ufw allow 80
+Rule added
+Rule added (v6)
+
+
+
