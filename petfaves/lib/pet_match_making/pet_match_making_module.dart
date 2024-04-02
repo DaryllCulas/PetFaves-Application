@@ -30,6 +30,10 @@ class _PetMatchMakingState extends State<PetMatchMaking> {
               child: Row(
                 children: [
                   PetIconCard(
+                    icon: FontAwesomeIcons.ellipsis,
+                    color: Colors.cyan,
+                  ),
+                  PetIconCard(
                     icon: FontAwesomeIcons.dog,
                     color: Colors.blue,
                   ), // Dog icon
@@ -46,10 +50,6 @@ class _PetMatchMakingState extends State<PetMatchMaking> {
                     color: Colors.blueGrey,
                   ),
                   // Others icon
-                  PetIconCard(
-                    icon: FontAwesomeIcons.ellipsis,
-                    color: Colors.cyan,
-                  ),
                 ],
               ),
             ),
