@@ -31,7 +31,7 @@ class _AdminDashboardState extends State<AdminDashboard> {
     user = FirebaseAuth.instance.currentUser;
 
     return Scaffold(
-      backgroundColor: const Color.fromARGB(255, 185, 180, 180),
+      backgroundColor: const Color.fromARGB(255, 216, 212, 212),
       appBar: AppBar(
         backgroundColor: Colors.grey.shade100,
         elevation: 4.0,
@@ -160,10 +160,87 @@ class HomeScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return const Center(
-      child: Text(
-        'Home Screen',
-        style: TextStyle(color: Colors.black),
+    return SingleChildScrollView(
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.stretch,
+        children: [
+          GridView.count(
+            shrinkWrap: true,
+            crossAxisCount: 2,
+            children: const [
+              MetricCard(
+                title: 'Active Users',
+                number: '1000',
+                gradientColors: [Colors.blue, Colors.lightBlue],
+              ),
+              MetricCard(
+                title: 'Pets Adopted',
+                number: '100',
+                gradientColors: [Colors.green, Colors.lightGreen],
+              ),
+              MetricCard(
+                title: 'Pets Available',
+                number: '200',
+                gradientColors: [Colors.orange, Colors.deepOrange],
+              ),
+              MetricCard(
+                title: 'Donations',
+                number: '100000',
+                gradientColors: [Colors.purple, Colors.deepPurple],
+              ),
+            ],
+          ),
+        ],
+      ),
+    );
+  }
+}
+
+class MetricCard extends StatelessWidget {
+  final String title;
+  final String number;
+  final List<Color> gradientColors;
+
+  const MetricCard({
+    required this.title,
+    required this.number,
+    required this.gradientColors,
+  });
+
+  @override
+  Widget build(BuildContext context) {
+    return Card(
+      elevation: 4,
+      margin: EdgeInsets.all(8),
+      child: Container(
+        decoration: BoxDecoration(
+          borderRadius: BorderRadius.circular(12),
+          gradient: LinearGradient(
+            colors: gradientColors,
+            begin: Alignment.topLeft,
+            end: Alignment.bottomRight,
+          ),
+        ),
+        child: Column(
+          mainAxisAlignment: MainAxisAlignment.center,
+          children: [
+            Text(
+              title,
+              style: TextStyle(
+                fontSize: 20,
+                fontWeight: FontWeight.bold,
+                color: Colors.white,
+              ),
+            ),
+            Text(
+              number,
+              style: TextStyle(
+                fontSize: 18,
+                color: Colors.white,
+              ),
+            ),
+          ],
+        ),
       ),
     );
   }
