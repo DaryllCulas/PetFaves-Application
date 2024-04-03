@@ -4,6 +4,7 @@ import 'package:petfaves/adminDashboard/admin_account_settings.dart';
 import 'package:petfaves/adminDashboard/admin_donation_screen.dart';
 import 'package:petfaves/adminDashboard/admin_profile.dart';
 import 'package:petfaves/adminDashboard/chatbot_customization_screen.dart';
+import 'package:petfaves/adminDashboard/content_moderation.dart';
 import 'package:petfaves/adminDashboard/manage_users_screen.dart';
 import 'package:petfaves/adminDashboard/petmatchmaking_settings.dart';
 import 'package:petfaves/login_auth/login_form.dart';
@@ -159,7 +160,6 @@ class _AdminDashboardState extends State<AdminDashboard> {
               leading: const Icon(Icons.settings),
               title: const Text('Account Settings'),
               onTap: () {
-               
                 Navigator.of(context).push(
                   MaterialPageRoute(
                     builder: (context) => const AccountSettings(),
@@ -187,44 +187,104 @@ class _AdminDashboardState extends State<AdminDashboard> {
   }
 }
 
-
-class HomeScreen extends StatelessWidget {
+class HomeScreen extends StatefulWidget {
   const HomeScreen({Key? key}) : super(key: key);
 
   @override
+  _HomeScreenState createState() => _HomeScreenState();
+}
+
+class _HomeScreenState extends State<HomeScreen> {
+  final ScrollController _controller = ScrollController();
+  bool _isVisible = true;
+
+  @override
+  void initState() {
+    super.initState();
+    _controller.addListener(_scrollListener);
+  }
+
+  @override
+  void dispose() {
+    _controller.removeListener(_scrollListener);
+    _controller.dispose();
+    super.dispose();
+  }
+
+  void _scrollListener() {
+    if (_controller.offset >= _controller.position.maxScrollExtent &&
+        !_controller.position.outOfRange) {
+      setState(() {
+        _isVisible = true;
+      });
+    } else {
+      setState(() {
+        _isVisible = false;
+      });
+    }
+  }
+
+  @override
   Widget build(BuildContext context) {
-    return SingleChildScrollView(
-      child: Column(
-        crossAxisAlignment: CrossAxisAlignment.stretch,
-        children: [
-          GridView.count(
-            shrinkWrap: true,
-            crossAxisCount: 2,
-            children: const [
-              MetricCard(
-                title: 'Active Users',
-                number: '1000',
-                gradientColors: [Colors.blue, Colors.lightBlue],
+    return Stack(
+      children: [
+        SingleChildScrollView(
+          controller: _controller,
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.stretch,
+            children: [
+              GridView.count(
+                shrinkWrap: true,
+                crossAxisCount: 2,
+                children: const [
+                  MetricCard(
+                    title: 'Active Users',
+                    number: '1000',
+                    gradientColors: [Colors.blue, Colors.lightBlue],
+                  ),
+                  MetricCard(
+                    title: 'Pets Adopted',
+                    number: '100',
+                    gradientColors: [Colors.green, Colors.lightGreen],
+                  ),
+                  MetricCard(
+                    title: 'Pets Available',
+                    number: '200',
+                    gradientColors: [Colors.orange, Colors.deepOrange],
+                  ),
+                  MetricCard(
+                    title: 'Donations',
+                    number: '100000',
+                    gradientColors: [Colors.purple, Colors.deepPurple],
+                  ),
+                ],
               ),
-              MetricCard(
-                title: 'Pets Adopted',
-                number: '100',
-                gradientColors: [Colors.green, Colors.lightGreen],
-              ),
-              MetricCard(
-                title: 'Pets Available',
-                number: '200',
-                gradientColors: [Colors.orange, Colors.deepOrange],
-              ),
-              MetricCard(
-                title: 'Donations',
-                number: '100000',
-                gradientColors: [Colors.purple, Colors.deepPurple],
-              ),
+              const SizedBox(height: 10.0),
+              ContentModeration(),
             ],
           ),
-        ],
-      ),
+        ),
+        AnimatedOpacity(
+          opacity: _isVisible ? 1.0 : 0.0,
+          duration: const Duration(milliseconds: 500),
+          child: Align(
+            alignment: Alignment.bottomRight,
+            child: Padding(
+              padding: const EdgeInsets.all(16.0),
+              child: FloatingActionButton(
+                onPressed: () {
+                  _controller.animateTo(
+                    _controller.position.minScrollExtent,
+                    duration: Duration(milliseconds: 500),
+                    curve: Curves.easeInOut,
+                  );
+                },
+                child: Icon(Icons.arrow_upward),
+              ),
+            ),
+          ),
+        ),
+      ],
     );
   }
 }
