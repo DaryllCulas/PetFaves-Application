@@ -147,7 +147,7 @@ class _AdminDashboardState extends State<AdminDashboard> {
             ),
             ListTile(
               leading: const Icon(Icons.list),
-              title: const Text('Donations'),
+              title: const Text('Donation Records'),
               onTap: () {
                 // Navigate to chatbot customization screen
                 Navigator.of(context).push(
@@ -265,7 +265,7 @@ class _HomeScreenState extends State<HomeScreen> {
                     gradientColors: [Colors.orange, Colors.deepOrange],
                   ),
                   MetricCard(
-                    title: 'Donations',
+                    title: 'Donation',
                     number: '100000',
                     gradientColors: [Colors.purple, Colors.deepPurple],
                   ),
