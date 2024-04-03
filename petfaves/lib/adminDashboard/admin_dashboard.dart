@@ -1,6 +1,7 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:petfaves/adminDashboard/admin_account_settings.dart';
+import 'package:petfaves/adminDashboard/admin_appointments.dart';
 import 'package:petfaves/adminDashboard/admin_donation_screen.dart';
 import 'package:petfaves/adminDashboard/admin_profile.dart';
 import 'package:petfaves/adminDashboard/chatbot_customization_screen.dart';
@@ -134,6 +135,17 @@ class _AdminDashboardState extends State<AdminDashboard> {
               },
             ),
             ListTile(
+              leading: const Icon(Icons.calendar_month),
+              title: const Text('Appointments'),
+              onTap: () {
+                Navigator.of(context).push(
+                  MaterialPageRoute(
+                    builder: (context) => const AppointmentSettings(),
+                  ),
+                );
+              },
+            ),
+            ListTile(
               leading: const Icon(Icons.list),
               title: const Text('Donations'),
               onTap: () {
@@ -260,7 +272,7 @@ class _HomeScreenState extends State<HomeScreen> {
                 ],
               ),
               const SizedBox(height: 10.0),
-              ContentModeration(),
+              const ContentModeration(),
             ],
           ),
         ),
@@ -319,7 +331,7 @@ class MetricCard extends StatelessWidget {
           children: [
             Text(
               title,
-              style: TextStyle(
+              style: const TextStyle(
                 fontSize: 20,
                 fontWeight: FontWeight.bold,
                 color: Colors.white,
@@ -327,7 +339,7 @@ class MetricCard extends StatelessWidget {
             ),
             Text(
               number,
-              style: TextStyle(
+              style: const TextStyle(
                 fontSize: 18,
                 color: Colors.white,
               ),
