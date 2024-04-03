@@ -1,9 +1,10 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
-
-import 'package:petfaves/adminDashboard/admin_dashboard.dart';
+import 'package:petfaves/PetPreferences/pet_preferences_details.dart';
 import 'package:petfaves/donationpage/donation_module.dart';
 import 'package:petfaves/homepage/homescreen.dart';
+import 'package:petfaves/homepage/user_account_settings_screen.dart';
+import 'package:petfaves/homepage/users_message_screen.dart';
 import 'package:petfaves/login_auth/login_form.dart';
 // import 'package:petfaves/login_auth/login_form.dart';
 import 'package:petfaves/pet_match_making/pet_match_making_module.dart';
@@ -110,12 +111,34 @@ class _PetFeedsState extends State<PetFeeds> {
               },
             ),
             ListTile(
+              leading: const Icon(Icons.message_sharp),
+              title: const Text('Messages'),
+              onTap: () {
+                Navigator.of(context).push(
+                  MaterialPageRoute(
+                    builder: (context) => const EndUsersMessage(),
+                  ),
+                );
+              },
+            ),
+            ListTile(
+              leading: const Icon(Icons.edit),
+              title: const Text('Pet Preferences Modification'),
+              onTap: () {
+                Navigator.of(context).push(
+                  MaterialPageRoute(
+                    builder: (context) => const PetPreferences(),
+                  ),
+                );
+              },
+            ),
+            ListTile(
               leading: const Icon(Icons.settings),
               title: const Text('Account Settings'),
               onTap: () {
                 Navigator.of(context).push(
                   MaterialPageRoute(
-                    builder: (context) => const AdminDashboard(),
+                    builder: (context) => const UserSettingScreen(),
                   ),
                 );
               },
