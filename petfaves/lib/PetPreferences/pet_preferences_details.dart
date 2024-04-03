@@ -13,7 +13,7 @@ class _PetPreferencesState extends State<PetPreferences> {
     return Scaffold(
       appBar: AppBar(
         title: const Center(
-          child: Text('Pet Preferences Details'),
+          child: Text('Pet Preferences Modification'),
         ),
       ),
       body: const Center(
