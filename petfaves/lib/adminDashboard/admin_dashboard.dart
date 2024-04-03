@@ -1,5 +1,11 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
+import 'package:petfaves/adminDashboard/admin_account_settings.dart';
+import 'package:petfaves/adminDashboard/admin_donation_screen.dart';
+import 'package:petfaves/adminDashboard/admin_profile.dart';
+import 'package:petfaves/adminDashboard/chatbot_customization_screen.dart';
+import 'package:petfaves/adminDashboard/manage_users_screen.dart';
+import 'package:petfaves/adminDashboard/petmatchmaking_settings.dart';
 import 'package:petfaves/login_auth/login_form.dart';
 
 class AdminDashboard extends StatefulWidget {
@@ -97,21 +103,33 @@ class _AdminDashboardState extends State<AdminDashboard> {
               leading: const Icon(Icons.person),
               title: const Text('Profile'),
               onTap: () {
-                // Navigate to profile screen
+                Navigator.of(context).push(
+                  MaterialPageRoute(
+                    builder: (context) => const AdminProfile(),
+                  ),
+                );
               },
             ),
             ListTile(
               leading: const Icon(Icons.account_circle_outlined),
               title: const Text('Manage Users'),
               onTap: () {
-                // Navigate to user account records screen
+                Navigator.of(context).push(
+                  MaterialPageRoute(
+                    builder: (context) => const ManageUsersScreen(),
+                  ),
+                );
               },
             ),
             ListTile(
               leading: const Icon(Icons.pets),
               title: const Text('Pet Matchmaking Settings'),
               onTap: () {
-                // Navigate to pet matchmaking settings screen
+                Navigator.of(context).push(
+                  MaterialPageRoute(
+                    builder: (context) => const PetMatchMakingSettings(),
+                  ),
+                );
               },
             ),
             ListTile(
@@ -119,20 +137,34 @@ class _AdminDashboardState extends State<AdminDashboard> {
               title: const Text('Donations'),
               onTap: () {
                 // Navigate to chatbot customization screen
+                Navigator.of(context).push(
+                  MaterialPageRoute(
+                    builder: (context) => const AdminDonationScreen(),
+                  ),
+                );
               },
             ),
             ListTile(
               leading: const Icon(Icons.chat),
               title: const Text('Chatbot Customization'),
               onTap: () {
-                // Navigate to chatbot customization screen
+                Navigator.of(context).push(
+                  MaterialPageRoute(
+                    builder: (context) => const ChatbotCustomizationScreen(),
+                  ),
+                );
               },
             ),
             ListTile(
               leading: const Icon(Icons.settings),
               title: const Text('Account Settings'),
               onTap: () {
-                // Navigate to chatbot customization screen
+               
+                Navigator.of(context).push(
+                  MaterialPageRoute(
+                    builder: (context) => const AccountSettings(),
+                  ),
+                );
               },
             ),
             ListTile(
@@ -154,6 +186,7 @@ class _AdminDashboardState extends State<AdminDashboard> {
     );
   }
 }
+
 
 class HomeScreen extends StatelessWidget {
   const HomeScreen({Key? key}) : super(key: key);
