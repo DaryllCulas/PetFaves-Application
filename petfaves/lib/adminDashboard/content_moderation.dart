@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:petfaves/adminDashboard/user_content_details.dart';
 
 class ContentModeration extends StatefulWidget {
   const ContentModeration({Key? key});
@@ -12,8 +13,8 @@ class _ContentModerationState extends State<ContentModeration> {
   Widget build(BuildContext context) {
     return Card(
       margin: const EdgeInsets.all(8),
-      elevation: 4,
-      color: Colors.white,
+      elevation: 10,
+      color: Color.fromARGB(255, 255, 251, 251),
       child: Padding(
         padding: const EdgeInsets.all(16),
         child: Column(
@@ -37,7 +38,7 @@ class _ContentModerationState extends State<ContentModeration> {
                     child: Text('${index + 1}'),
                   ),
                   title: 'Username ${index + 1}',
-                  subtitle: 'Email Adress ${index + 1}',
+                  subtitle: 'See Details ${index + 1}',
                 );
               },
             ),
@@ -76,6 +77,13 @@ class ElevatedCardListItem extends StatelessWidget {
         ),
         tileColor: Colors.white,
         trailing: const Icon(Icons.more_vert, color: Colors.black),
+        onTap: () {
+          Navigator.of(context).push(
+            MaterialPageRoute(
+              builder: (context) => const UsersContent(),
+            ),
+          );
+        },
       ),
     );
   }
