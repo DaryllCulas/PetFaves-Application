@@ -22,7 +22,7 @@ class _ExpandableFabState extends State<ExpandableFab> {
           },
           backgroundColor: Colors.blue,
           child: Icon(
-            _isExpanded ? Icons.close : FontAwesomeIcons.pencil,
+            _isExpanded ? Icons.close : Icons.menu,
             color: Colors.black,
           ),
         ),
@@ -34,7 +34,7 @@ class _ExpandableFabState extends State<ExpandableFab> {
             },
             backgroundColor: Colors.blue,
             icon: const Icon(
-              Icons.question_answer,
+              FontAwesomeIcons.fileLines,
               color: Colors.black,
             ),
             label: const Text(
@@ -60,9 +60,9 @@ class _ExpandableFabState extends State<ExpandableFab> {
               // Action for message icon
             },
             backgroundColor: Colors.blue,
-            icon: const Icon(Icons.message, color: Colors.black),
+            icon: const Icon(Icons.notifications, color: Colors.black),
             label: const Text(
-              'Message',
+              'Notifications',
               style: TextStyle(color: Colors.black),
             ),
           ),
