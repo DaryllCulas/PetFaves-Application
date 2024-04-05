@@ -3,7 +3,7 @@ import 'package:google_sign_in/google_sign_in.dart';
 import 'package:flutter_facebook_auth/flutter_facebook_auth.dart';
 import 'package:petfaves/components/modified_buttons.dart';
 import 'package:petfaves/login_auth/login_user_auth.dart';
-import 'package:petfaves/login_auth/sign_in_square_tile.dart';
+import 'package:petfaves/components/sign_in_square_tile.dart';
 import 'package:petfaves/homepage/petfeeds.dart';
 import 'package:petfaves/register_auth/register_form.dart';
 import 'package:firebase_auth/firebase_auth.dart';
