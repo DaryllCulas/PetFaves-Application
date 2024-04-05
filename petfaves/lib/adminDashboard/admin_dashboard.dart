@@ -7,6 +7,7 @@ import 'package:petfaves/adminDashboard/admin_profile.dart';
 import 'package:petfaves/adminDashboard/chatbot_customization_screen.dart';
 import 'package:petfaves/adminDashboard/content_moderation.dart';
 import 'package:petfaves/adminDashboard/manage_users_screen.dart';
+import 'package:petfaves/adminDashboard/pet_list_records.dart';
 import 'package:petfaves/adminDashboard/petmatchmaking_settings.dart';
 import 'package:petfaves/login_auth/login_form.dart';
 
@@ -64,8 +65,8 @@ class _AdminDashboardState extends State<AdminDashboard> {
             label: 'Messages',
           ),
           BottomNavigationBarItem(
-            icon: Icon(Icons.list),
-            label: 'Pet list',
+            icon: Icon(Icons.notifications),
+            label: 'Notifications',
           ),
         ],
         selectedItemColor: const Color.fromARGB(255, 99, 187, 245),
@@ -141,6 +142,18 @@ class _AdminDashboardState extends State<AdminDashboard> {
                 Navigator.of(context).push(
                   MaterialPageRoute(
                     builder: (context) => const AppointmentSettings(),
+                  ),
+                );
+              },
+            ),
+            ListTile(
+              leading: const Icon(Icons.list_alt_outlined),
+              title: const Text('Pet lists'),
+              onTap: () {
+                // Navigate to chatbot customization screen
+                Navigator.of(context).push(
+                  MaterialPageRoute(
+                    builder: (context) => const PetListRecords(),
                   ),
                 );
               },
