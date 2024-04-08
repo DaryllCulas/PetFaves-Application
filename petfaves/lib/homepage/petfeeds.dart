@@ -1,9 +1,12 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
+import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:petfaves/PetPreferences/pet_preferences_details.dart';
 import 'package:petfaves/components/expandable_fab.dart';
 import 'package:petfaves/donationpage/donation_module.dart';
+import 'package:petfaves/homepage/about_petfaves.dart';
 import 'package:petfaves/homepage/homescreen.dart';
+import 'package:petfaves/homepage/pet_care_section.dart';
 import 'package:petfaves/homepage/user_account_settings_screen.dart';
 import 'package:petfaves/homepage/users_message_screen.dart';
 import 'package:petfaves/login_auth/login_form.dart';
@@ -107,6 +110,28 @@ class _PetFeedsState extends State<PetFeeds> {
                 Navigator.of(context).push(
                   MaterialPageRoute(
                     builder: (context) => const ProfilePage1(),
+                  ),
+                );
+              },
+            ),
+            ListTile(
+              leading: const Icon(FontAwesomeIcons.paw),
+              title: const Text('About PetFaves'),
+              onTap: () {
+                Navigator.of(context).push(
+                  MaterialPageRoute(
+                    builder: (context) => const AboutPetFaves(),
+                  ),
+                );
+              },
+            ),
+            ListTile(
+              leading: const Icon(FontAwesomeIcons.info),
+              title: const Text('Pet Care'),
+              onTap: () {
+                Navigator.of(context).push(
+                  MaterialPageRoute(
+                    builder: (context) => const PetCareSection(),
                   ),
                 );
               },
