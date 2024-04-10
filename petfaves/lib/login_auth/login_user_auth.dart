@@ -7,7 +7,7 @@ import 'package:petfaves/homepage/petfeeds.dart';
 import 'package:petfaves/register_auth/login_or_register.dart';
 
 class AuthPage extends StatefulWidget {
-  const AuthPage({Key? key}) : super(key: key);
+  const AuthPage({super.key});
 
   @override
   State<AuthPage> createState() => _AuthPageState();

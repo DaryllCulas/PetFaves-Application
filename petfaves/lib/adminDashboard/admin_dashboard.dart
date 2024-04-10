@@ -12,7 +12,7 @@ import 'package:petfaves/adminDashboard/petmatchmaking_settings.dart';
 import 'package:petfaves/login_auth/login_form.dart';
 
 class AdminDashboard extends StatefulWidget {
-  const AdminDashboard({Key? key}) : super(key: key);
+  const AdminDashboard({super.key});
 
   @override
   State<AdminDashboard> createState() => _AdminDashboardState();
@@ -213,7 +213,7 @@ class _AdminDashboardState extends State<AdminDashboard> {
 }
 
 class HomeScreen extends StatefulWidget {
-  const HomeScreen({Key? key}) : super(key: key);
+  const HomeScreen({super.key});
 
   @override
   _HomeScreenState createState() => _HomeScreenState();
@@ -300,11 +300,11 @@ class _HomeScreenState extends State<HomeScreen> {
                 onPressed: () {
                   _controller.animateTo(
                     _controller.position.minScrollExtent,
-                    duration: Duration(milliseconds: 500),
+                    duration: const Duration(milliseconds: 500),
                     curve: Curves.easeInOut,
                   );
                 },
-                child: Icon(Icons.arrow_upward),
+                child: const Icon(Icons.arrow_upward),
               ),
             ),
           ),
@@ -319,7 +319,7 @@ class MetricCard extends StatelessWidget {
   final String number;
   final List<Color> gradientColors;
 
-  const MetricCard({
+  const MetricCard({super.key, 
     required this.title,
     required this.number,
     required this.gradientColors,
@@ -329,7 +329,7 @@ class MetricCard extends StatelessWidget {
   Widget build(BuildContext context) {
     return Card(
       elevation: 4,
-      margin: EdgeInsets.all(8),
+      margin: const EdgeInsets.all(8),
       child: Container(
         decoration: BoxDecoration(
           borderRadius: BorderRadius.circular(12),
@@ -365,7 +365,7 @@ class MetricCard extends StatelessWidget {
 }
 
 class MessagesScreen extends StatelessWidget {
-  const MessagesScreen({Key? key}) : super(key: key);
+  const MessagesScreen({super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -379,7 +379,7 @@ class MessagesScreen extends StatelessWidget {
 }
 
 class SettingsScreen extends StatelessWidget {
-  const SettingsScreen({Key? key}) : super(key: key);
+  const SettingsScreen({super.key});
 
   @override
   Widget build(BuildContext context) {

@@ -184,7 +184,7 @@ class _PetFeedsState extends State<PetFeeds> {
           ],
         ),
       ),
-      floatingActionButton: _selectedIndex == 0 ? ExpandableFab() : null,
+      floatingActionButton: _selectedIndex == 0 ? const ExpandableFab() : null,
       bottomNavigationBar: BottomNavigationBar(
         type: BottomNavigationBarType.fixed,
         backgroundColor: const Color.fromARGB(255, 46, 46, 46),

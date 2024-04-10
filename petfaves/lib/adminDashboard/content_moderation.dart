@@ -2,7 +2,9 @@ import 'package:flutter/material.dart';
 import 'package:petfaves/adminDashboard/user_content_details.dart';
 
 class ContentModeration extends StatefulWidget {
-  const ContentModeration({Key? key});
+  const ContentModeration({
+    super.key,
+  });
 
   @override
   State<ContentModeration> createState() => _ContentModerationState();
@@ -55,6 +57,7 @@ class ElevatedCardListItem extends StatefulWidget {
   final String subtitle;
 
   const ElevatedCardListItem({
+    super.key,
     required this.leading,
     required this.title,
     required this.subtitle,

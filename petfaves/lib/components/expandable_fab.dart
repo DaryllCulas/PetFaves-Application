@@ -5,6 +5,8 @@ import 'package:petfaves/components/user_notification.dart';
 import 'package:petfaves/components/user_post_content.dart';
 
 class ExpandableFab extends StatefulWidget {
+  const ExpandableFab({super.key});
+
   @override
   _ExpandableFabState createState() => _ExpandableFabState();
 }
