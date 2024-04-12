@@ -419,7 +419,7 @@ class _HighLightsScreenState extends State<HighLightsScreen> {
     return Container(
       padding: const EdgeInsets.all(8.0),
       decoration: BoxDecoration(
-        border: Border.all(color: Colors.grey), // Add border for visualization
+        border: Border.all(color: Colors.black), // Add border for visualization
         borderRadius:
             BorderRadius.circular(8.0), // Add border radius for rounded corners
       ),
@@ -442,10 +442,16 @@ class _HighLightsScreenState extends State<HighLightsScreen> {
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                Text(
-                  'Name:',
-                  style: TextStyle(
-                      fontWeight: FontWeight.bold, color: Colors.black),
+                Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  children: [
+                    Text(
+                      'Name:',
+                      style: TextStyle(
+                          fontWeight: FontWeight.bold, color: Colors.black),
+                    ),
+                    Icon(Icons.favorite_outline_outlined, color: Colors.red),
+                  ],
                 ),
                 Text('Age:', style: TextStyle(color: Colors.black)),
                 Text('Location:', style: TextStyle(color: Colors.black)),
