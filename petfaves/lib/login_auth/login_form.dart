@@ -1,7 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:google_sign_in/google_sign_in.dart';
-import 'package:flutter_facebook_auth/flutter_facebook_auth.dart';
+// import 'package:flutter_facebook_auth/flutter_facebook_auth.dart';
 import 'package:petfaves/components/modified_buttons.dart';
+import 'package:petfaves/forgotPassword/forgot_password_screen.dart';
 import 'package:petfaves/login_auth/login_user_auth.dart';
 import 'package:petfaves/components/sign_in_square_tile.dart';
 import 'package:petfaves/homepage/petfeeds.dart';
@@ -17,61 +18,16 @@ class LoginPage extends StatefulWidget {
 }
 
 class _LoginPageState extends State<LoginPage> {
-  final GoogleSignIn _googleSignIn = GoogleSignIn();
   final TextEditingController _emailController = TextEditingController();
-  final TextEditingController _passwordController = TextEditingController();
+  final GoogleSignIn _googleSignIn = GoogleSignIn();
   bool _obscureText = true;
+  final TextEditingController _passwordController = TextEditingController();
 
   @override
   void dispose() {
     _emailController.dispose();
     _passwordController.dispose();
     super.dispose();
-  }
-
-  Future<void> _handleGoogleSignIn() async {
-    try {
-      final GoogleSignInAccount? googleUser = await _googleSignIn.signIn();
-      if (googleUser != null) {
-        final GoogleSignInAuthentication googleAuth =
-            await googleUser.authentication;
-        final credential = GoogleAuthProvider.credential(
-          accessToken: googleAuth.accessToken,
-          idToken: googleAuth.idToken,
-        );
-        final UserCredential userCredential =
-            await FirebaseAuth.instance.signInWithCredential(credential);
-        final CollectionReference users =
-            FirebaseFirestore.instance.collection('users');
-        final DocumentSnapshot userSnapshot =
-            await users.doc(userCredential.user!.uid).get();
-        if (!userSnapshot.exists) {
-          await users.doc(userCredential.user!.uid).set({
-            'email': userCredential.user!.email,
-            'password': userCredential.user!.uid,
-          });
-        }
-        Navigator.push(
-          context,
-          MaterialPageRoute(
-            builder: (context) => const AuthPage(),
-          ),
-        );
-      }
-    } catch (error) {
-      debugPrint("Error signing in with Google: $error");
-    }
-  }
-
-  Future<void> _handleFacebookSignIn() async {
-    try {
-      final LoginResult result = await FacebookAuth.instance.login();
-      if (result.status == LoginStatus.success) {
-        // Handle Facebook sign-in success
-      }
-    } catch (error) {
-      // Handle Facebook sign-in error
-    }
   }
 
   void signUserIn() async {
@@ -116,6 +72,111 @@ class _LoginPageState extends State<LoginPage> {
       genericErrorMessage();
     }
   }
+
+  void genericErrorMessage() {
+    showDialog(
+      context: context,
+      builder: (ctx) {
+        return AlertDialog(
+          title: const Text('Error'),
+          content: const Text(
+              'An unexpected error occurred. Please try again later.'),
+          actions: <Widget>[
+            TextButton(
+              onPressed: () {
+                Navigator.of(ctx).pop();
+              },
+              child: const Text('OK'),
+            ),
+          ],
+        );
+      },
+    );
+  }
+
+  void wrongEmailMessage() {
+    showDialog(
+      context: context,
+      builder: (ctx) {
+        return AlertDialog(
+          title: const Text('Incorrect Email'),
+          content: const Text('Invalid Email or Password, Please try again!.'),
+          actions: <Widget>[
+            TextButton(
+              onPressed: () {
+                Navigator.of(ctx).pop();
+              },
+              child: const Text('Ok'),
+            ),
+          ],
+        );
+      },
+    );
+  }
+
+  void wrongPasswordMessage() {
+    showDialog(
+      context: context,
+      builder: (ctx) {
+        return AlertDialog(
+          title: const Text('Incorrect Email or Password , Please try again!'),
+          actions: <Widget>[
+            TextButton(
+              onPressed: () {
+                Navigator.of(ctx).pop();
+              },
+              child: const Text('Ok'),
+            ),
+          ],
+        );
+      },
+    );
+  }
+
+  Future<void> _handleGoogleSignIn() async {
+    try {
+      final GoogleSignInAccount? googleUser = await _googleSignIn.signIn();
+      if (googleUser != null) {
+        final GoogleSignInAuthentication googleAuth =
+            await googleUser.authentication;
+        final credential = GoogleAuthProvider.credential(
+          accessToken: googleAuth.accessToken,
+          idToken: googleAuth.idToken,
+        );
+        final UserCredential userCredential =
+            await FirebaseAuth.instance.signInWithCredential(credential);
+        final CollectionReference users =
+            FirebaseFirestore.instance.collection('users');
+        final DocumentSnapshot userSnapshot =
+            await users.doc(userCredential.user!.uid).get();
+        if (!userSnapshot.exists) {
+          await users.doc(userCredential.user!.uid).set({
+            'email': userCredential.user!.email,
+            'password': userCredential.user!.uid,
+          });
+        }
+        Navigator.push(
+          context,
+          MaterialPageRoute(
+            builder: (context) => const AuthPage(),
+          ),
+        );
+      }
+    } catch (error) {
+      debugPrint("Error signing in with Google: $error");
+    }
+  }
+
+  // Future<void> _handleFacebookSignIn() async {
+  //   try {
+  //     final LoginResult result = await FacebookAuth.instance.login();
+  //     if (result.status == LoginStatus.success) {
+  //       // Handle Facebook sign-in success
+  //     }
+  //   } catch (error) {
+  //     // Handle Facebook sign-in error
+  //   }
+  // }
 
   @override
   Widget build(BuildContext context) {
@@ -208,15 +269,26 @@ class _LoginPageState extends State<LoginPage> {
                   obscureText: _obscureText,
                 ),
               ),
-              const Padding(
-                padding: EdgeInsets.symmetric(horizontal: 25.0),
+              Padding(
+                padding: const EdgeInsets.symmetric(horizontal: 25.0),
                 child: Row(
                   mainAxisAlignment: MainAxisAlignment.end,
                   children: [
-                    Text(
-                      'Forgot Password?',
-                      style: TextStyle(
-                        color: Colors.blue,
+                    GestureDetector(
+                      onTap: () {
+                        Navigator.push(
+                          context,
+                          MaterialPageRoute(
+                            builder: (context) => ForgotPassword(
+                                emailController: _emailController),
+                          ),
+                        );
+                      },
+                      child: const Text(
+                        'Forgot Password?',
+                        style: TextStyle(
+                          color: Colors.blue,
+                        ),
                       ),
                     ),
                   ],
@@ -267,9 +339,9 @@ class _LoginPageState extends State<LoginPage> {
                       imagePath: 'assets/google_icon.png',
                     ),
                   ),
-                  const SizedBox(width: 10.0),
-                  // Sign in with Facebook Button
-                  const SquareTile(imagePath: 'assets/facebook_icon.png'),
+                  // const SizedBox(width: 10.0),
+                  // // Sign in with Facebook Button
+                  // const SquareTile(imagePath: 'assets/facebook_icon.png'),
                 ],
               ),
 
@@ -306,66 +378,6 @@ class _LoginPageState extends State<LoginPage> {
           ),
         ),
       ),
-    );
-  }
-
-  void genericErrorMessage() {
-    showDialog(
-      context: context,
-      builder: (ctx) {
-        return AlertDialog(
-          title: const Text('Error'),
-          content: const Text(
-              'An unexpected error occurred. Please try again later.'),
-          actions: <Widget>[
-            TextButton(
-              onPressed: () {
-                Navigator.of(ctx).pop();
-              },
-              child: const Text('OK'),
-            ),
-          ],
-        );
-      },
-    );
-  }
-
-  void wrongEmailMessage() {
-    showDialog(
-      context: context,
-      builder: (ctx) {
-        return AlertDialog(
-          title: const Text('Incorrect Email'),
-          content: const Text('Invalid Email or Password, Please try again!.'),
-          actions: <Widget>[
-            TextButton(
-              onPressed: () {
-                Navigator.of(ctx).pop();
-              },
-              child: const Text('Ok'),
-            ),
-          ],
-        );
-      },
-    );
-  }
-
-  void wrongPasswordMessage() {
-    showDialog(
-      context: context,
-      builder: (ctx) {
-        return AlertDialog(
-          title: const Text('Incorrect Email or Password , Please try again!'),
-          actions: <Widget>[
-            TextButton(
-              onPressed: () {
-                Navigator.of(ctx).pop();
-              },
-              child: const Text('Ok'),
-            ),
-          ],
-        );
-      },
     );
   }
 }
