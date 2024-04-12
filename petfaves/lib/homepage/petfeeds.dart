@@ -5,12 +5,12 @@ import 'package:petfaves/PetPreferences/pet_preferences_details.dart';
 import 'package:petfaves/components/expandable_fab.dart';
 import 'package:petfaves/donationpage/donation_module.dart';
 import 'package:petfaves/homepage/about_petfaves.dart';
+import 'package:petfaves/homepage/highlights_screen.dart';
 import 'package:petfaves/homepage/homescreen.dart';
 import 'package:petfaves/homepage/pet_care_section.dart';
 import 'package:petfaves/homepage/user_account_settings_screen.dart';
 import 'package:petfaves/homepage/users_message_screen.dart';
 import 'package:petfaves/login_auth/login_form.dart';
-// import 'package:petfaves/login_auth/login_form.dart';
 import 'package:petfaves/pet_match_making/pet_match_making_module.dart';
 import 'package:petfaves/profile/profile_info.dart';
 
@@ -25,13 +25,15 @@ class PetFeeds extends StatefulWidget {
 
 class _PetFeedsState extends State<PetFeeds> {
   final user = FirebaseAuth.instance.currentUser!;
-  int _selectedIndex = 0;
 
   final List<Widget> _pages = [
     const BuildHomePage(),
     const PetMatchMaking(),
     const DonationScreen(),
   ];
+
+  int _selectedIndex = 0;
+
   void signUserOut() async {
     showDialog(
       context: context,
@@ -102,6 +104,17 @@ class _PetFeedsState extends State<PetFeeds> {
                     'https://via.placeholder.com/150'), // Replace with your user's avatar URL
               ),
               accountEmail: null,
+            ),
+            ListTile(
+              leading: const Icon(Icons.person_2_rounded),
+              title: const Text('Highlights'),
+              onTap: () {
+                Navigator.of(context).push(
+                  MaterialPageRoute(
+                    builder: (context) => const HighLightsScreen(),
+                  ),
+                );
+              },
             ),
             ListTile(
               leading: const Icon(Icons.person_2_rounded),
