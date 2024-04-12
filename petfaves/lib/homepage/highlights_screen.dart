@@ -380,20 +380,76 @@ class _HighLightsScreenState extends State<HighLightsScreen> {
               ),
             ],
           ),
-          const SizedBox(height: 50),
+          const SizedBox(height: 20),
           Expanded(
-            child: GridView.count(
-              crossAxisCount: 2,
-              children: List.generate(
-                6,
-                (index) => Padding(
-                  padding: const EdgeInsets.all(8.0),
-                  child: Image.network(
-                    'https://via.placeholder.com/150',
-                    fit: BoxFit.cover,
-                  ),
+            child: ListView.builder(
+              itemCount: (8 / 2).ceil(), // Number of rows (assuming 8 items)
+              itemBuilder: (context, rowIndex) {
+                return Row(
+                  children: [
+                    // First item in the row
+                    Expanded(
+                      child: Padding(
+                        padding: const EdgeInsets.all(8.0),
+                        child: _buildItem(rowIndex * 2),
+                      ),
+                    ),
+                    // Second item in the row
+                    Expanded(
+                      child: Padding(
+                        padding: const EdgeInsets.all(8.0),
+                        child: _buildItem(rowIndex * 2 + 1),
+                      ),
+                    ),
+                  ],
+                );
+              },
+            ),
+          ),
+        ],
+      ),
+    );
+  }
+
+  Widget _buildItem(int index) {
+    if (index >= 8) {
+      return const SizedBox(); // Return an empty SizedBox if index exceeds the number of items
+    }
+
+    return Container(
+      padding: const EdgeInsets.all(8.0),
+      decoration: BoxDecoration(
+        border: Border.all(color: Colors.grey), // Add border for visualization
+        borderRadius:
+            BorderRadius.circular(8.0), // Add border radius for rounded corners
+      ),
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          ClipRRect(
+            borderRadius:
+                BorderRadius.circular(8.0), // Clip image to rounded corners
+            child: Image.network(
+              'https://via.placeholder.com/150',
+              fit: BoxFit.cover,
+              width: double
+                  .infinity, // Ensure image takes full width of the container
+              height: 150, // Set the height of the image
+            ),
+          ),
+          const Padding(
+            padding: EdgeInsets.all(8.0),
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                Text(
+                  'Name:',
+                  style: TextStyle(
+                      fontWeight: FontWeight.bold, color: Colors.black),
                 ),
-              ),
+                Text('Age:', style: TextStyle(color: Colors.black)),
+                Text('Location:', style: TextStyle(color: Colors.black)),
+              ],
             ),
           ),
         ],
