@@ -3,7 +3,11 @@ import 'package:carousel_slider/carousel_slider.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 
 class PetMatchMaking extends StatefulWidget {
-  const PetMatchMaking({super.key});
+  const PetMatchMaking({
+    Key? key,
+  }) : super(key: key);
+
+  static void _dummyCallback() {}
 
   @override
   _PetMatchMakingState createState() => _PetMatchMakingState();
@@ -76,111 +80,98 @@ class _PetMatchMakingState extends State<PetMatchMaking> {
                   itemBuilder: (context, index, realIndex) {
                     final imageUrl = _images[index];
                     return GestureDetector(
+                      onTap: () {
+                        // Navigate to the complete details page for the pet
+                        Navigator.push(
+                          context,
+                          MaterialPageRoute(
+                            builder: (context) => PetDetailsPage(
+                              imageUrl: imageUrl,
+                            ),
+                          ),
+                        );
+                      },
+                      child: Container(
+                        width: MediaQuery.of(context).size.width,
+                        margin: const EdgeInsets.symmetric(horizontal: 5.0),
+                        decoration: BoxDecoration(
+                          color: Colors.amber,
+                          borderRadius: BorderRadius.circular(10.0),
+                        ),
+                        child: Container(
+                          decoration: BoxDecoration(
+                            color: Colors.amber,
+                            borderRadius: BorderRadius.circular(10.0),
+                            boxShadow: [
+                              BoxShadow(
+                                color: Colors.black.withOpacity(0.2),
+                                spreadRadius: 2,
+                                blurRadius: 7,
+                                offset: const Offset(0, 5),
+                              )
+                            ],
+                          ),
+                          child: ClipRRect(
+                            borderRadius: BorderRadius.circular(10.0),
+                            child: Image.network(
+                              imageUrl,
+                              fit: BoxFit.cover,
+                            ),
+                          ),
+                        ),
+                      ),
+                    );
+                  },
+                ),
+                // Additional widgets or content can be added here
+                Container(
+                  height: 60.0,
+                  width: 280.0,
+                  margin: const EdgeInsets.all(10),
+                  decoration: BoxDecoration(
+                    color: Colors.white,
+                    borderRadius: BorderRadius.circular(10),
+                    boxShadow: const [
+                      BoxShadow(
+                        color: Colors.black12,
+                        blurRadius: 5.0,
+                        offset: Offset(0, 5),
+                      ),
+                    ],
+                  ),
+                  child: Row(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: [
+                      GestureDetector(
                         onTap: () {
-                          // Navigate to the complete details page for the pet
-                          Navigator.push(
-                            context,
+                          Navigator.of(context).push(
                             MaterialPageRoute(
                               builder: (context) => PetDetailsPage(
-                                imageUrl: imageUrl,
+                                imageUrl: _images[activeIndex],
                               ),
                             ),
                           );
                         },
-                        child: Container(
-                          width: MediaQuery.of(context).size.width,
-                          margin: const EdgeInsets.symmetric(horizontal: 5.0),
-                          decoration: BoxDecoration(
-                            color: Colors.amber,
-                            borderRadius: BorderRadius.circular(10.0),
-                          ),
-                          child: Container(
-                            decoration: BoxDecoration(
-                              color: Colors.amber,
-                              borderRadius: BorderRadius.circular(10.0),
-                              boxShadow: [
-                                BoxShadow(
-                                  color: Colors.black.withOpacity(0.2),
-                                  spreadRadius: 2,
-                                  blurRadius: 7,
-                                  offset: const Offset(0, 5),
-                                )
-                              ],
+                        child: const Column(
+                          mainAxisAlignment: MainAxisAlignment.center,
+                          children: [
+                            Icon(
+                              Icons.favorite,
+                              color: Colors.red,
+                              size: 25.0,
                             ),
-                            child: ClipRRect(
-                              borderRadius: BorderRadius.circular(10.0),
-                              child: Image.network(
-                                imageUrl,
-                                fit: BoxFit.cover,
+                            Text(
+                              'View me',
+                              style: TextStyle(
+                                color: Colors.black,
+                                fontSize: 15.0,
+                                fontWeight: FontWeight.bold,
                               ),
                             ),
-                          ),
-                        ));
-                  },
-                ),
-                // Additional widgets or content can be added here
-                Positioned(
-                  bottom: 10.0,
-                  left: 0.0,
-                  right: 0.0,
-                  child: Align(
-                    alignment: Alignment.center,
-                    child: Container(
-                      decoration: BoxDecoration(
-                        borderRadius: BorderRadius.circular(10.0),
+                          ],
+                        ),
                       ),
-                      padding: const EdgeInsets.all(10.0),
-                      child: Row(
-                        mainAxisAlignment: MainAxisAlignment.center,
-                        children: [
-                          const SizedBox(width: 5.0),
-                          Container(
-                            alignment: Alignment.center,
-                            width: MediaQuery.of(context).size.width * 0.80,
-                            decoration: BoxDecoration(
-                                color: const Color.fromARGB(255, 255, 250, 250),
-                                borderRadius: BorderRadius.circular(10.0),
-                                boxShadow: const [
-                                  BoxShadow(
-                                    color: Colors.black12,
-                                    blurRadius: 5.0,
-                                    offset: Offset(0, 5),
-                                  ),
-                                ]),
-                            height: MediaQuery.of(context).size.width * 0.20,
-                            child: GestureDetector(
-                              onTap: () {
-                                Navigator.of(context).push(
-                                  MaterialPageRoute(
-                                    builder: (context) => PetDetailsPage(
-                                      imageUrl: _images[activeIndex],
-                                    ),
-                                  ),
-                                );
-                              },
-                              child: const Column(
-                                mainAxisAlignment: MainAxisAlignment.center,
-                                children: [
-                                  Icon(
-                                    Icons.favorite,
-                                    color: Colors.red,
-                                    size: 25.0,
-                                  ),
-                                  Text(
-                                    'View me',
-                                    style: TextStyle(
-                                      color: Colors.black,
-                                      fontSize: 15.0,
-                                      fontWeight: FontWeight.bold,
-                                    ),
-                                  ),
-                                ],
-                              ),
-                            ),
-                          ),
-                        ],
-                      ),
-                    ),
+                    ],
                   ),
                 ),
               ],
@@ -195,7 +186,12 @@ class _PetMatchMakingState extends State<PetMatchMaking> {
 class PetDetailsPage extends StatelessWidget {
   final String imageUrl;
 
-  const PetDetailsPage({super.key, required this.imageUrl});
+  const PetDetailsPage({
+    Key? key,
+    required this.imageUrl,
+  }) : super(key: key);
+
+  static void _dummyCallback() {}
 
   @override
   Widget build(BuildContext context) {
@@ -203,75 +199,73 @@ class PetDetailsPage extends StatelessWidget {
       appBar: AppBar(
         title: const Text('Pet Details'),
       ),
-      body: SingleChildScrollView(
-        child: Column(
-          children: [
-            Center(
-              child: Image.network(imageUrl),
-            ),
-            const SizedBox(height: 20),
-            Row(
-              mainAxisAlignment: MainAxisAlignment.center,
-              children: [
-                ElevatedButton(
-                  onPressed: () {},
-                  style: ElevatedButton.styleFrom(
-                    elevation: 4.0, // <-- Add shadow effect
-                    shape: const RoundedRectangleBorder(
-                      borderRadius: BorderRadius.all(Radius.circular(10)),
-                    ),
-                  ),
-                  child: const Row(
-                    children: [
-                      Icon(
-                        Icons.favorite,
-                        color: Colors.red,
-                        size: 30.0,
-                      ),
-                      SizedBox(width: 5),
-                      Text(
-                        'Adopt me',
-                        style: TextStyle(
-                          color: Colors.white,
-                          fontSize: 15.0,
-                          fontWeight: FontWeight.bold,
-                        ),
-                      ),
-                    ],
+      body: Column(
+        children: [
+          Center(
+            child: Image.network(imageUrl),
+          ),
+          const SizedBox(height: 20),
+          Row(
+            mainAxisAlignment: MainAxisAlignment.center,
+            children: [
+              ElevatedButton(
+                onPressed: () {},
+                style: ElevatedButton.styleFrom(
+                  elevation: 4.0, // <-- Add shadow effect
+                  shape: const RoundedRectangleBorder(
+                    borderRadius: BorderRadius.all(Radius.circular(10)),
                   ),
                 ),
-                const SizedBox(width: 10),
-                ElevatedButton(
-                  onPressed: () {},
-                  style: ElevatedButton.styleFrom(
-                    elevation: 4.0, // <-- Add shadow effect
-                    shape: const RoundedRectangleBorder(
-                      borderRadius: BorderRadius.all(Radius.circular(10)),
+                child: const Row(
+                  children: [
+                    Icon(
+                      Icons.favorite,
+                      color: Colors.red,
+                      size: 30.0,
                     ),
-                  ),
-                  child: const Row(
-                    children: [
-                      Icon(
-                        Icons.chat,
-                        color: Colors.blue,
-                        size: 30.0,
+                    SizedBox(width: 5),
+                    Text(
+                      'Adopt me',
+                      style: TextStyle(
+                        color: Colors.white,
+                        fontSize: 15.0,
+                        fontWeight: FontWeight.bold,
                       ),
-                      SizedBox(width: 5),
-                      Text(
-                        'Message me',
-                        style: TextStyle(
-                          color: Colors.white,
-                          fontSize: 15.0,
-                          fontWeight: FontWeight.bold,
-                        ),
-                      ),
-                    ],
+                    ),
+                  ],
+                ),
+              ),
+              const SizedBox(width: 10),
+              ElevatedButton(
+                onPressed: () {},
+                style: ElevatedButton.styleFrom(
+                  elevation: 4.0, // <-- Add shadow effect
+                  shape: const RoundedRectangleBorder(
+                    borderRadius: BorderRadius.all(Radius.circular(10)),
                   ),
                 ),
-              ],
-            ),
-          ],
-        ),
+                child: const Row(
+                  children: [
+                    Icon(
+                      Icons.chat,
+                      color: Colors.blue,
+                      size: 30.0,
+                    ),
+                    SizedBox(width: 5),
+                    Text(
+                      'Message me',
+                      style: TextStyle(
+                        color: Colors.white,
+                        fontSize: 15.0,
+                        fontWeight: FontWeight.bold,
+                      ),
+                    ),
+                  ],
+                ),
+              ),
+            ],
+          ),
+        ],
       ),
     );
   }
@@ -282,10 +276,10 @@ class PetIconCard extends StatelessWidget {
   final Color color;
 
   const PetIconCard({
-    super.key,
+    Key? key,
     required this.icon,
     required this.color,
-  });
+  }) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
