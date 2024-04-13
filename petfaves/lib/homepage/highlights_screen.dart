@@ -4,6 +4,7 @@ import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:petfaves/PetPreferences/pet_preferences_details.dart';
 import 'package:petfaves/homepage/about_petfaves.dart';
 import 'package:petfaves/homepage/pet_care_section.dart';
+import 'package:petfaves/homepage/petfeeds.dart';
 import 'package:petfaves/homepage/user_account_settings_screen.dart';
 import 'package:petfaves/homepage/users_message_screen.dart';
 import 'package:petfaves/login_auth/login_form.dart';
@@ -84,17 +85,6 @@ class _HighLightsScreenState extends State<HighLightsScreen> {
                     'https://via.placeholder.com/150'), // Replace with your user's avatar URL
               ),
               accountEmail: null,
-            ),
-            ListTile(
-              leading: const Icon(Icons.person_2_rounded),
-              title: const Text('Highlights'),
-              onTap: () {
-                Navigator.of(context).push(
-                  MaterialPageRoute(
-                    builder: (context) => const HighLightsScreen(),
-                  ),
-                );
-              },
             ),
             ListTile(
               leading: const Icon(Icons.person_2_rounded),
@@ -373,35 +363,44 @@ class _HighLightsScreenState extends State<HighLightsScreen> {
                   ),
                 ),
               ),
-              Container(
-                decoration: const BoxDecoration(
-                  borderRadius: BorderRadius.all(Radius.circular(10)),
-                  boxShadow: [
-                    BoxShadow(
-                      color: Colors.grey,
-                      blurRadius: 4.0, // soften shadow
-                      offset: Offset(0, 4), // changes position of shadow
-                    ),
-                  ],
-                  color: Color.fromARGB(
-                      255, 134, 131, 131), // Adjust color as needed
-                ),
-                width: 100,
-                height: 100,
-                child: const Center(
-                  child: Text(
-                    'Pet Feeds',
-                    textAlign: TextAlign.center,
-                    style: TextStyle(
-                      color: Colors.white,
-                      fontWeight: FontWeight.bold,
+              GestureDetector(
+                onTap: () {
+                  // Navigate to PetFeeds()
+                  Navigator.push(
+                    context,
+                    MaterialPageRoute(builder: (context) => const PetFeeds()),
+                  );
+                },
+                child: Container(
+                  decoration: const BoxDecoration(
+                    borderRadius: BorderRadius.all(Radius.circular(10)),
+                    boxShadow: [
+                      BoxShadow(
+                        color: Colors.grey,
+                        blurRadius: 4.0, // soften shadow
+                        offset: Offset(0, 4), // changes position of shadow
+                      ),
+                    ],
+                    color: Color.fromARGB(
+                        255, 134, 131, 131), // Adjust color as needed
+                  ),
+                  width: 100,
+                  height: 100,
+                  child: const Center(
+                    child: Text(
+                      'Pet Feeds',
+                      textAlign: TextAlign.center,
+                      style: TextStyle(
+                        color: Colors.white,
+                        fontWeight: FontWeight.bold,
+                      ),
                     ),
                   ),
                 ),
               ),
             ],
           ),
-          const SizedBox(height: 20),
+          const SizedBox(height: 15),
           Expanded(
             child: ListView.builder(
               itemCount: (8 / 2).ceil(), // Number of rows (assuming 8 items)
@@ -475,7 +474,7 @@ class _HighLightsScreenState extends State<HighLightsScreen> {
                   ),
           ),
           const Padding(
-            padding: EdgeInsets.all(8.0),
+            padding: EdgeInsets.all(6.0),
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
