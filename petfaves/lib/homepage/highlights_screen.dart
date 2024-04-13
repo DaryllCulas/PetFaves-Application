@@ -3,11 +3,13 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:petfaves/PetPreferences/pet_preferences_details.dart';
 import 'package:petfaves/homepage/about_petfaves.dart';
-import 'package:petfaves/homepage/pet_care_section.dart';
 import 'package:petfaves/homepage/petfeeds.dart';
 import 'package:petfaves/homepage/user_account_settings_screen.dart';
 import 'package:petfaves/homepage/users_message_screen.dart';
 import 'package:petfaves/login_auth/login_form.dart';
+import 'package:petfaves/pet_match_making/get_started_to_adopt.dart';
+import 'package:petfaves/pet_match_making/pet_matching_screen.dart';
+import 'package:petfaves/petcare_section/pet_care_section.dart';
 import 'package:petfaves/profile/profile_info.dart';
 import 'package:http/http.dart' as http;
 import 'dart:convert';
@@ -104,6 +106,17 @@ class _HighLightsScreenState extends State<HighLightsScreen> {
                 Navigator.of(context).push(
                   MaterialPageRoute(
                     builder: (context) => const AboutPetFaves(),
+                  ),
+                );
+              },
+            ),
+            ListTile(
+              leading: const Icon(FontAwesomeIcons.newspaper),
+              title: const Text('PetFeeds'),
+              onTap: () {
+                Navigator.of(context).push(
+                  MaterialPageRoute(
+                    builder: (context) => const PetFeeds(),
                   ),
                 );
               },
@@ -225,6 +238,14 @@ class _HighLightsScreenState extends State<HighLightsScreen> {
                         ),
                         onPressed: () {
                           // Action for adoption button
+                          Navigator.push(
+                            context,
+                            MaterialPageRoute(
+                              builder: (context) => const PetMatchMakingScreen(
+                                  // Add empty list as argument
+                                  ),
+                            ),
+                          );
                         },
                         child: const Text(
                           'Adopt now',
@@ -313,17 +334,17 @@ class _HighLightsScreenState extends State<HighLightsScreen> {
             children: [
               Container(
                 decoration: const BoxDecoration(
-                  borderRadius: BorderRadius.all(Radius.circular(10)),
-                  boxShadow: [
-                    BoxShadow(
-                      color: Colors.grey,
-                      blurRadius: 4.0, // soften shadow
-                      offset: Offset(0, 4), // changes position of shadow
+                    borderRadius: BorderRadius.all(Radius.circular(10)),
+                    boxShadow: [
+                      BoxShadow(
+                        color: Colors.grey,
+                        blurRadius: 4.0, // soften shadow
+                        offset: Offset(0, 4), // changes position of shadow
+                      ),
+                    ],
+                    color: Color.fromARGB(
+                        255, 76, 174, 240) // Adjust color as needed
                     ),
-                  ],
-                  color: Color.fromARGB(
-                      255, 134, 131, 131), // Adjust color as needed
-                ),
                 width: 100,
                 height: 100,
                 child: const Center(
@@ -348,7 +369,7 @@ class _HighLightsScreenState extends State<HighLightsScreen> {
                     ),
                   ],
                   color: Color.fromARGB(
-                      255, 134, 131, 131), // Adjust color as needed
+                      255, 76, 174, 240), // Adjust color as needed
                 ),
                 width: 100,
                 height: 100,
@@ -366,9 +387,12 @@ class _HighLightsScreenState extends State<HighLightsScreen> {
               GestureDetector(
                 onTap: () {
                   // Navigate to PetFeeds()
+
                   Navigator.push(
                     context,
-                    MaterialPageRoute(builder: (context) => const PetFeeds()),
+                    MaterialPageRoute(
+                      builder: (context) => const PetFeeds(),
+                    ),
                   );
                 },
                 child: Container(
@@ -382,7 +406,7 @@ class _HighLightsScreenState extends State<HighLightsScreen> {
                       ),
                     ],
                     color: Color.fromARGB(
-                        255, 134, 131, 131), // Adjust color as needed
+                        255, 76, 174, 240), // Adjust color as needed
                   ),
                   width: 100,
                   height: 100,
