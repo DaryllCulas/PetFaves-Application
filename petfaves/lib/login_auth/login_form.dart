@@ -3,9 +3,9 @@ import 'package:google_sign_in/google_sign_in.dart';
 // import 'package:flutter_facebook_auth/flutter_facebook_auth.dart';
 import 'package:petfaves/components/modified_buttons.dart';
 import 'package:petfaves/forgotPassword/forgot_password_screen.dart';
+import 'package:petfaves/homepage/highlights_screen.dart';
 import 'package:petfaves/login_auth/login_user_auth.dart';
 import 'package:petfaves/components/sign_in_square_tile.dart';
-import 'package:petfaves/homepage/petfeeds.dart';
 import 'package:petfaves/register_auth/register_form.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
@@ -53,7 +53,7 @@ class _LoginPageState extends State<LoginPage> {
       });
       Navigator.pushReplacement(
         context,
-        MaterialPageRoute(builder: (context) => const PetFeeds()),
+        MaterialPageRoute(builder: (context) => const HighLightsScreen()),
       );
     } on FirebaseAuthException catch (e) {
       Navigator.pop(context);
