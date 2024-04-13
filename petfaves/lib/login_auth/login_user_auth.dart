@@ -3,7 +3,7 @@ import 'dart:async';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:petfaves/adminDashboard/admin_dashboard.dart';
-import 'package:petfaves/homepage/petfeeds.dart';
+import 'package:petfaves/homepage/highlights_screen.dart';
 import 'package:petfaves/register_auth/login_or_register.dart';
 
 class AuthPage extends StatefulWidget {
@@ -50,7 +50,7 @@ class _AuthPageState extends State<AuthPage> {
               Navigator.pushReplacement(
                 context,
                 MaterialPageRoute(
-                  builder: (context) => const PetFeeds(),
+                  builder: (context) => const HighLightsScreen(),
                 ),
               );
             }
