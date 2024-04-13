@@ -1,5 +1,6 @@
 import 'package:firebase_auth/firebase_auth.dart' as auth;
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:flutter/material.dart';
 import 'package:petfaves/user_management/enum.dart';
 import 'package:petfaves/user_management/model.dart';
 
@@ -20,7 +21,7 @@ class UserManagement {
         );
       }
     } catch (e) {
-      print('Error getting user: $e');
+      debugPrint('Error getting user: $e');
     }
     return null;
   }
