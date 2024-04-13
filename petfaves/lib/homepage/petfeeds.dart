@@ -7,11 +7,11 @@ import 'package:petfaves/donationpage/donation_module.dart';
 import 'package:petfaves/homepage/about_petfaves.dart';
 import 'package:petfaves/homepage/highlights_screen.dart';
 import 'package:petfaves/homepage/homescreen.dart';
-import 'package:petfaves/homepage/pet_care_section.dart';
 import 'package:petfaves/homepage/user_account_settings_screen.dart';
 import 'package:petfaves/homepage/users_message_screen.dart';
 import 'package:petfaves/login_auth/login_form.dart';
 import 'package:petfaves/pet_match_making/pet_match_making_module.dart';
+import 'package:petfaves/petcare_section/pet_care_section.dart';
 import 'package:petfaves/profile/profile_info.dart';
 
 class PetFeeds extends StatefulWidget {
