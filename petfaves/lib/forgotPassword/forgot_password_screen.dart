@@ -123,7 +123,7 @@ class _ForgotPasswordState extends State<ForgotPassword> {
           const SnackBar(
             backgroundColor: Colors.green,
             content: Text(
-              'Reset password successfully',
+              'Email for password reset has been sent successfully',
               style: TextStyle(color: Colors.white),
             ),
           ),
