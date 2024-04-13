@@ -8,6 +8,9 @@ import 'package:petfaves/homepage/user_account_settings_screen.dart';
 import 'package:petfaves/homepage/users_message_screen.dart';
 import 'package:petfaves/login_auth/login_form.dart';
 import 'package:petfaves/profile/profile_info.dart';
+import 'package:http/http.dart' as http;
+import 'dart:convert';
+import 'dart:async';
 
 class HighLightsScreen extends StatefulWidget {
   const HighLightsScreen({Key? key});
@@ -18,9 +21,27 @@ class HighLightsScreen extends StatefulWidget {
 
 class _HighLightsScreenState extends State<HighLightsScreen> {
   final user = FirebaseAuth.instance.currentUser!;
-
   int _currentPageIndex = 0;
   final PageController _pageController = PageController();
+  late Future<String> _randomDogImageUrl;
+
+  @override
+  void initState() {
+    super.initState();
+    _randomDogImageUrl = fetchRandomDogImage(); // Call the API here
+  }
+
+  Future<String> fetchRandomDogImage() async {
+    final response =
+        await http.get(Uri.parse('https://dog.ceo/api/breeds/image/random'));
+    if (response.statusCode == 200) {
+      final Map<String, dynamic> data = json.decode(response.body);
+      return data[
+          'message']; // This will contain the URL of the random dog image
+    } else {
+      throw Exception('Failed to load random dog image');
+    }
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -427,15 +448,31 @@ class _HighLightsScreenState extends State<HighLightsScreen> {
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
           ClipRRect(
-            borderRadius:
-                BorderRadius.circular(8.0), // Clip image to rounded corners
-            child: Image.network(
-              'https://via.placeholder.com/150',
-              fit: BoxFit.cover,
-              width: double
-                  .infinity, // Ensure image takes full width of the container
-              height: 150, // Set the height of the image
-            ),
+            borderRadius: BorderRadius.circular(8.0),
+            // ignore: unnecessary_null_comparison
+            child: _randomDogImageUrl == null
+                ? CircularProgressIndicator() // Show loading indicator if _randomDogImageUrl is null
+                : FutureBuilder<String>(
+                    future: _randomDogImageUrl,
+                    builder: (context, snapshot) {
+                      if (snapshot.connectionState == ConnectionState.waiting) {
+                        // Show a loading indicator while fetching the image
+                        return CircularProgressIndicator();
+                      } else if (snapshot.hasError) {
+                        // Show an error message if fetching fails
+                        return Text('Error: ${snapshot.error}');
+                      } else {
+                        // Image fetched successfully, display it
+                        final imageUrl = snapshot.data!;
+                        return Image.network(
+                          imageUrl,
+                          fit: BoxFit.cover,
+                          width: double.infinity,
+                          height: 150,
+                        );
+                      }
+                    },
+                  ),
           ),
           const Padding(
             padding: EdgeInsets.all(8.0),
