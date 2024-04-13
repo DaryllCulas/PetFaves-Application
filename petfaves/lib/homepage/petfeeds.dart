@@ -106,8 +106,8 @@ class _PetFeedsState extends State<PetFeeds> {
               accountEmail: null,
             ),
             ListTile(
-              leading: const Icon(Icons.person_2_rounded),
-              title: const Text('Highlights'),
+              leading: const Icon(Icons.home),
+              title: const Text('Home'),
               onTap: () {
                 Navigator.of(context).push(
                   MaterialPageRoute(
