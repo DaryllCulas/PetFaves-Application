@@ -141,14 +141,12 @@ class _DonationScreenState extends State<DonationScreen> {
                 cursorColor: Colors.black,
                 maxLines: null,
                 decoration: InputDecoration(
-                  labelText: 'Comment',
+                  labelText: 'Comments',
                   labelStyle: const TextStyle(
                     color: Color.fromARGB(255, 102, 99, 99),
                   ),
-                  prefixIcon: const SizedBox(
-                      width: 120.0), // Transparent icon to occupy space
-                  suffixIcon: const SizedBox(width: 100.0),
-                  contentPadding: const EdgeInsets.symmetric(vertical: 50.0),
+                  contentPadding: const EdgeInsets.symmetric(
+                      vertical: 20.0, horizontal: 10.0), // Adjust padding here
                   border: OutlineInputBorder(
                     borderRadius: BorderRadius.circular(15.0),
                   ),
@@ -157,8 +155,8 @@ class _DonationScreenState extends State<DonationScreen> {
                       color: Colors.black,
                     ),
                   ),
-                  fillColor: Colors.white,
                   filled: true,
+                  fillColor: Colors.white,
                 ),
                 style: const TextStyle(color: Colors.black),
               ),
