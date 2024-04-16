@@ -319,7 +319,8 @@ class MetricCard extends StatelessWidget {
   final String number;
   final List<Color> gradientColors;
 
-  const MetricCard({super.key, 
+  const MetricCard({
+    super.key,
     required this.title,
     required this.number,
     required this.gradientColors,
@@ -385,7 +386,7 @@ class SettingsScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     return const Center(
       child: Text(
-        'Pet List Screen',
+        'Notifications Screen',
         style: TextStyle(color: Colors.black),
       ),
     );
