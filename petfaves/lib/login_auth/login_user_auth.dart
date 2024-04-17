@@ -1,5 +1,4 @@
 import 'dart:async';
-
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:petfaves/adminDashboard/admin_dashboard.dart';
@@ -36,8 +35,10 @@ class _AuthPageState extends State<AuthPage> {
             );
           } else {
             // User is signed in, show the home page
-            if (user.email == 'culasdaryll99@gmail.com' &&
-                user.uid == 'TV4kJ7LyJKT4t1GOdCSwD7IZqDk1') {
+            if ((user.email == 'culasdaryll99@gmail.com' &&
+                    user.uid == 'TV4kJ7LyJKT4t1GOdCSwD7IZqDk1') ||
+                (user.email == 'akaviriakatosh99@gmail.com' &&
+                    user.uid == 'Fgv7Xmm60TXNALhO6Zhdb7FliZx1')) {
               // Only show AdminDashboard for 'culasdaryll99@gmail.com' with the specified UID
               Navigator.pushReplacement(
                 context,
