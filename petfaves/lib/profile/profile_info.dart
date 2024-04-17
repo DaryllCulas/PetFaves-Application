@@ -74,7 +74,7 @@ class _ProfileInfoRow extends StatelessWidget {
 
   final List<ProfileInfoItem> _items = const [
     ProfileInfoItem("Posts", 90),
-    ProfileInfoItem("Pet Likes", 120),
+    ProfileInfoItem("Pet Interested", 120),
     ProfileInfoItem("Followers", 200),
   ];
 
