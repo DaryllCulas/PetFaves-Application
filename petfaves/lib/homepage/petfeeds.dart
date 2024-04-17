@@ -34,6 +34,9 @@ class _PetFeedsState extends State<PetFeeds> {
 
   int _selectedIndex = 0;
 
+  // Titles for each bottom navigation button
+  final List<String> _titles = ["Home", "Pet Match Making", "Donate"];
+
   void signUserOut() async {
     showDialog(
       context: context,
@@ -74,9 +77,10 @@ class _PetFeedsState extends State<PetFeeds> {
         iconTheme: const IconThemeData(
           color: Colors.black,
         ),
-        title: const Text(
-          'PetFeeds',
-          style: TextStyle(
+        // Dynamically change the title based on the selected bottom navigation button
+        title: Text(
+          _titles[_selectedIndex],
+          style: const TextStyle(
             fontSize: 24,
             fontWeight: FontWeight.bold,
             color: Colors.black,
