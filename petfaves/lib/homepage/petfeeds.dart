@@ -166,7 +166,7 @@ class _PetFeedsState extends State<PetFeeds> {
             ),
             ListTile(
               leading: const Icon(Icons.edit),
-              title: const Text('Pet Preferences Modification'),
+              title: const Text('Pet Preferences'),
               onTap: () {
                 Navigator.of(context).push(
                   MaterialPageRoute(
