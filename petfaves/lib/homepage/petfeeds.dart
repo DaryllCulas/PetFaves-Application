@@ -35,7 +35,7 @@ class _PetFeedsState extends State<PetFeeds> {
   int _selectedIndex = 0;
 
   // Titles for each bottom navigation button
-  final List<String> _titles = ["Home", "Pet Match Making", "Donate"];
+  final List<String> _titles = ["Pet Feeds", "Pet Match Making", "Donate"];
 
   void signUserOut() async {
     showDialog(
@@ -208,8 +208,8 @@ class _PetFeedsState extends State<PetFeeds> {
         elevation: 10.0,
         items: const <BottomNavigationBarItem>[
           BottomNavigationBarItem(
-            icon: Icon(Icons.home_filled),
-            label: "Home",
+            icon: Icon(FontAwesomeIcons.newspaper),
+            label: "Pet Feeds",
           ),
           BottomNavigationBarItem(
             icon: Icon(Icons.pets_sharp),
