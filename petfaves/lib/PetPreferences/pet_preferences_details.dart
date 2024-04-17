@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:petfaves/components/pet_preferences_questionnaire_form.dart';
 
 class PetPreferences extends StatefulWidget {
   const PetPreferences({super.key});
@@ -10,18 +11,8 @@ class PetPreferences extends StatefulWidget {
 class _PetPreferencesState extends State<PetPreferences> {
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: AppBar(
-        title: const Center(
-          child: Text('Pet Preferences Modification'),
-        ),
-      ),
-      body: const Center(
-        child: Text(
-          'Pet Preferences Screen',
-          style: TextStyle(color: Colors.black),
-        ),
-      ),
+    return const Scaffold(
+      body: PetPreferencesQuestionnaire(),
     );
   }
 }
