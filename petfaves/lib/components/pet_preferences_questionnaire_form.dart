@@ -26,6 +26,10 @@ class _PetPreferencesQuestionnaireState
   int? _petGenderPreference;
   int? _lifeStyleCompatibility;
   int? _livingSituation;
+  int? _timeCommitment;
+  int? _budgetForPetCare;
+  int? _petCareExperience;
+  int? _otherConsideration;
 
   @override
   void dispose() {
@@ -124,7 +128,9 @@ class _PetPreferencesQuestionnaireState
               Row(
                 children: [
                   Checkbox(
-                    side: const BorderSide(color: Colors.black),
+                    side: const BorderSide(
+                      color: Color.fromARGB(255, 65, 64, 64),
+                    ),
                     activeColor: Colors.blue,
                     value: _isDogSelected,
                     onChanged: (value) {
@@ -144,7 +150,9 @@ class _PetPreferencesQuestionnaireState
               Row(
                 children: [
                   Checkbox(
-                    side: const BorderSide(color: Colors.black),
+                    side: const BorderSide(
+                      color: Color.fromARGB(255, 65, 64, 64),
+                    ),
                     activeColor: Colors.blue,
                     value: _isCatSelected,
                     onChanged: (value) {
@@ -164,7 +172,8 @@ class _PetPreferencesQuestionnaireState
               Row(
                 children: [
                   Checkbox(
-                    side: const BorderSide(color: Colors.black),
+                    side: const BorderSide(
+                        color: Color.fromARGB(255, 65, 64, 64)),
                     activeColor: Colors.blue,
                     value: _isBirdSelected,
                     onChanged: (value) {
@@ -184,7 +193,9 @@ class _PetPreferencesQuestionnaireState
               Row(
                 children: [
                   Checkbox(
-                    side: const BorderSide(color: Colors.black),
+                    side: const BorderSide(
+                      color: Color.fromARGB(255, 65, 64, 64),
+                    ),
                     activeColor: Colors.blue,
                     value: _isOtherSelected,
                     onChanged: (value) {
@@ -693,7 +704,415 @@ class _PetPreferencesQuestionnaireState
                         return const Color.fromARGB(255, 65, 64, 64);
                       },
                     ),
-                  )
+                  ),
+                  const SizedBox(height: 30.0),
+                  const Text(
+                    'Time Commitment',
+                    style: TextStyle(
+                      fontSize: 18.0,
+                      fontWeight: FontWeight.bold,
+                      color: Color.fromARGB(255, 65, 64, 64),
+                    ),
+                  ),
+                  RadioListTile<int>(
+                    title: const Text(
+                      'High (regular exercise and training).',
+                      style: TextStyle(
+                        color: Color.fromARGB(255, 65, 64, 64),
+                      ),
+                    ),
+                    value: 0,
+                    groupValue: _timeCommitment,
+                    onChanged: (value) {
+                      if (value == null) {
+                        debugPrint('RadioListTile value is null');
+                        return;
+                      }
+                      setState(() {
+                        _timeCommitment = value;
+                      });
+                    },
+                    activeColor: Colors.blue,
+                    fillColor: MaterialStateProperty.resolveWith<Color>(
+                      (states) {
+                        if (states.contains(MaterialState.selected)) {
+                          return Colors.blue;
+                        }
+                        if (states.contains(MaterialState.disabled)) {
+                          debugPrint('RadioListTile is disabled');
+                        }
+                        return const Color.fromARGB(255, 65, 64, 64);
+                      },
+                    ),
+                  ),
+                  RadioListTile<int>(
+                    title: const Text(
+                      'Moderate (daily interaction).',
+                      style: TextStyle(
+                        color: Color.fromARGB(255, 65, 64, 64),
+                      ),
+                    ),
+                    value: 1,
+                    groupValue: _timeCommitment,
+                    onChanged: (value) {
+                      if (value == null) {
+                        debugPrint('RadioListTile value is null');
+                        return;
+                      }
+                      setState(() {
+                        _timeCommitment = value;
+                      });
+                    },
+                    activeColor: Colors.blue,
+                    fillColor: MaterialStateProperty.resolveWith<Color>(
+                      (states) {
+                        if (states.contains(MaterialState.selected)) {
+                          return Colors.blue;
+                        }
+                        if (states.contains(MaterialState.disabled)) {
+                          debugPrint('RadioListTile is disabled');
+                        }
+                        return const Color.fromARGB(255, 65, 64, 64);
+                      },
+                    ),
+                  ),
+                  RadioListTile<int>(
+                    title: const Text(
+                      'Low (more independent pets).',
+                      style: TextStyle(
+                        color: Color.fromARGB(255, 65, 64, 64),
+                      ),
+                    ),
+                    value: 2,
+                    groupValue: _timeCommitment,
+                    onChanged: (value) {
+                      if (value == null) {
+                        debugPrint('RadioListTile value is null');
+                        return;
+                      }
+                      setState(() {
+                        _timeCommitment = value;
+                      });
+                    },
+                    activeColor: Colors.blue,
+                    fillColor: MaterialStateProperty.resolveWith<Color>(
+                      (states) {
+                        if (states.contains(MaterialState.selected)) {
+                          return Colors.blue;
+                        }
+                        if (states.contains(MaterialState.disabled)) {
+                          debugPrint('RadioListTile is disabled');
+                        }
+                        return const Color.fromARGB(255, 65, 64, 64);
+                      },
+                    ),
+                  ),
+                  const SizedBox(height: 30.0),
+                  const Text(
+                    'Budget for Pet Care',
+                    style: TextStyle(
+                      fontSize: 18.0,
+                      fontWeight: FontWeight.bold,
+                      color: Color.fromARGB(255, 65, 64, 64),
+                    ),
+                  ),
+                  RadioListTile<int>(
+                    title: const Text(
+                      'Low (basic necessities).',
+                      style: TextStyle(
+                        color: Color.fromARGB(255, 65, 64, 64),
+                      ),
+                    ),
+                    value: 0,
+                    groupValue: _budgetForPetCare,
+                    onChanged: (value) {
+                      if (value == null) {
+                        debugPrint('RadioListTile value is null');
+                        return;
+                      }
+                      setState(() {
+                        _budgetForPetCare = value;
+                      });
+                    },
+                    activeColor: Colors.blue,
+                    fillColor: MaterialStateProperty.resolveWith<Color>(
+                      (states) {
+                        if (states.contains(MaterialState.selected)) {
+                          return Colors.blue;
+                        }
+                        if (states.contains(MaterialState.disabled)) {
+                          debugPrint('RadioListTile is disabled');
+                        }
+                        return const Color.fromARGB(255, 65, 64, 64);
+                      },
+                    ),
+                  ),
+                  RadioListTile<int>(
+                    title: const Text(
+                      'Moderate (including veterinarian appointments and grooming).',
+                      style: TextStyle(
+                        color: Color.fromARGB(255, 65, 64, 64),
+                      ),
+                    ),
+                    value: 1,
+                    groupValue: _budgetForPetCare,
+                    onChanged: (value) {
+                      if (value == null) {
+                        debugPrint('RadioListTile value is null');
+                        return;
+                      }
+                      setState(() {
+                        _budgetForPetCare = value;
+                      });
+                    },
+                    activeColor: Colors.blue,
+                    fillColor: MaterialStateProperty.resolveWith<Color>(
+                      (states) {
+                        if (states.contains(MaterialState.selected)) {
+                          return Colors.blue;
+                        }
+                        if (states.contains(MaterialState.disabled)) {
+                          debugPrint('RadioListTile is disabled');
+                        }
+                        return const Color.fromARGB(255, 65, 64, 64);
+                      },
+                    ),
+                  ),
+                  RadioListTile<int>(
+                    title: const Text(
+                      'High (includes expensive meals and accessories)',
+                      style: TextStyle(
+                        color: Color.fromARGB(255, 65, 64, 64),
+                      ),
+                    ),
+                    value: 2,
+                    groupValue: _budgetForPetCare,
+                    onChanged: (value) {
+                      if (value == null) {
+                        debugPrint('RadioListTile value is null');
+                        return;
+                      }
+                      setState(() {
+                        _budgetForPetCare = value;
+                      });
+                    },
+                    activeColor: Colors.blue,
+                    fillColor: MaterialStateProperty.resolveWith<Color>(
+                      (states) {
+                        if (states.contains(MaterialState.selected)) {
+                          return Colors.blue;
+                        }
+                        if (states.contains(MaterialState.disabled)) {
+                          debugPrint('RadioListTile is disabled');
+                        }
+                        return const Color.fromARGB(255, 65, 64, 64);
+                      },
+                    ),
+                  ),
+                  const SizedBox(height: 30.0),
+                  const Text(
+                    'Previous Experience',
+                    style: TextStyle(
+                      fontSize: 18.0,
+                      fontWeight: FontWeight.bold,
+                      color: Color.fromARGB(255, 65, 64, 64),
+                    ),
+                  ),
+                  RadioListTile<int>(
+                    title: const Text(
+                      'An experienced pet owner.',
+                      style: TextStyle(
+                        color: Color.fromARGB(255, 65, 64, 64),
+                      ),
+                    ),
+                    value: 0,
+                    groupValue: _petCareExperience,
+                    onChanged: (value) {
+                      if (value == null) {
+                        debugPrint('RadioListTile value is null');
+                        return;
+                      }
+                      setState(() {
+                        _petCareExperience = value;
+                      });
+                    },
+                    activeColor: Colors.blue,
+                    fillColor: MaterialStateProperty.resolveWith<Color>(
+                      (states) {
+                        if (states.contains(MaterialState.selected)) {
+                          return Colors.blue;
+                        }
+                        if (states.contains(MaterialState.disabled)) {
+                          debugPrint('RadioListTile is disabled');
+                        }
+                        return const Color.fromARGB(255, 65, 64, 64);
+                      },
+                    ),
+                  ),
+                  RadioListTile<int>(
+                    title: const Text(
+                      'Limited experience.',
+                      style: TextStyle(
+                        color: Color.fromARGB(255, 65, 64, 64),
+                      ),
+                    ),
+                    value: 1,
+                    groupValue: _petCareExperience,
+                    onChanged: (value) {
+                      if (value == null) {
+                        debugPrint('RadioListTile value is null');
+                        return;
+                      }
+                      setState(() {
+                        _petCareExperience = value;
+                      });
+                    },
+                    activeColor: Colors.blue,
+                    fillColor: MaterialStateProperty.resolveWith<Color>(
+                      (states) {
+                        if (states.contains(MaterialState.selected)) {
+                          return Colors.blue;
+                        }
+                        if (states.contains(MaterialState.disabled)) {
+                          debugPrint('RadioListTile is disabled');
+                        }
+                        return const Color.fromARGB(255, 65, 64, 64);
+                      },
+                    ),
+                  ),
+                  RadioListTile<int>(
+                    title: const Text(
+                      'First-time pet owner.',
+                      style: TextStyle(
+                        color: Color.fromARGB(255, 65, 64, 64),
+                      ),
+                    ),
+                    value: 2,
+                    groupValue: _petCareExperience,
+                    onChanged: (value) {
+                      if (value == null) {
+                        debugPrint('RadioListTile value is null');
+                        return;
+                      }
+                      setState(() {
+                        _petCareExperience = value;
+                      });
+                    },
+                    activeColor: Colors.blue,
+                    fillColor: MaterialStateProperty.resolveWith<Color>(
+                      (states) {
+                        if (states.contains(MaterialState.selected)) {
+                          return Colors.blue;
+                        }
+                        if (states.contains(MaterialState.disabled)) {
+                          debugPrint('RadioListTile is disabled');
+                        }
+                        return const Color.fromARGB(255, 65, 64, 64);
+                      },
+                    ),
+                  ),
+                  const SizedBox(height: 30.0),
+                  const Text(
+                    'Other considerations',
+                    style: TextStyle(
+                      fontSize: 18.0,
+                      fontWeight: FontWeight.bold,
+                      color: Color.fromARGB(255, 65, 64, 64),
+                    ),
+                  ),
+                  RadioListTile<int>(
+                    title: const Text(
+                      'Compatible with children.',
+                      style: TextStyle(
+                        color: Color.fromARGB(255, 65, 64, 64),
+                      ),
+                    ),
+                    value: 0,
+                    groupValue: _otherConsideration,
+                    onChanged: (value) {
+                      if (value == null) {
+                        debugPrint('RadioListTile value is null');
+                        return;
+                      }
+                      setState(() {
+                        _otherConsideration = value;
+                      });
+                    },
+                    activeColor: Colors.blue,
+                    fillColor: MaterialStateProperty.resolveWith<Color>(
+                      (states) {
+                        if (states.contains(MaterialState.selected)) {
+                          return Colors.blue;
+                        }
+                        if (states.contains(MaterialState.disabled)) {
+                          debugPrint('RadioListTile is disabled');
+                        }
+                        return const Color.fromARGB(255, 65, 64, 64);
+                      },
+                    ),
+                  ),
+                  RadioListTile<int>(
+                    title: const Text(
+                      'Compatible with other pets.',
+                      style: TextStyle(
+                        color: Color.fromARGB(255, 65, 64, 64),
+                      ),
+                    ),
+                    value: 1,
+                    groupValue: _otherConsideration,
+                    onChanged: (value) {
+                      if (value == null) {
+                        debugPrint('RadioListTile value is null');
+                        return;
+                      }
+                      setState(() {
+                        _otherConsideration = value;
+                      });
+                    },
+                    activeColor: Colors.blue,
+                    fillColor: MaterialStateProperty.resolveWith<Color>(
+                      (states) {
+                        if (states.contains(MaterialState.selected)) {
+                          return Colors.blue;
+                        }
+                        if (states.contains(MaterialState.disabled)) {
+                          debugPrint('RadioListTile is disabled');
+                        }
+                        return const Color.fromARGB(255, 65, 64, 64);
+                      },
+                    ),
+                  ),
+                  RadioListTile<int>(
+                    title: const Text(
+                      'Special Needs Considerations',
+                      style: TextStyle(
+                        color: Color.fromARGB(255, 65, 64, 64),
+                      ),
+                    ),
+                    value: 2,
+                    groupValue: _otherConsideration,
+                    onChanged: (value) {
+                      if (value == null) {
+                        debugPrint('RadioListTile value is null');
+                        return;
+                      }
+                      setState(() {
+                        _otherConsideration = value;
+                      });
+                    },
+                    activeColor: Colors.blue,
+                    fillColor: MaterialStateProperty.resolveWith<Color>(
+                      (states) {
+                        if (states.contains(MaterialState.selected)) {
+                          return Colors.blue;
+                        }
+                        if (states.contains(MaterialState.disabled)) {
+                          debugPrint('RadioListTile is disabled');
+                        }
+                        return const Color.fromARGB(255, 65, 64, 64);
+                      },
+                    ),
+                  ),
                 ],
               ),
             ],
