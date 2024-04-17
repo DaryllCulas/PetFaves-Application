@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:petfaves/components/modified_buttons.dart';
 
 class PetPreferencesQuestionnaire extends StatefulWidget {
   const PetPreferencesQuestionnaire({Key? key}) : super(key: key);
@@ -45,7 +46,7 @@ class _PetPreferencesQuestionnaireState
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: const Text('Pet Preferences Questionnaire'),
+        title: const Text('Pet Preferences '),
       ),
       body: Padding(
         padding: const EdgeInsets.all(16.0),
@@ -1113,6 +1114,13 @@ class _PetPreferencesQuestionnaireState
                       },
                     ),
                   ),
+                  const SizedBox(height: 30.0),
+                  Center(
+                    child: ModifiedButtons(
+                      onTap: submitPreferences,
+                      text: 'Submit',
+                    ),
+                  ),
                 ],
               ),
             ],
@@ -1120,5 +1128,9 @@ class _PetPreferencesQuestionnaireState
         ),
       ),
     );
+  }
+
+  void submitPreferences() {
+    debugPrint("Submitted");
   }
 }
