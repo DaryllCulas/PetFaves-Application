@@ -7,7 +7,6 @@ import 'package:petfaves/homepage/petfeeds.dart';
 import 'package:petfaves/homepage/user_account_settings_screen.dart';
 import 'package:petfaves/homepage/users_message_screen.dart';
 import 'package:petfaves/login_auth/login_form.dart';
-import 'package:petfaves/pet_match_making/get_started_to_adopt.dart';
 import 'package:petfaves/pet_match_making/pet_matching_screen.dart';
 import 'package:petfaves/petcare_section/pet_care_section.dart';
 import 'package:petfaves/profile/profile_info.dart';
@@ -261,7 +260,7 @@ class _HighLightsScreenState extends State<HighLightsScreen> {
                       .infinity, // Adjust the width of the container to match the PageView
                   margin: const EdgeInsets.all(10), // Adjust margin here
                   decoration: BoxDecoration(
-                    color: Colors.green,
+                    color: const Color.fromARGB(255, 76, 174, 240),
                     borderRadius:
                         BorderRadius.circular(20), // Adjust border radius here
                   ),
@@ -300,6 +299,14 @@ class _HighLightsScreenState extends State<HighLightsScreen> {
                         ),
                         onPressed: () {
                           // Action for adoption button
+                          Navigator.push(
+                            context,
+                            MaterialPageRoute(
+                              builder: (context) => const PetMatchMakingScreen(
+                                  // Add empty list as argument
+                                  ),
+                            ),
+                          );
                         },
                         child: const Text(
                           'Adopt now',

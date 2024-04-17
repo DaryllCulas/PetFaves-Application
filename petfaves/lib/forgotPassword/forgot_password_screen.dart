@@ -1,10 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:petfaves/components/modified_buttons.dart';
-import 'package:petfaves/login_auth/login_form.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 
 class ForgotPassword extends StatefulWidget {
-  const ForgotPassword({super.key, required this.emailController});
+  const ForgotPassword({Key? key, required this.emailController});
 
   final TextEditingController emailController;
 
@@ -13,139 +12,45 @@ class ForgotPassword extends StatefulWidget {
 }
 
 class _ForgotPasswordState extends State<ForgotPassword> {
-  final _confirmNewPasswordController = TextEditingController();
-  final _newPasswordController = TextEditingController();
-  bool _obscureText = true;
-  final _oldPasswordController = TextEditingController();
-
-  Widget buildTextField({
-    required TextEditingController controller,
-    required String labelText,
-    bool isPassword = false,
-  }) {
-    return Container(
-      margin: const EdgeInsets.symmetric(vertical: 10.0),
-      height: 50.0,
-      child: TextFormField(
-        controller: controller,
-        cursorColor: Colors.black,
-        obscureText: isPassword ? _obscureText : false,
-        decoration: InputDecoration(
-          labelText: labelText,
-          labelStyle: const TextStyle(
-            color: Colors.grey,
-          ),
-          suffixIcon: isPassword
-              ? IconButton(
-                  icon: Icon(
-                    _obscureText ? Icons.visibility : Icons.visibility_off,
-                    color: Colors.black,
-                  ),
-                  onPressed: () {
-                    setState(() {
-                      _obscureText = !_obscureText;
-                    });
-                  },
-                )
-              : null,
-          border: OutlineInputBorder(
-            borderRadius: BorderRadius.circular(20),
-            borderSide: BorderSide(
-              color: controller.text.isEmpty ? Colors.red : Colors.black,
-            ),
-          ),
-          focusedBorder: OutlineInputBorder(
-            borderRadius: BorderRadius.circular(20),
-            borderSide: const BorderSide(
-              color: Colors.black,
-            ),
-          ),
-          fillColor: Colors.white70,
-          filled: true,
-          hintStyle: const TextStyle(
-            color: Colors.black,
-          ),
-        ),
-        style: const TextStyle(
-          color: Colors.black,
-        ),
-        validator: (value) {
-          if (value == null || value.isEmpty) {
-            return 'Please enter $labelText';
-          }
-          if (!isPassword) {
-            return null;
-          }
-          if (_newPasswordController.text !=
-              _confirmNewPasswordController.text) {
-            return 'Passwords don\'t match';
-          }
-          return null;
-        },
-      ),
-    );
-  }
-
-  void confirmNewPassword() async {
-    // Check if all text fields are not empty
-    if (_oldPasswordController.text.isEmpty ||
-        _newPasswordController.text.isEmpty ||
-        _confirmNewPasswordController.text.isEmpty) {
-      // Show error message if any of the fields are empty
+  void sendResetEmail(BuildContext context) async {
+    // Check if email field is not empty
+    if (widget.emailController.text.isEmpty) {
       ScaffoldMessenger.of(context).showSnackBar(
         const SnackBar(
           backgroundColor: Colors.red,
           content: Text(
-            'Please fill in all fields',
+            'Please enter your email',
             style: TextStyle(color: Colors.white),
           ),
         ),
       );
-      return; // Stop further execution
+      return;
     }
 
     try {
-      if (_newPasswordController.text == _confirmNewPasswordController.text) {
-        // Passwords match, navigate to login page
-        Navigator.push(
-          context,
-          MaterialPageRoute(
-            builder: (context) => const LoginPage(),
-          ),
-        );
+      // Send password reset email using Firebase Authentication
+      await FirebaseAuth.instance.sendPasswordResetEmail(
+        email: widget.emailController.text,
+      );
 
-        // Reset password using Firebase Authentication
-        await FirebaseAuth.instance.sendPasswordResetEmail(
-          email: widget.emailController.text,
-        );
+      ScaffoldMessenger.of(context).showSnackBar(
+        const SnackBar(
+          backgroundColor: Colors.green,
+          content: Text(
+            'Email for password reset has been sent successfully',
+            style: TextStyle(color: Colors.white),
+          ),
+        ),
+      );
 
-        ScaffoldMessenger.of(context).showSnackBar(
-          const SnackBar(
-            backgroundColor: Colors.green,
-            content: Text(
-              'Email for password reset has been sent successfully',
-              style: TextStyle(color: Colors.white),
-            ),
-          ),
-        );
-      } else {
-        // Passwords don't match, show error message
-        ScaffoldMessenger.of(context).showSnackBar(
-          const SnackBar(
-            backgroundColor: Colors.red,
-            content: Text(
-              'Passwords don\'t match',
-              style: TextStyle(color: Colors.white),
-            ),
-          ),
-        );
-      }
-    } on Exception catch (error) {
+      // Navigate back to the login form
+      Navigator.pop(context);
+    } on FirebaseAuthException catch (error) {
       ScaffoldMessenger.of(context).showSnackBar(
         SnackBar(
           backgroundColor: Colors.red,
           content: Text(
-            'Error: ${error.toString()}',
+            'Error: ${error.message}',
             style: const TextStyle(color: Colors.white),
           ),
         ),
@@ -179,32 +84,54 @@ class _ForgotPasswordState extends State<ForgotPassword> {
                 ),
               ),
               const SizedBox(height: 20.0),
-              buildTextField(
-                controller: widget.emailController,
-                labelText: 'Email',
-              ),
-              buildTextField(
-                controller: _oldPasswordController,
-                labelText: 'Current Password',
-                isPassword: true,
-              ),
-              buildTextField(
-                controller: _newPasswordController,
-                labelText: 'New Password',
-                isPassword: true,
-              ),
-              buildTextField(
-                controller: _confirmNewPasswordController,
-                labelText: 'Confirm New Password',
-                isPassword: true,
+              Container(
+                margin: const EdgeInsets.symmetric(vertical: 10.0),
+                height: 50.0,
+                child: TextFormField(
+                  controller: widget.emailController,
+                  cursorColor: Colors.black,
+                  decoration: InputDecoration(
+                    labelText: 'Email',
+                    labelStyle: const TextStyle(
+                      color: Colors.grey,
+                    ),
+                    border: OutlineInputBorder(
+                      borderRadius: BorderRadius.circular(20),
+                      borderSide: BorderSide(
+                        color: widget.emailController.text.isEmpty
+                            ? Colors.red
+                            : Colors.black,
+                      ),
+                    ),
+                    focusedBorder: OutlineInputBorder(
+                      borderRadius: BorderRadius.circular(20),
+                      borderSide: const BorderSide(
+                        color: Colors.black,
+                      ),
+                    ),
+                    fillColor: Colors.white70,
+                    filled: true,
+                    hintStyle: const TextStyle(
+                      color: Colors.black,
+                    ),
+                  ),
+                  style: const TextStyle(
+                    color: Colors.black,
+                  ),
+                  validator: (value) {
+                    if (value == null || value.isEmpty) {
+                      return 'Please enter your email';
+                    }
+                    return null;
+                  },
+                ),
               ),
               const SizedBox(height: 15),
               ModifiedButtons(
-                text: 'Confirm New Password',
-                onTap: confirmNewPassword,
+                text: 'Send',
+                onTap: () => sendResetEmail(context),
               ),
-              const SizedBox(height: 30),
-              const SizedBox(height: 20),
+              const SizedBox(height: 100),
               Row(
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
@@ -216,12 +143,7 @@ class _ForgotPasswordState extends State<ForgotPassword> {
                   ),
                   GestureDetector(
                     onTap: () {
-                      Navigator.push(
-                        context,
-                        MaterialPageRoute(
-                          builder: (context) => const LoginPage(),
-                        ),
-                      );
+                      Navigator.pop(context); // Navigate back to the login form
                     },
                     child: const Text(
                       ' Login',
