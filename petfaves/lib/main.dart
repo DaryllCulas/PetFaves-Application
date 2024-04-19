@@ -17,7 +17,7 @@ class MyApp extends StatelessWidget {
   Widget build(BuildContext context) {
     return MaterialApp(
       theme: ThemeData.dark().copyWith(
-        scaffoldBackgroundColor: const Color.fromARGB(255, 221, 218, 218),
+        scaffoldBackgroundColor: Color.fromARGB(255, 220, 223, 224),
       ),
       debugShowCheckedModeBanner: false,
       home: const AuthPage(),
