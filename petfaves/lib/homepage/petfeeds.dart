@@ -72,7 +72,7 @@ class _PetFeedsState extends State<PetFeeds> {
       appBar: AppBar(
         backgroundColor: Colors.white,
         leading: Image.asset(
-          "assets/LOGO PETFAVES.png",
+          "assets/images/LOGO PETFAVES.png",
         ),
         iconTheme: const IconThemeData(
           color: Colors.black,
