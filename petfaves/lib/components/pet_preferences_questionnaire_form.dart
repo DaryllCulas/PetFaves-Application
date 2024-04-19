@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:petfaves/components/modified_buttons.dart';
-import 'package:petfaves/homepage/intro_slider_screen.dart';
+import 'package:petfaves/pet_match_making/pet_matching_screen.dart';
 
 class PetPreferencesQuestionnaire extends StatefulWidget {
   const PetPreferencesQuestionnaire({super.key});
@@ -1141,7 +1141,7 @@ class _PetPreferencesQuestionnaireState
     );
     Navigator.of(context).push(
       MaterialPageRoute(
-        builder: (context) => const IntroScreenDefaultState(),
+        builder: (context) => const PetMatchMakingScreen(),
       ),
     );
   }
