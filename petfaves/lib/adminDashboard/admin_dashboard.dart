@@ -148,7 +148,7 @@ class _AdminDashboardState extends State<AdminDashboard> {
             ),
             ListTile(
               leading: const Icon(Icons.list_alt_outlined),
-              title: const Text('Pet lists'),
+              title: const Text('Pet Records'),
               onTap: () {
                 // Navigate to chatbot customization screen
                 Navigator.of(context).push(

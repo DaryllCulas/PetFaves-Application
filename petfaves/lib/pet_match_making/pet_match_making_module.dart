@@ -1,11 +1,13 @@
 import 'package:flutter/material.dart';
 import 'package:carousel_slider/carousel_slider.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
+import 'package:petfaves/pet_adoption_process/pet_adoption_process.dart';
+import 'package:petfaves/pet_match_making/end_users_messaging_for_adoption.dart';
 
 class PetMatchMaking extends StatefulWidget {
   const PetMatchMaking({
-    Key? key,
-  }) : super(key: key);
+    super.key,
+  });
 
   static void _dummyCallback() {}
 
@@ -34,7 +36,7 @@ class _PetMatchMakingState extends State<PetMatchMaking> {
               child: Row(
                 children: [
                   PetIconCard(
-                    icon: FontAwesomeIcons.ellipsis,
+                    icon: Icons.filter_list_outlined,
                     color: Colors.cyan,
                   ),
                   PetIconCard(
@@ -187,9 +189,9 @@ class PetDetailsPage extends StatelessWidget {
   final String imageUrl;
 
   const PetDetailsPage({
-    Key? key,
+    super.key,
     required this.imageUrl,
-  }) : super(key: key);
+  });
 
   static void _dummyCallback() {}
 
@@ -209,7 +211,13 @@ class PetDetailsPage extends StatelessWidget {
             mainAxisAlignment: MainAxisAlignment.center,
             children: [
               ElevatedButton(
-                onPressed: () {},
+                onPressed: () {
+                  Navigator.of(context).push(
+                    MaterialPageRoute(
+                      builder: (context) => const PetAdoptionProcess(),
+                    ),
+                  );
+                },
                 style: ElevatedButton.styleFrom(
                   elevation: 4.0, // <-- Add shadow effect
                   shape: const RoundedRectangleBorder(
@@ -237,7 +245,13 @@ class PetDetailsPage extends StatelessWidget {
               ),
               const SizedBox(width: 10),
               ElevatedButton(
-                onPressed: () {},
+                onPressed: () {
+                  Navigator.of(context).push(
+                    MaterialPageRoute(
+                      builder: (context) => const EndUsersMessageUponAdoption(),
+                    ),
+                  );
+                },
                 style: ElevatedButton.styleFrom(
                   elevation: 4.0, // <-- Add shadow effect
                   shape: const RoundedRectangleBorder(
@@ -276,10 +290,10 @@ class PetIconCard extends StatelessWidget {
   final Color color;
 
   const PetIconCard({
-    Key? key,
+    super.key,
     required this.icon,
     required this.color,
-  }) : super(key: key);
+  });
 
   @override
   Widget build(BuildContext context) {

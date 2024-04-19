@@ -231,7 +231,7 @@ class _RegisterPageState extends State<RegisterPage> {
             children: <Widget>[
               Center(
                 child: Image.asset(
-                  'assets/LOGO PETFAVES.png',
+                  'assets/images/LOGO PETFAVES.png',
                   width: 600,
                   height: 200,
                 ),

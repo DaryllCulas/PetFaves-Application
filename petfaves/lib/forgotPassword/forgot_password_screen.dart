@@ -3,7 +3,7 @@ import 'package:petfaves/components/modified_buttons.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 
 class ForgotPassword extends StatefulWidget {
-  const ForgotPassword({Key? key, required this.emailController});
+  const ForgotPassword({super.key, required this.emailController});
 
   final TextEditingController emailController;
 
@@ -70,7 +70,7 @@ class _ForgotPasswordState extends State<ForgotPassword> {
             children: <Widget>[
               Center(
                 child: Image.asset(
-                  'assets/LOGO PETFAVES.png',
+                  'assets/images/LOGO PETFAVES.png',
                   width: 600,
                   height: 200,
                 ),

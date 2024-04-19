@@ -15,7 +15,7 @@ import 'package:petfaves/petcare_section/pet_care_section.dart';
 import 'package:petfaves/profile/profile_info.dart';
 
 class PetMatchMakingScreen extends StatefulWidget {
-  const PetMatchMakingScreen({Key? key}) : super(key: key);
+  const PetMatchMakingScreen({super.key});
 
   @override
   State<PetMatchMakingScreen> createState() => _PetMatchMakingScreenState();
@@ -46,7 +46,7 @@ class _PetMatchMakingScreenState extends State<PetMatchMakingScreen> {
       appBar: AppBar(
         backgroundColor: Colors.white,
         leading: Image.asset(
-          "assets/LOGO PETFAVES.png",
+          "assets/images/LOGO PETFAVES.png",
         ),
         iconTheme: const IconThemeData(
           color: Colors.black,

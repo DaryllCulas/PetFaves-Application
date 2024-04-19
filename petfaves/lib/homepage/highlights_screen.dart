@@ -3,6 +3,8 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:petfaves/PetPreferences/pet_preferences_details.dart';
 import 'package:petfaves/homepage/about_petfaves.dart';
+import 'package:petfaves/homepage/intro_slider_screen.dart';
+import 'package:petfaves/homepage/mission_and_vision.dart';
 import 'package:petfaves/homepage/petfeeds.dart';
 import 'package:petfaves/homepage/user_account_settings_screen.dart';
 import 'package:petfaves/homepage/users_message_screen.dart';
@@ -15,7 +17,7 @@ import 'dart:convert';
 import 'dart:async';
 
 class HighLightsScreen extends StatefulWidget {
-  const HighLightsScreen({Key? key});
+  const HighLightsScreen({super.key});
 
   @override
   State<HighLightsScreen> createState() => _HighLightsScreenState();
@@ -51,7 +53,7 @@ class _HighLightsScreenState extends State<HighLightsScreen> {
       appBar: AppBar(
         backgroundColor: Colors.white,
         leading: Image.asset(
-          "assets/LOGO PETFAVES.png",
+          "assets/images/LOGO PETFAVES.png",
         ),
         iconTheme: const IconThemeData(
           color: Colors.black,
@@ -240,9 +242,10 @@ class _HighLightsScreenState extends State<HighLightsScreen> {
                           Navigator.push(
                             context,
                             MaterialPageRoute(
-                              builder: (context) => const PetMatchMakingScreen(
-                                  // Add empty list as argument
-                                  ),
+                              builder: (context) =>
+                                  const IntroScreenDefaultState(
+                                      // Add empty list as argument
+                                      ),
                             ),
                           );
                         },
@@ -339,8 +342,53 @@ class _HighLightsScreenState extends State<HighLightsScreen> {
             mainAxisAlignment:
                 MainAxisAlignment.spaceEvenly, // Adjust alignment as needed
             children: [
-              Container(
-                decoration: const BoxDecoration(
+              GestureDetector(
+                onTap: () {
+                  Navigator.push(
+                    context,
+                    MaterialPageRoute(
+                      builder: (context) => const AboutPetFaves(),
+                    ),
+                  );
+                },
+                child: Container(
+                  decoration: const BoxDecoration(
+                      borderRadius: BorderRadius.all(Radius.circular(10)),
+                      boxShadow: [
+                        BoxShadow(
+                          color: Colors.grey,
+                          blurRadius: 4.0, // soften shadow
+                          offset: Offset(0, 4), // changes position of shadow
+                        ),
+                      ],
+                      color: Color.fromARGB(
+                          255, 76, 174, 240) // Adjust color as needed
+                      ),
+                  width: 100,
+                  height: 100,
+                  child: const Center(
+                    child: Text(
+                      'About PetFaves',
+                      textAlign: TextAlign.center,
+                      style: TextStyle(
+                        color: Colors.white,
+                        fontWeight: FontWeight.bold,
+                      ),
+                    ),
+                  ),
+                ),
+              ),
+              GestureDetector(
+                onTap: () {
+                  Navigator.push(
+                    context,
+                    MaterialPageRoute(
+                      builder: (context) => const MissionAndVision(),
+                    ),
+                  );
+                },
+                child: Container(
+                  decoration: const BoxDecoration(
                     borderRadius: BorderRadius.all(Radius.circular(10)),
                     boxShadow: [
                       BoxShadow(
@@ -350,43 +398,18 @@ class _HighLightsScreenState extends State<HighLightsScreen> {
                       ),
                     ],
                     color: Color.fromARGB(
-                        255, 76, 174, 240) // Adjust color as needed
-                    ),
-                width: 100,
-                height: 100,
-                child: const Center(
-                  child: Text(
-                    'About PetFaves',
-                    textAlign: TextAlign.center,
-                    style: TextStyle(
-                      color: Colors.white,
-                      fontWeight: FontWeight.bold,
-                    ),
+                        255, 76, 174, 240), // Adjust color as needed
                   ),
-                ),
-              ),
-              Container(
-                decoration: const BoxDecoration(
-                  borderRadius: BorderRadius.all(Radius.circular(10)),
-                  boxShadow: [
-                    BoxShadow(
-                      color: Colors.grey,
-                      blurRadius: 4.0, // soften shadow
-                      offset: Offset(0, 4), // changes position of shadow
-                    ),
-                  ],
-                  color: Color.fromARGB(
-                      255, 76, 174, 240), // Adjust color as needed
-                ),
-                width: 100,
-                height: 100,
-                child: const Center(
-                  child: Text(
-                    'Mission & Vision',
-                    textAlign: TextAlign.center,
-                    style: TextStyle(
-                      color: Colors.white,
-                      fontWeight: FontWeight.bold,
+                  width: 100,
+                  height: 100,
+                  child: const Center(
+                    child: Text(
+                      'Mission & Vision',
+                      textAlign: TextAlign.center,
+                      style: TextStyle(
+                        color: Colors.white,
+                        fontWeight: FontWeight.bold,
+                      ),
                     ),
                   ),
                 ),
@@ -481,13 +504,13 @@ class _HighLightsScreenState extends State<HighLightsScreen> {
             borderRadius: BorderRadius.circular(8.0),
             // ignore: unnecessary_null_comparison
             child: _randomDogImageUrl == null
-                ? CircularProgressIndicator() // Show loading indicator if _randomDogImageUrl is null
+                ? const CircularProgressIndicator() // Show loading indicator if _randomDogImageUrl is null
                 : FutureBuilder<String>(
                     future: _randomDogImageUrl,
                     builder: (context, snapshot) {
                       if (snapshot.connectionState == ConnectionState.waiting) {
                         // Show a loading indicator while fetching the image
-                        return CircularProgressIndicator();
+                        return const CircularProgressIndicator();
                       } else if (snapshot.hasError) {
                         // Show an error message if fetching fails
                         return Text('Error: ${snapshot.error}');

@@ -190,7 +190,7 @@ class _LoginPageState extends State<LoginPage> {
             children: <Widget>[
               Center(
                 child: Image.asset(
-                  'assets/LOGO PETFAVES.png',
+                  'assets/images/LOGO PETFAVES.png',
                   width: 600,
                   height: 300,
                 ),
@@ -336,7 +336,7 @@ class _LoginPageState extends State<LoginPage> {
                   GestureDetector(
                     onTap: _handleGoogleSignIn,
                     child: const SquareTile(
-                      imagePath: 'assets/google_icon.png',
+                      imagePath: 'assets/images/google_icon.png',
                     ),
                   ),
                   // const SizedBox(width: 10.0),

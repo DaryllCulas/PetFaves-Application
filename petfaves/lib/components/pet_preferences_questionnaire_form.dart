@@ -1,8 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:petfaves/components/modified_buttons.dart';
+import 'package:petfaves/homepage/intro_slider_screen.dart';
 
 class PetPreferencesQuestionnaire extends StatefulWidget {
-  const PetPreferencesQuestionnaire({Key? key}) : super(key: key);
+  const PetPreferencesQuestionnaire({super.key});
 
   @override
   State<PetPreferencesQuestionnaire> createState() =>
@@ -1131,6 +1132,17 @@ class _PetPreferencesQuestionnaireState
   }
 
   void submitPreferences() {
-    debugPrint("Submitted");
+    const ScaffoldMessenger(
+      child: SnackBar(
+        content: Text('Preferences submitted successfully',
+            style: TextStyle(color: Colors.white)),
+        backgroundColor: Colors.green,
+      ),
+    );
+    Navigator.of(context).push(
+      MaterialPageRoute(
+        builder: (context) => const IntroScreenDefaultState(),
+      ),
+    );
   }
 }
