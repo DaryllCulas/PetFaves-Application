@@ -1132,11 +1132,14 @@ class _PetPreferencesQuestionnaireState
   }
 
   void submitPreferences() {
-    const ScaffoldMessenger(
-      child: SnackBar(
-        content: Text('Preferences submitted successfully',
-            style: TextStyle(color: Colors.white)),
-        backgroundColor: Colors.green,
+    ScaffoldMessenger.of(context).showSnackBar(
+      const SnackBar(
+        content: Text(
+          'Preferences submitted successfully!',
+          style: TextStyle(color: Colors.white),
+        ),
+        duration: Duration(seconds: 3),
+        backgroundColor: Color.fromARGB(255, 84, 194, 88),
       ),
     );
     Navigator.of(context).push(
