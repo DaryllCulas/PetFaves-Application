@@ -22,29 +22,18 @@ class _IntroScreenDefaultStateState extends State<IntroScreenDefaultState> {
         description:
             "Allow miles wound place the leave had. To sitting subject no improve studied limited",
         pathImage: "assets/images/chihuahua.png",
-        backgroundColor: Colors.blue,
+        backgroundColor: Color.fromARGB(255, 21, 133, 224),
         styleTitle: TextStyle(fontSize: 20.0, fontWeight: FontWeight.bold),
         maxLineTitle: 2,
       ),
     );
     listContentConfig.add(
       const ContentConfig(
-        title: "Select a pet based on your preferred pet",
+        title: "Choose your pet based on your preferences",
         description:
             "Ye indulgence unreserved connection alteration appearance",
         pathImage: "assets/images/shepherd_dog.png",
-        backgroundColor: Color(0xff203152),
-        styleTitle: TextStyle(fontSize: 20.0, fontWeight: FontWeight.bold),
-        maxLineTitle: 2,
-      ),
-    );
-    listContentConfig.add(
-      const ContentConfig(
-        title: "Proceed with Pet Adoption process",
-        description:
-            "Much evil soon high in hope do view. Out may few northward believing attempted. Yet timed being songs marry one defer men our. Although finished blessing do of",
-        pathImage: "assets/images/tabby_kitten.png",
-        backgroundColor: Color(0xff9932CC),
+        backgroundColor: Color.fromARGB(255, 45, 117, 42),
         styleTitle: TextStyle(fontSize: 20.0, fontWeight: FontWeight.bold),
         maxLineTitle: 2,
       ),
