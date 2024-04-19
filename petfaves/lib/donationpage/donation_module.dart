@@ -31,7 +31,7 @@ class _DonationScreenState extends State<DonationScreen> {
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
             Image.asset(
-              'assets/LOGO PETFAVES.png',
+              'assets/images/LOGO PETFAVES.png',
               height: 150.0,
             ),
             Padding(
