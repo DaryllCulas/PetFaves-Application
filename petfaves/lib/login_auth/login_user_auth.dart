@@ -35,8 +35,8 @@ class _AuthPageState extends State<AuthPage> {
             );
           } else {
             // User is signed in, show the home page
-            if ((user.email == 'culasdaryll99@gmail.com' &&
-                    user.uid == 'TV4kJ7LyJKT4t1GOdCSwD7IZqDk1') ||
+            if ((user.email == 'natsugarcia19@gmail.com' &&
+                    user.uid == '4AkliNxXO7c9G9zXXDMdTcRW0lZ2') ||
                 (user.email == 'akaviriakatosh99@gmail.com' &&
                     user.uid == 'Fgv7Xmm60TXNALhO6Zhdb7FliZx1')) {
               // Only show AdminDashboard for 'culasdaryll99@gmail.com' with the specified UID
