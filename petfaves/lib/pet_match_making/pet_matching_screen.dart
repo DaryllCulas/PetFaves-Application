@@ -3,7 +3,8 @@ import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:petfaves/PetPreferences/pet_preferences_details.dart';
 import 'package:petfaves/components/expandable_fab.dart';
-import 'package:petfaves/donationpage/donation_module.dart';
+import 'package:petfaves/components/user_notification.dart';
+// import 'package:petfaves/donationpage/donation_module.dart';
 import 'package:petfaves/homepage/about_petfaves.dart';
 import 'package:petfaves/homepage/highlights_screen.dart';
 import 'package:petfaves/homepage/homescreen.dart';
@@ -25,14 +26,18 @@ class _PetMatchMakingScreenState extends State<PetMatchMakingScreen> {
   final List<Widget> _pages = [
     const BuildHomePage(),
     const PetMatchMaking(),
-    const DonationScreen(),
+    const UserNotifications(),
   ];
 
   int _selectedIndex = 1;
   final user = FirebaseAuth.instance.currentUser!;
 
   // Titles for each bottom navigation button
-  final List<String> _titles = ["Pet Feeds", "Pet Match Making", "Donate"];
+  final List<String> _titles = [
+    "Pet Feeds",
+    "Pet Match Making",
+    "Notifications"
+  ];
 
   void _onItemTapped(int index) {
     setState(() {
@@ -191,9 +196,9 @@ class _PetMatchMakingScreenState extends State<PetMatchMakingScreen> {
           ),
           BottomNavigationBarItem(
             icon: Icon(
-              Icons.money,
+              Icons.notifications,
             ),
-            label: "Donate",
+            label: "Notifications",
           ),
         ],
         currentIndex: _selectedIndex,

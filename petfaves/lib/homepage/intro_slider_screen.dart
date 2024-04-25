@@ -3,7 +3,7 @@ import 'package:intro_slider/intro_slider.dart';
 import 'package:petfaves/components/pet_preferences_questionnaire_form.dart';
 
 class IntroScreenDefaultState extends StatefulWidget {
-  const IntroScreenDefaultState({Key? key}) : super(key: key);
+  const IntroScreenDefaultState({super.key});
 
   @override
   State<IntroScreenDefaultState> createState() =>

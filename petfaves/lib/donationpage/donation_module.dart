@@ -21,7 +21,7 @@ class _DonationScreenState extends State<DonationScreen> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        automaticallyImplyLeading: false,
+        // automaticallyImplyLeading: false,
         title: const Center(
           child: Text('Donation Form'),
         ),

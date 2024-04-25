@@ -10,11 +10,8 @@ class UserNotifications extends StatefulWidget {
 class _UserNotificationsState extends State<UserNotifications> {
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: AppBar(
-        title: const Text('Notifications'),
-      ),
-      body: const Center(
+    return const Scaffold(
+      body: Center(
         child: Text(
           'User Notifications Screen',
           style: TextStyle(color: Colors.black),

@@ -29,6 +29,18 @@ class _HighLightsScreenState extends State<HighLightsScreen> {
   final PageController _pageController = PageController();
   late Future<String> _randomDogImageUrl;
 
+  List<String> pathImages = [
+    'assets/images/6.jpg',
+    'assets/images/7.jpg',
+    'assets/images/9.jpg',
+    'assets/images/10.jpg',
+    'assets/images/11.jpg',
+    'assets/images/19.jpg',
+    'assets/images/13.jpg',
+    'assets/images/14.jpg',
+    // Add more image paths as needed
+  ];
+
   @override
   void initState() {
     super.initState();
@@ -503,29 +515,35 @@ class _HighLightsScreenState extends State<HighLightsScreen> {
           ClipRRect(
             borderRadius: BorderRadius.circular(8.0),
             // ignore: unnecessary_null_comparison
-            child: _randomDogImageUrl == null
-                ? const CircularProgressIndicator() // Show loading indicator if _randomDogImageUrl is null
-                : FutureBuilder<String>(
-                    future: _randomDogImageUrl,
-                    builder: (context, snapshot) {
-                      if (snapshot.connectionState == ConnectionState.waiting) {
-                        // Show a loading indicator while fetching the image
-                        return const CircularProgressIndicator();
-                      } else if (snapshot.hasError) {
-                        // Show an error message if fetching fails
-                        return Text('Error: ${snapshot.error}');
-                      } else {
-                        // Image fetched successfully, display it
-                        final imageUrl = snapshot.data!;
-                        return Image.network(
-                          imageUrl,
-                          fit: BoxFit.cover,
-                          width: double.infinity,
-                          height: 150,
-                        );
-                      }
-                    },
-                  ),
+            // child: _randomDogImageUrl == null
+            //     ? const CircularProgressIndicator() // Show loading indicator if _randomDogImageUrl is null
+            //     : FutureBuilder<String>(
+            //         future: _randomDogImageUrl,
+            //         builder: (context, snapshot) {
+            //           if (snapshot.connectionState == ConnectionState.waiting) {
+            //             // Show a loading indicator while fetching the image
+            //             return const CircularProgressIndicator();
+            //           } else if (snapshot.hasError) {
+            //             // Show an error message if fetching fails
+            //             return Text('Error: ${snapshot.error}');
+            //           } else {
+            //             // Image fetched successfully, display it
+            //             final imageUrl = snapshot.data!;
+            //             return Image.network(
+            //               imageUrl,
+            //               fit: BoxFit.cover,
+            //               width: double.infinity,
+            //               height: 150,
+            //             );
+            //           }
+            //         },
+            //       ),
+            child: Image.asset(
+              pathImages[index],
+              fit: BoxFit.cover,
+              width: double.infinity,
+              height: 150,
+            ),
           ),
           const Padding(
             padding: EdgeInsets.all(6.0),

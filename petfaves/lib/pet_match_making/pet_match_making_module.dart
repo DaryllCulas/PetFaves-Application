@@ -18,9 +18,14 @@ class PetMatchMaking extends StatefulWidget {
 class _PetMatchMakingState extends State<PetMatchMaking> {
   int activeIndex = 0;
   final List<String> _images = [
-    'https://as2.ftcdn.net/v2/jpg/01/99/00/79/1000_F_199007925_NolyRdRrdYqUAGdVZV38P4WX8pYfBaRP.jpg',
-    'https://as1.ftcdn.net/v2/jpg/04/81/85/46/1000_F_481854656_gHGTnBscKXpFEgVTwAT4DL4NXXNhDKU9.jpg',
+    // 'https://as2.ftcdn.net/v2/jpg/01/99/00/79/1000_F_199007925_NolyRdRrdYqUAGdVZV38P4WX8pYfBaRP.jpg',
+    // 'https://as1.ftcdn.net/v2/jpg/04/81/85/46/1000_F_481854656_gHGTnBscKXpFEgVTwAT4DL4NXXNhDKU9.jpg',
     'https://as1.ftcdn.net/v2/jpg/02/13/96/52/1000_F_213965280_VZZncwRZDWcfH2yX1glTdq34xiN4kzA5.jpg',
+    'https://firebasestorage.googleapis.com/v0/b/petfaves-b8751.appspot.com/o/bird1.jpg?alt=media&token=51fc1c53-5cee-40e2-a8c7-ea6c399217bb',
+    'https://firebasestorage.googleapis.com/v0/b/petfaves-b8751.appspot.com/o/9.jpg?alt=media&token=34a675f8-999b-474b-a17f-1b6f33562105',
+    'https://firebasestorage.googleapis.com/v0/b/petfaves-b8751.appspot.com/o/cat10%20(1).jpg?alt=media&token=9b7c9a8c-57a1-44ae-9bf0-ba6e8e576a72',
+    'https://firebasestorage.googleapis.com/v0/b/petfaves-b8751.appspot.com/o/10.jpg?alt=media&token=4bd66c74-0ca4-46a8-aefb-a8d5343a2a4d'
+
     // Add more image URLs as needed
   ];
 
